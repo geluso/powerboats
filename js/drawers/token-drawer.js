@@ -12,63 +12,28 @@ function TokenDrawer(ctx) {
     var startAngle = 0; // Starting point on circle
     var endAngle = 2 * Math.PI; // End point on circle
 
-    var path = new Path2D();
-    path.arc(0, 0, radius, startAngle, endAngle);
+    for (var i = 0; i < 3; i++) {
+      var path = new Path2D();
+      path.arc(0, 0, radius, startAngle, endAngle);
 
-    ctx.fillStyle = "Khaki";
-    ctx.fill(path);
-    ctx.stroke(path);
+      if (i % 2 == 0) {
+        ctx.fillStyle = "red";
+      } else {
+        ctx.fillStyle = "white";
+      }
+      ctx.fill(path);
+      ctx.stroke(path);
 
-    if (token.value === 6 || token.value === 8) {
-      ctx.fillStyle = "red";
-    } else {
-      ctx.fillStyle = "black";
+      radius *= .66;
     }
+
+    ctx.fillStyle = "white";
 
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
-    this.ctx.font = "15px sans-serif";
+    this.ctx.font = "12px sans-serif";
     this.ctx.fillText(token.value, 0, 0);
 
-    this.drawDots(token.value);
-
     this.ctx.restore();
-  }
-
-  this.drawDots = function(value) {
-    var dots, offset;
-    if (value === 2 || value === 12) {
-      dots = 1;
-      offset = 0;
-    } else if (value === 3 || value === 11) {
-      dots = 2;
-      offset = 1;
-    } else if (value === 4 || value === 10) {
-      dots = 3;
-      offset = 3;
-    } else if (value === 5 || value === 9) {
-      dots = 4;
-      offset = 4;
-    } else if (value === 6 || value === 8) {
-      dots = 5;
-      offset = 6;
-    }
-
-    for (var i = 0; i < dots; i++)  {
-      var radius = 1; // Arc radius
-      var startAngle = 0; // Starting point on circle
-      var endAngle = 2 * Math.PI; // End point on circle
-
-      var path = new Path2D();
-      path.arc(i * 3 - offset, 9, radius, startAngle, endAngle);
-
-      if (value === 6 || value === 8) {
-        ctx.fillStyle = "red";
-      } else {
-        ctx.fillStyle = "black";
-      }
-
-      ctx.fill(path);
-    }
   }
 }
