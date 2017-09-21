@@ -15,10 +15,25 @@ TileSpace.prototype.init = function(width, height) {
   this.width = width;
   this.height = height;
 
-  var size = Math.min(width / 30, height / 30);
-  this.rows = height / size;
-  this.cols = width / size;
-  SetTileSize(size);
+  // TILE_SIZE = size;
+  // EDGE_LENGTH = TILE_SIZE;
+  // HALF_EDGE = EDGE_LENGTH / 2;
+  // TILE_HEIGHT = Math.sqrt(3) / 2 * HALF_EDGE;
+
+  var tiles = 30;
+  TILE_HEIGHT = height / tiles / 4;
+  HALF_EDGE = TILE_HEIGHT / (Math.sqrt(3) / 2)
+  EDGE_LENGTH = HALF_EDGE * 2;
+  TILE_SIZE = EDGE_LENGTH;
+  SetTileSize(TILE_SIZE);
+
+  // this number was simply measured and estimated
+  // to see how many more cols needed to fill the
+  // screen.
+  var magicRowToColScale = 1.15;
+
+  this.rows = tiles;
+  this.cols = this.rows * (width / height) * magicRowToColScale;
 
   this.createHexagons();
   this.centerTiles();
@@ -40,7 +55,8 @@ TileSpace.prototype.curateBoard = function() {
 
 TileSpace.prototype.createHexagons = function() {
   var tileGen = new TileGenerator();
-  for (var row = 0; row < this.rows; row++) {
+  var maxRows = this.rows + 1;
+  for (var row = 0; row < maxRows; row++) {
     for (var col = 0; col < this.cols; col++) {
       var xOff = TILE_SIZE * 1.5;
       var yOff = TILE_SIZE * 1.72;
@@ -55,7 +71,15 @@ TileSpace.prototype.createHexagons = function() {
       x = Math.floor(x);
       y = Math.floor(y);
 
-      var tile = tileGen.waterTile(x, y);
+      var landBorder = 3;
+      var tile;
+      if (row < landBorder - 1 || col < landBorder ||
+          row > maxRows - landBorder ||
+          col > this.cols - landBorder) {
+        tile = tileGen.landTile(x, y);
+      } else {
+        tile = tileGen.waterTile(x, y);
+      }
       this.tiles.push(tile);
     }
   }

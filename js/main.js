@@ -23,7 +23,7 @@ function main() {
   });
 
   // load the game with the SixPlayerBoard by default.
-  newGame(SixPlayerBoard);
+  newGame(FullscreenBoard);
 }
 
 function newGame(board) {

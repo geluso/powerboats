@@ -5,9 +5,9 @@ SetTileSize(50);
 
 function SetTileSize(size) {
   TILE_SIZE = size;
-  TILE_HEIGHT = Math.sqrt(3) / 2 * HALF_EDGE;
   EDGE_LENGTH = TILE_SIZE;
   HALF_EDGE = EDGE_LENGTH / 2;
+  TILE_HEIGHT = Math.sqrt(3) / 2 * HALF_EDGE;
 }
 
 function Tile(x, y, resource, token) {
@@ -54,6 +54,12 @@ function TileGenerator() {
 
   this.waterTile = function(x, y) {
     var resource = WATER;
+    var tile = new Tile(x, y, resource);
+    return tile;
+  }
+
+  this.landTile = function(x, y) {
+    var resource = LAND;
     var tile = new Tile(x, y, resource);
     return tile;
   }

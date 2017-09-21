@@ -36,6 +36,11 @@ var WATER = {
   color: "CornflowerBlue"
 };                
 
+var LAND = {
+  name: "land",
+  color: "green"
+};                
+
 var ALL_RESOURCES = [BRICK, WHEAT, WOOD, SHEEP, ORE];
 var RESOURCES = {};
 
