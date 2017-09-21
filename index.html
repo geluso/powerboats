@@ -1,0 +1,140 @@
+<html>
+  <head>
+    <title>Catan</title>
+    <link rel="icon" href="http://5tephen.com/img/cheeseplane.gif" type="image/gif"/>
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="thirdjs/jquery.js"></script>
+    <script src="thirdjs/lodash.js"></script>
+
+    <script src="js/log.js"></script>
+
+    <script src="js/geo/point.js"></script>
+    <script src="js/geo/corner.js"></script>
+    <script src="js/geo/edge.js"></script>
+    <script src="js/geo/hexagon.js"></script>
+    <script src="js/geo/tile-space.js"></script>
+
+    <script src="js/players.js"></script>
+
+    <script src="js/resources.js"></script>
+    <script src="js/tile.js"></script>
+    <script src="js/token.js"></script>
+
+    <script src="js/road.js"></script>
+    <script src="js/settlement.js"></script>
+    <script src="js/city.js"></script>
+    <script src="js/robber.js"></script>
+
+    <script src="js/boards/full-screen-board.js"></script>
+    <script src="js/boards/four-player-board.js"></script>
+    <script src="js/boards/six-player-board.js"></script>
+    <script src="js/inspection.js"></script>
+
+    <script src="js/states/state-place.js"></script>
+    <script src="js/states/state-turn.js"></script>
+    <script src="js/states/state-roll.js"></script>
+    <script src="js/states/state-build.js"></script>
+
+    <script src="js/trade.js"></script>
+    <script src="js/score.js"></script>
+
+    <script src="js/ai.js"></script>
+    <script src="js/actions.js"></script>
+
+    <script src="js/drawers/board-drawer.js"></script>
+    <script src="js/drawers/road-drawer.js"></script>
+    <script src="js/drawers/settlement-drawer.js"></script>
+    <script src="js/drawers/city-drawer.js"></script>
+    <script src="js/drawers/tile-drawer.js"></script>
+    <script src="js/drawers/token-drawer.js"></script>
+    <script src="js/drawers/robber-drawer.js"></script>
+
+    <script src="js/gamelog.js"></script>
+
+    <script src="js/mouse.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/screen.js"></script>
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+    <div class="board">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="info top">
+      <div id="choose-board">
+        <button id="four-players">4 Players</button>
+        <button id="six-players">6 Players</button>
+        <button id="fullscreen">Fullscreen</button>
+      </div>
+      <div class="player"></div>
+      <div class="messages"></div>
+    </div>
+
+    <div id="gamelog">
+    </div>
+
+    <div id="scoreboard">
+      <div class="player"></div><div class="score">0</div>
+      <div class="player"></div><div class="score">0</div>
+      <div class="player"></div><div class="score">0</div>
+      <div class="player"></div><div class="score">0</div>
+      <div class="player"></div><div class="score">0</div>
+      <div class="player"></div><div class="score">0</div>
+    </div>
+
+    <div class="info bottom">
+      <div class="resources">
+        you have
+        <div class="resource brick">
+          <div class="value brick"></div>
+        </div>
+
+        <div class="resource wood">
+          <div class="value wood"></div>
+        </div>
+
+        <div class="resource sheep">
+          <div class="value sheep"></div>
+        </div>
+
+        <div class="resource wheat">
+          <div class="value wheat"></div>
+        </div>
+
+        <div class="resource ore">
+          <div class="value ore"></div>
+        </div>
+
+      </div>
+
+      <div class="trade resources">
+        offer
+        <div class="offer">
+          <div class="resource brick">0</div>
+          <div class="resource wood">0</div>
+          <div class="resource sheep selected">4</div>
+          <div class="resource wheat">0</div>
+          <div class="resource ore">0</div>
+        </div>
+
+        for
+        <div class="receive">
+          <div class="resource brick selected">1</div>
+          <div class="resource wood">0</div>
+          <div class="resource sheep">0</div>
+          <div class="resource wheat">0</div>
+          <div class="resource ore">0</div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button class="trade">trade</button>
+        <button class="roll">roll!</button>
+        <button class="endturn">end turn</button>
+      </div>
+    </div>
+  </body>
+</html>
