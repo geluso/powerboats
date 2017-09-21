@@ -1,10 +1,14 @@
-var TILE_SIZE = 50;
 var SIDES = 6;
+var TILE_SIZE, EDGE_LENGTH, HALF_EDGE, TILE_HEIGHT;
 
-var EDGE_LENGTH = TILE_SIZE;
-var HALF_EDGE = EDGE_LENGTH / 2;
+SetTileSize(50);
 
-var TILE_HEIGHT = Math.sqrt(3) / 2 * HALF_EDGE;
+function SetTileSize(size) {
+  TILE_SIZE = size;
+  TILE_HEIGHT = Math.sqrt(3) / 2 * HALF_EDGE;
+  EDGE_LENGTH = TILE_SIZE;
+  HALF_EDGE = EDGE_LENGTH / 2;
+}
 
 function Tile(x, y, resource, token) {
   this.resource = resource;

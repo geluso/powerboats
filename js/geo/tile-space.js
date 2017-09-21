@@ -15,8 +15,10 @@ TileSpace.prototype.init = function(width, height) {
   this.width = width;
   this.height = height;
 
-  this.rows = Math.ceil(height / (TILE_SIZE * 1.72));
-  this.cols = Math.ceil(width / (TILE_SIZE * Math.sqrt(2)));
+  var size = Math.min(width / 30, height / 30);
+  this.rows = height / size;
+  this.cols = width / size;
+  SetTileSize(size);
 
   this.createHexagons();
   this.centerTiles();
