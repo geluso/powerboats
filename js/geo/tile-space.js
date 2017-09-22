@@ -86,6 +86,10 @@ TileSpace.prototype.createHexagons = function() {
           tile = tileGen.waterTile(x, y);
         }
       }
+
+      tile.row = row;
+      tile.col = col;
+
       this.tiles.push(tile);
     }
   }
