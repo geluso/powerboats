@@ -47,5 +47,5 @@ function Banner(msg, player, forceShow) {
   var colorBlock = $(".info.top .player");
   colorBlock.css({backgroundColor: player});
 
-  $(".info.top").show();
+  //$(".info.top").show();
 }
