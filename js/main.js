@@ -11,19 +11,8 @@ var game;
 var SCREEN;
 
 function main() {
-  document.getElementById("choose-board").addEventListener("click", function(ev) {
-    var id = ev.target.id;
-    if (id === "fullscreen") {
-      newGame(FullscreenBoard);
-    } else if (id === "four-players") {
-      newGame(FourPlayerBoard);
-    } else if (id === "six-players") {
-      newGame(SixPlayerBoard);
-    }
-  });
-
   // load the game with the SixPlayerBoard by default.
-  newGame(FullscreenBoard);
+  newGame(ThreeBuoyBoard);
 }
 
 function newGame(board) {
