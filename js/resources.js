@@ -41,6 +41,21 @@ var LAND = {
   color: "green"
 };                
 
+var START_RED = {
+  name: "start",
+  color: "red"
+};                
+
+var START_WHITE = {
+  name: "start",
+  color: "white"
+};                
+
+var START_BLACK = {
+  name: "start",
+  color: "black"
+};                
+
 var ALL_RESOURCES = [BRICK, WHEAT, WOOD, SHEEP, ORE];
 var RESOURCES = {};
 
