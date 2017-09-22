@@ -16,6 +16,9 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
     buoysPlaced++;
   }
 
+  var startFinish = _.sample(this.tilespace.tiles);
+  console.log(startFinish);
+
   return this;
 }
 
