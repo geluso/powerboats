@@ -44,7 +44,6 @@ function newGame(board) {
   var current = topLeft;
   while (n < 10) {
     var seKey = current.southEast();
-    console.log(seKey);
     var se = space.getByKey(current.southEast());
     se.resource = HOVERED;
 

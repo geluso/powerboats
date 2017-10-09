@@ -14,7 +14,6 @@ FullscreenBoard.prototype.init = function(tilespace) {
 
   this.ports = {};
   
-  this.placeRobber();
   return this;
 };
 
@@ -34,17 +33,6 @@ FullscreenBoard.prototype.registerTileSpace = function(tilespace) {
   this.cornerToEdges = tilespace.cornerToEdges;
 
   this.everything = tilespace.everything;
-};
-
-FullscreenBoard.prototype.placeRobber = function() {
-  var deserts = _.filter(this.tiles, function(tile) {
-    return tile.resource === DESERT;
-  });
-
-  var robberStart = _.sample(deserts);
-  if (robberStart) {
-    this.robber = new Robber(robberStart);
-  }
 };
 
 FullscreenBoard.prototype.getTile = function(x, y) {
@@ -77,11 +65,6 @@ FullscreenBoard.prototype.getThing = function(x1, y1) {
   }
 
   return closest;
-};
-
-FullscreenBoard.prototype.canPlaceSettlement = function(cornerKey) {
-  return !this.isCornerOccupied(cornerKey) &&
-         this.isTwoAway(cornerKey);
 };
 
 FullscreenBoard.prototype.isCornerOccupied = function(cornerKey) {
