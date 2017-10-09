@@ -24,17 +24,17 @@ function Tile(x, y, resource, token) {
 Tile.prototype.setX = function(x) {
   this.x = x;
   this.shape.x = x;
-}
+};
 
 Tile.prototype.setY = function(y) {
   this.y = y;
   this.shape.y = y;
-}
+};
 
 Tile.prototype.setXY = function(x, y) {
   this.setX(x);
   this.setY(y);
-}
+};
 
 function TileGenerator() {
   var resources = new ResourceGenerator();
@@ -50,18 +50,18 @@ function TileGenerator() {
 
     var tile = new Tile(x, y, resource, token);
     return tile;
-  }
+  };
 
   this.waterTile = function(x, y) {
     var resource = WATER;
     var tile = new Tile(x, y, resource);
     return tile;
-  }
+  };
 
   this.landTile = function(x, y) {
     var resource = LAND;
     var tile = new Tile(x, y, resource);
     return tile;
-  }
+  };
 }
 
