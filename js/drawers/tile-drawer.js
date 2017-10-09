@@ -16,7 +16,11 @@ function TileDrawer(ctx) {
   this.draw = function(tile) {
     var stroke = "black";
 
-    tile.shape.fillStroke(this.ctx, tile.resource.color, stroke);
+    if (tile.hovering) {
+      tile.shape.fillStroke(this.ctx, HOVERED.color, stroke);
+    } else {
+      tile.shape.fillStroke(this.ctx, tile.resource.color, stroke);
+    }
 
     this.ctx.save();
     this.ctx.font = "6px serif";

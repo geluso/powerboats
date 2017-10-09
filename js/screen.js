@@ -7,7 +7,7 @@ function Screen(width, height, game) {
   this.dirty = true;
   this.game = game;
 
-  var canvas = document.getElementById("canvas")
+  var canvas = document.getElementById("canvas");
   canvas.width = width;
   canvas.height = height;
 
@@ -26,17 +26,23 @@ Screen.prototype.handleMousemove = function(e) {
   MOUSE_X = e.offsetX;
   MOUSE_Y = e.offsetY;
 
-  var thing = SCREEN.game.board.getThing(MOUSE_X, MOUSE_Y);
+  var thing = SCREEN.game.board.getTile(MOUSE_X, MOUSE_Y);
 
   SCREEN.dirty = false;
   if (thing !== LAST_THING) {
-    SCREEN.dirty = true;
-    if (!(thing instanceof Tile)) {
-      SCREEN.game.board.hovering = thing;
-      SCREEN.boardDrawer.draw();
+    if (LAST_THING !== undefined) {
+      LAST_THING.hovering = false;
     }
+    SCREEN.dirty = true;
+
+    thing.hovering = true;
+
+    SCREEN.game.board.hovering = thing;
+    SCREEN.boardDrawer.draw();
+
+    LAST_THING = thing;
   }
-}
+};
 
 Screen.prototype.handleClick = function(e) {
   MOUSE_X = e.offsetX;
@@ -51,7 +57,7 @@ Screen.prototype.handleClick = function(e) {
     SCREEN.game.scores.update(SCREEN.game.board);
     SCREEN.boardDrawer.draw();
   }
-}
+};
 
 Screen.prototype.draw = function() {
   SCREEN.boardDrawer.draw();
