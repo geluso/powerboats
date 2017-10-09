@@ -254,55 +254,7 @@ TileSpace.prototype.markCoastalEdges = function() {
   this.coastalTiles = coastalTiles;
 };
 
-TileSpace.getByKey = function(key) {
-
+TileSpace.prototype.getByKey = function(key) {
+  var tile = this.keyedTiles[key];
+  return tile;
 };
-
-TileSpace.get = function(x, y, z) {
-  var key = "";
-
-};
-
-/*
-Tile.prototype.north = function() {
-  var key = this.keyObject();
-  key.y++;
-  key.z--;
-  return this.keyObjectToKey(key);
-};
-
-Tile.prototype.south = function() {
-  var key = this.keyObject();
-  key.y--;
-  key.z++;
-  return this.keyObjectToKey(key);
-};
-
-Tile.prototype.northEast = function() {
-  var key = this.keyObject();
-  key.x++;
-  key.z--;
-  return this.keyObjectToKey(key);
-};
-
-Tile.prototype.southEast = function() {
-  var key = this.keyObject();
-  key.x++;
-  key.y--;
-  return this.keyObjectToKey(key);
-};
-
-Tile.prototype.northWest = function() {
-  var key = this.keyObject();
-  key.x--;
-  key.y++;
-  return this.keyObjectToKey(key);
-};
-
-Tile.prototype.southWest = function() {
-  var key = this.keyObject();
-  key.x--;
-  key.z++;
-  return this.keyObjectToKey(key);
-};
-*/
