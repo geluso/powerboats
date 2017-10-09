@@ -32,10 +32,12 @@ Screen.prototype.handleMousemove = function(e) {
   if (thing !== LAST_THING) {
     if (LAST_THING !== undefined) {
       LAST_THING.hovering = false;
+      LAST_THING.isDirty = true;
     }
     SCREEN.dirty = true;
 
     thing.hovering = true;
+    thing.isDirty = true;
 
     SCREEN.game.board.hovering = thing;
     SCREEN.boardDrawer.draw();

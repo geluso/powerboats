@@ -14,6 +14,11 @@ function TileDrawer(ctx) {
   };
 
   this.draw = function(tile) {
+    if (!tile.isDirty) {
+      return;
+    }
+    tile.isDirty = false;
+
     var stroke = "black";
 
     if (tile.hovering) {

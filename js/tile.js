@@ -14,6 +14,7 @@ function Tile(x, y, resource, token) {
   this.resource = resource;
   this.token = token;
   this.hover = false;
+  this.isDirty = true;
 
   this.x = x;
   this.y = y;
