@@ -1,4 +1,5 @@
 function TileSpace() {
+  this.keyedTiles = {};
   this.tiles = [];
   this.edges = [];
   this.corners = [];
@@ -107,6 +108,8 @@ TileSpace.prototype.createHexagons = function() {
       tile.xIndex = xIndex;
       tile.yIndex = yIndex;
       tile.zIndex = zIndex;
+
+      this.keyedTiles[tile.key()] = tile;
 
       tile.row = row;
       tile.col = col;
@@ -250,3 +253,56 @@ TileSpace.prototype.markCoastalEdges = function() {
   this.coastalEdges = coastalEdges;
   this.coastalTiles = coastalTiles;
 };
+
+TileSpace.getByKey = function(key) {
+
+};
+
+TileSpace.get = function(x, y, z) {
+  var key = "";
+
+};
+
+/*
+Tile.prototype.north = function() {
+  var key = this.keyObject();
+  key.y++;
+  key.z--;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.south = function() {
+  var key = this.keyObject();
+  key.y--;
+  key.z++;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.northEast = function() {
+  var key = this.keyObject();
+  key.x++;
+  key.z--;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.southEast = function() {
+  var key = this.keyObject();
+  key.x++;
+  key.y--;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.northWest = function() {
+  var key = this.keyObject();
+  key.x--;
+  key.y++;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.southWest = function() {
+  var key = this.keyObject();
+  key.x--;
+  key.z++;
+  return this.keyObjectToKey(key);
+};
+*/

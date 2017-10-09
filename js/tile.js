@@ -36,6 +36,65 @@ Tile.prototype.setXY = function(x, y) {
   this.setY(y);
 };
 
+Tile.prototype.keyObject = function() {
+  var key = {x: this.xIndex, y: this.yIndex, z: this.zIndex};
+  return key;
+};
+
+Tile.prototype.key = function() {
+  var key = [this.xIndex, this.yIndex, this.zIndex];
+  key = key.join(",");
+  return key;
+};
+
+Tile.prototype.keyObjectToKey = function(keyObject) {
+  var key = [keyObject.x, keyObject.y, keyObject.z];
+  key = key.join(",");
+  return key;
+};
+
+Tile.prototype.north = function() {
+  var key = this.keyObject();
+  key.y++;
+  key.z--;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.south = function() {
+  var key = this.keyObject();
+  key.y--;
+  key.z++;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.northEast = function() {
+  var key = this.keyObject();
+  key.x++;
+  key.z--;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.southEast = function() {
+  var key = this.keyObject();
+  key.x++;
+  key.y--;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.northWest = function() {
+  var key = this.keyObject();
+  key.x--;
+  key.y++;
+  return this.keyObjectToKey(key);
+};
+
+Tile.prototype.southWest = function() {
+  var key = this.keyObject();
+  key.x--;
+  key.z++;
+  return this.keyObjectToKey(key);
+};
+
 function TileGenerator() {
   var resources = new ResourceGenerator();
   var tokens = new TokenGenerator(2, 12);

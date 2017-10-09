@@ -56,6 +56,11 @@ var START_BLACK = {
   color: "black"
 };                
 
+var HOVERED = {
+  name: "hovered",
+  color: "yellow"
+};                
+
 var ALL_RESOURCES = [BRICK, WHEAT, WOOD, SHEEP, ORE];
 var RESOURCES = {};
 
@@ -68,7 +73,7 @@ function ResourceGenerator() {
       var resource = ALL_RESOURCES[choice];
       return resource;
     }
-  }
+  };
 }
 
 function initResources(players) {
@@ -144,7 +149,7 @@ Resources.canBuyRoad = function(player) {
     return true;
   }
   return false;
-}
+};
 
 Resources.buyRoad = function(player) {
   if (Resources.canBuyRoad(player)) {
@@ -189,7 +194,7 @@ Resources.canBuyCity = function(player) {
     return true;
   }
   return false;
-}
+};
 
 Resources.buyCity = function(player) {
   if (Resources.canBuyCity(player)) {

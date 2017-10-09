@@ -16,7 +16,7 @@ function Hexagon(x, y, size) {
       ctx.rotate(2 * Math.PI / SIDES);
       ctx.lineTo(this.size, 0);
     }
-  }
+  };
 
   this.fill = function(ctx, color) {
     color = color || "black";
@@ -28,7 +28,7 @@ function Hexagon(x, y, size) {
     ctx.fill();
     
     ctx.restore();
-  }
+  };
 
   this.stroke = function(ctx, color) {
     color = color || "black";
@@ -52,7 +52,7 @@ function Hexagon(x, y, size) {
     ctx.stroke();
     
     ctx.restore();
-  }
+  };
 
   this.getRelativeCorners = function() {
     if (this.x === undefined && this.y === undefined) {
@@ -100,8 +100,7 @@ function Hexagon(x, y, size) {
     corners.push(corner);
 
     return corners;
-
-  }
+  };
 
   this.getCorners = function() {
     var corners = this.getRelativeCorners();
@@ -112,7 +111,7 @@ function Hexagon(x, y, size) {
     }
 
     return corners;
-  }
+  };
 
   this.getRelativeEdges = function() {
     if (this.x === undefined && this.y === undefined) {

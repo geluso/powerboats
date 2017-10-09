@@ -36,9 +36,25 @@ function newGame(board) {
     board.placePorts();
   }
 
+  // hover the top left tile.
+  var topLeft = space.keyedTiles["1,0,-1"];
+  topLeft.resource = HOVERED;
+
+  var n = 0;
+  var current = topLeft;
+  while (n < 10) {
+    var seKey = current.southEast();
+    var se = space.keyedTiles[seKey];
+    se.resource = HOVERED;
+
+    current = se;
+    n++;
+  }
+
   game = new Game(board);
   SCREEN = new Screen(width, height, game);
   SCREEN.draw();
+
 }
 
 function draw() {
