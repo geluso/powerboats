@@ -23,9 +23,18 @@ function TileDrawer(ctx) {
       this.tokenDrawer.draw(tile.token, tile.x, tile.y);
     }
 
+
+
     this.ctx.save();
+    this.ctx.font = "6px serif";
     this.ctx.textAlign = "center";
     this.ctx.textBaseLine = "hanging";
+
+    var indexLabel = [tile.xIndex, tile.yIndex, tile.zIndex].join(",");
+    var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
+    if (sum < 30 || true) {
+      this.ctx.strokeText(indexLabel, tile.x, tile.y + 2);
+    }
 
     if (tile.isCoast) {
       _.each(tile.shape.getEdges(), function(edge) {
@@ -65,5 +74,5 @@ function TileDrawer(ctx) {
     }
 
     this.ctx.restore();
-  }
+  };
 }

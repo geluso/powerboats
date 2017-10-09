@@ -56,7 +56,15 @@ TileSpace.prototype.curateBoard = function() {
 TileSpace.prototype.createHexagons = function() {
   var tileGen = new TileGenerator();
   var maxRows = this.rows + 1;
+
+
+  var yIndex = 0;
+  var xIndex = 0;
+  var zIndex = 0;
   for (var row = 0; row < maxRows; row++) {
+    xIndex = 0;
+    yIndex = -row;
+    zIndex = row;
     for (var col = 0; col < this.cols; col++) {
       var xOff = TILE_SIZE * 1.5;
       var yOff = TILE_SIZE * 1.72;
@@ -64,8 +72,18 @@ TileSpace.prototype.createHexagons = function() {
       var x = xOff * col;
       var y = yOff * row;
 
+      var direction = "up-right";
       if (col % 2 === 1) {
         y += TILE_SIZE * 0.86;
+        direction = "down-right";
+      }
+
+      if (direction === "up-right") {
+        xIndex++;
+        zIndex--;
+      } else if (direction === "down-right") {
+        xIndex++;
+        yIndex--;
       }
 
       x = Math.floor(x);
@@ -86,6 +104,10 @@ TileSpace.prototype.createHexagons = function() {
           tile = tileGen.waterTile(x, y);
         }
       }
+
+      tile.xIndex = xIndex;
+      tile.yIndex = yIndex;
+      tile.zIndex = zIndex;
 
       tile.row = row;
       tile.col = col;
