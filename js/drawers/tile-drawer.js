@@ -1,6 +1,5 @@
 function TileDrawer(ctx) {
   this.ctx = ctx;
-  this.tokenDrawer = new TokenDrawer(ctx);
 
   this.drawTiles = function(tiles) {
     this.ctx.save();
@@ -18,10 +17,6 @@ function TileDrawer(ctx) {
     var stroke = "black";
 
     tile.shape.fillStroke(this.ctx, tile.resource.color, stroke);
-
-    if (tile.token) {
-      this.tokenDrawer.draw(tile.token, tile.x, tile.y);
-    }
 
     this.ctx.save();
     this.ctx.font = "6px serif";

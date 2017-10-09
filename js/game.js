@@ -22,17 +22,6 @@ function Game(board) {
 
   this.currentPlayer = MAIN_PLAYER;
 
-  // set up resources
-  initResources(this.players);
-
-  // set up trade and score
-  this.trade = new Trade(this);
-  this.scores = new Scores(this);
-
-  // begin game with first state
-  this.state = new StatePlace(this);
-  this.state.start();
-
   var that = this;
   var roller = new StateRoll(this);
   var turn = new StateTurn(this);
