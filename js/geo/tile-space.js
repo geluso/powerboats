@@ -9,7 +9,7 @@ function TileSpace() {
 
   // a list of all tiles, corners, and edges
   this.everything = [];
-};
+}
 
 TileSpace.prototype.init = function(width, height) {
   this.width = width;
@@ -22,7 +22,7 @@ TileSpace.prototype.init = function(width, height) {
 
   var tiles = 30;
   TILE_HEIGHT = height / tiles / 4;
-  HALF_EDGE = TILE_HEIGHT / (Math.sqrt(3) / 2)
+  HALF_EDGE = TILE_HEIGHT / (Math.sqrt(3) / 2);
   EDGE_LENGTH = HALF_EDGE * 2;
   TILE_SIZE = EDGE_LENGTH;
   SetTileSize(TILE_SIZE);
@@ -65,7 +65,7 @@ TileSpace.prototype.createHexagons = function() {
       var y = yOff * row;
 
       if (col % 2 === 1) {
-        y += TILE_SIZE * .86;
+        y += TILE_SIZE * 0.86;
       }
 
       x = Math.floor(x);
@@ -103,8 +103,8 @@ TileSpace.prototype.centerTiles = function() {
   // target the center of the screen.
   var target = {x: this.width / 2, y: this.height / 2};
 
-  var bestDiff = undefined;
-  var bestTile = undefined;
+  var bestDiff;
+  var bestTile;
 
   // compare each tile to the ideal target point to find the closest center tile.
   _.each(this.tiles, function(tile) {
@@ -185,6 +185,7 @@ TileSpace.prototype.collectNieghboringCorners = function() {
 };
 
 TileSpace.prototype.markCoastalEdges = function() {
+  var edges;
   this.water = [];
   this.land = [];
 
@@ -195,13 +196,13 @@ TileSpace.prototype.markCoastalEdges = function() {
     if (tile.resource.name === "water") {
       this.water.push(tile);
 
-      var edges = tile.shape.getEdges();
+      edges = tile.shape.getEdges();
       _.each(edges, function(edge) {
         edge.hasWater = true;
       });
     } else {
       this.land.push(tile);
-      var edges = tile.shape.getEdges();
+      edges = tile.shape.getEdges();
       _.each(edges, function(edge) {
         edge.hasLand = true;
       });
