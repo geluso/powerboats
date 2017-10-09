@@ -23,8 +23,6 @@ function TileDrawer(ctx) {
       this.tokenDrawer.draw(tile.token, tile.x, tile.y);
     }
 
-
-
     this.ctx.save();
     this.ctx.font = "6px serif";
     this.ctx.textAlign = "center";

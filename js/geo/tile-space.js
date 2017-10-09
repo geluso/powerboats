@@ -57,7 +57,6 @@ TileSpace.prototype.createHexagons = function() {
   var tileGen = new TileGenerator();
   var maxRows = this.rows + 1;
 
-
   var yIndex = 0;
   var xIndex = 0;
   var zIndex = 0;
