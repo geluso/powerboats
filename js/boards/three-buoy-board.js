@@ -19,7 +19,7 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
   var startFinish = _.sample(this.tilespace.tiles);
   startFinish.resource = START_RED;
 
-  var max = 5
+  var max = 5;
   for (var i = 1; i <= max; i++) {
     var yy = startFinish.y + i * TILE_HEIGHT * 4;
     var thing = this.getTile(startFinish.x, yy);
@@ -28,12 +28,12 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
     } else if (i % 2 === 1) {
       thing.resource = START_WHITE;
     } else {
-      thing.resource = START_BLACK
+      thing.resource = START_BLACK;
     }
   }
 
   return this;
-}
+};
 
 function createFinishLine() {
 

@@ -3,7 +3,7 @@ var MIN_LONGEST_ROAD = 5;
 function FullscreenBoard() {
   this.type = "board";
   this.players = 6;
-};
+}
 
 FullscreenBoard.prototype.init = function(tilespace) {
   this.registerTileSpace(tilespace);
@@ -16,7 +16,7 @@ FullscreenBoard.prototype.init = function(tilespace) {
   
   this.placeRobber();
   return this;
-}
+};
 
 FullscreenBoard.prototype.registerTileSpace = function(tilespace) {
   // make everything available that got refactored from Board to TileSpace
@@ -34,7 +34,7 @@ FullscreenBoard.prototype.registerTileSpace = function(tilespace) {
   this.cornerToEdges = tilespace.cornerToEdges;
 
   this.everything = tilespace.everything;
-}
+};
 
 FullscreenBoard.prototype.placeRobber = function() {
   var deserts = _.filter(this.tiles, function(tile) {
@@ -45,7 +45,7 @@ FullscreenBoard.prototype.placeRobber = function() {
   if (robberStart) {
     this.robber = new Robber(robberStart);
   }
-}
+};
 
 FullscreenBoard.prototype.getTile = function(x, y) {
   var tile;
@@ -106,8 +106,8 @@ FullscreenBoard.prototype.longestRoad = function() {
   var bestChain = [];
   _.each(this.roads, function(road) {
     var key = road.key();
-    var road = this.roads[key];
     var currentPlayer = this.roads[key].player;
+    road = this.roads[key];
 
     // reset the longest property for each road as they're all counted.
     road.longest = false;
@@ -121,8 +121,8 @@ FullscreenBoard.prototype.longestRoad = function() {
     var chain1 = [road];
     var chain2 = [road];
 
-    var chain1 = this.countRoadByCorner(c1, currentPlayer, visited, chain1);
-    var chain2 = this.countRoadByCorner(c2, currentPlayer, visited, chain2);
+    chain1 = this.countRoadByCorner(c1, currentPlayer, visited, chain1);
+    chain2 = this.countRoadByCorner(c2, currentPlayer, visited, chain2);
 
     if (chain1.length > bestChain.length) {
       bestChain = chain1;
@@ -208,10 +208,11 @@ FullscreenBoard.prototype.buildSettlement = function(corner, player, free) {
     return;
   }
 
+  var settlement;
   if (!free && !Resources.buySettlement(player)) {
     Banner("Can't afford Settlement.");
   } else {
-    var settlement = new Settlement(corner, player);
+    settlement = new Settlement(corner, player);
     this.settlements[key] = settlement;
   }
 
