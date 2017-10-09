@@ -31,8 +31,9 @@ function TileDrawer(ctx) {
     this.ctx.font = "6px serif";
     this.ctx.textAlign = "center";
     this.ctx.textBaseLine = "hanging";
-
-    if (CONFIG.DRAW_COORDS) {
+                          
+    var drawCoords = CONFIG.DRAW_COORDS || (tile.hovering && CONFIG.DRAW_HOVER_COORDS);
+    if (drawCoords) {
       var indexLabel = [tile.xIndex, tile.yIndex, tile.zIndex].join(",");
       var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
       if (sum < 30 || true) {
