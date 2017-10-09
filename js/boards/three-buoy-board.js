@@ -1,6 +1,7 @@
 function ThreeBuoyBoard() {
   this.type = "Three Buoys";
   this.players = 6;
+  this.boats = [];
 }
 
 ThreeBuoyBoard.prototype = new FullscreenBoard();
@@ -30,6 +31,18 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
     } else {
       thing.resource = START_BLACK;
     }
+  }
+
+  var colors = ["yellow", "purple", "white", "green", "orange"];
+  var index = 0;
+  var current = startFinish;
+  while (index < colors.length) {
+    var boat = new Boat(colors[index], current);
+    this.boats.push(boat);
+
+    current = space.getByKey(current.south());
+
+    index++;
   }
 
   return this;

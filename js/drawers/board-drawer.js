@@ -1,10 +1,11 @@
 function BoardDrawer(ctx, game) {
-   this.ctx = ctx;
+  this.ctx = ctx;
 
   this.game = game;
   this.board = game.board;
 
   this.tileDrawer = new TileDrawer(ctx);
+  this.boatDrawer = new BoatDrawer(ctx);
 }
 
 BoardDrawer.prototype.draw = function() {
@@ -28,7 +29,8 @@ BoardDrawer.prototype.draw = function() {
     }
   }
 
-  if (board.hovering) {
-    
+  for (var i = 0; i < board.boats.length; i++) {
+    var boat = board.boats[i];
+    this.boatDrawer.draw(boat);
   }
 };

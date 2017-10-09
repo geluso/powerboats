@@ -32,9 +32,6 @@ function newGame(board) {
   // hanky hacks
   space.curateBoard();
   board.registerTileSpace(space);
-  if (board.placePorts) {
-    board.placePorts();
-  }
 
   game = new Game(board);
   SCREEN = new Screen(width, height, game);
