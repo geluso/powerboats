@@ -28,10 +28,12 @@ function TileDrawer(ctx) {
     this.ctx.textAlign = "center";
     this.ctx.textBaseLine = "hanging";
 
-    var indexLabel = [tile.xIndex, tile.yIndex, tile.zIndex].join(",");
-    var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
-    if (sum < 30 || true) {
-      this.ctx.strokeText(indexLabel, tile.x, tile.y + 2);
+    if (CONFIG.DRAW_COORDS) {
+      var indexLabel = [tile.xIndex, tile.yIndex, tile.zIndex].join(",");
+      var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
+      if (sum < 30 || true) {
+        this.ctx.strokeText(indexLabel, tile.x, tile.y + 2);
+      }
     }
 
     if (tile.isCoast) {
