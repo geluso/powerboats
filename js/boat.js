@@ -10,7 +10,8 @@ class Boat {
 
     this.dice = [new Dice()];
 
-    this.buoysPassed = [];
+    // the highest buoy that this boat has circled.
+    this.buoyIndex = 0;
   }
 
   speed() {
@@ -40,21 +41,19 @@ class Boat {
 
   goStraight() {
     var route = this.getCurrentRouteTiles();
-
-    var finalTile = this.tile;
     var isTakingDamage = false;
 
     for (var i = 0; i < route.length; i++) {
       var nextTile = route[i];
       if (!isTakingDamage && nextTile.resource !== LAND) {
-        finalTile = nextTile;
+        this.tile = nextTile;
+        BOARD.buoys[this.buoyIndex].buoyDetector.track(this.tile);
       } else {
         isTakingDamage = true;
         this.damage++;
       }
     }
 
-    this.tile = finalTile;
     draw();
   }
 

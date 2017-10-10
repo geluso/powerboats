@@ -16,8 +16,6 @@ function main() {
 }
 
 function newGame(board) {
-  BOARD = board;
-
   if (SCREEN !== undefined) {
     SCREEN.destoryHandlers();
   }
@@ -28,6 +26,7 @@ function newGame(board) {
 
   space = new TileSpace().init(width, height);
   board = new board().init(space);
+  BOARD = board;
 
   // hanky hacks
   space.curateBoard();
