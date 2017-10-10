@@ -18,13 +18,18 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
     for (var i = 0; i < CONFIG.BUOYS.length; i++) {
       var buoyKey = CONFIG.BUOYS[i];
       var tile = this.tilespace.getByKey(buoyKey);
-      tile.buoy = new Buoy(i + 1);
+      var buoy = new Buoy(i + 1, tile);
+      this.buoys.push(buoy);
+      tile.buoy = buoy;
     }
   } else {
     var buoysPlaced = 1;
     while (buoysPlaced <= this.NUMBER_OF_BUOYS) {
       var tile = _.sample(this.tilespace.tiles);
-      tile.buoy = new Buoy(buoysPlaced);
+      var buoy = new Buoy(buoysPlaced, tile);
+      this.buoys.push(buoy);
+
+      tile.buoy = buoy;
       buoysPlaced++;
     }
   }

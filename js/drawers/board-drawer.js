@@ -33,4 +33,25 @@ BoardDrawer.prototype.draw = function() {
     var boat = board.boats[i];
     this.boatDrawer.draw(boat);
   }
+
+  for (var i = 0; i < board.buoys.length; i++) {
+    var buoy = board.buoys[i];
+    var center = buoy.tile;
+
+    var north = this.board.tilespace.getByKey(center.north());
+    var northWest = this.board.tilespace.getByKey(center.northWest());
+    var northEast = this.board.tilespace.getByKey(center.northEast());
+
+    var south = this.board.tilespace.getByKey(center.south());
+    var southWest = this.board.tilespace.getByKey(center.southWest());
+    var southEast = this.board.tilespace.getByKey(center.southEast());
+
+    Point.draw(this.ctx, north, "orange");
+    Point.draw(this.ctx, northWest, "orange");
+    Point.draw(this.ctx, northEast, "orange");
+
+    Point.draw(this.ctx, south, "orange");
+    Point.draw(this.ctx, southWest, "orange");
+    Point.draw(this.ctx, southEast, "orange");
+  }
 };

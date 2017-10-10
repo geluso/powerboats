@@ -9,6 +9,8 @@ class Boat {
     this.direction = Directions.randomDirection();
 
     this.dice = [new Dice()];
+
+    this.buoysPassed = [];
   }
 
   speed() {
