@@ -9,7 +9,6 @@ class Boat {
     this.direction = Directions.randomDirection();
 
     this.dice = [new Dice()];
-
   }
 
   speed() {
@@ -39,7 +38,21 @@ class Boat {
 
   goStraight() {
     var route = this.getCurrentRouteTiles();
-    this.tile = route[route.length - 1];
+
+    var finalTile = this.tile;
+    var isTakingDamage = false;
+
+    for (var i = 0; i < route.length; i++) {
+      var nextTile = route[i];
+      if (!isTakingDamage && nextTile.resource !== LAND) {
+        finalTile = nextTile;
+      } else {
+        isTakingDamage = true;
+        this.damage++;
+      }
+    }
+
+    this.tile = finalTile;
     draw();
   }
 
