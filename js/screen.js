@@ -23,8 +23,8 @@ function Screen(width, height, game) {
 }
 
 Screen.prototype.handleMousemove = function(e) {
-  MOUSE_X = e.offsetX;
-  MOUSE_Y = e.offsetY;
+  MOUSE_X = e.clientX;
+  MOUSE_Y = e.clientY;
 
   var thing = SCREEN.game.board.getTile(MOUSE_X, MOUSE_Y);
 
@@ -47,10 +47,13 @@ Screen.prototype.handleMousemove = function(e) {
 };
 
 Screen.prototype.handleClick = function(e) {
-  MOUSE_X = e.offsetX;
-  MOUSE_Y = e.offsetY;
+  MOUSE_X = e.clientX;
+  MOUSE_Y = e.clientY;
 
   var thing = SCREEN.game.board.getThing(MOUSE_X, MOUSE_Y);
+  if (thing === undefined) {
+    return;
+  }
 
   SCREEN.dirty = false;
   if (thing !== LAST_THING) {
