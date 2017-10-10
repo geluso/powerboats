@@ -35,11 +35,16 @@
 
   function slowDown() {
     console.log("slowDown");
+    PLAYER.slowDown();
+    PLAYER.goStraight();
   };
   function maintainSpeed() {
     console.log("maintainSpeed");
+    PLAYER.goStraight();
   };
   function speedUp() {
     console.log("speedUp");
+    PLAYER.speedUp();
+    PLAYER.goStraight();
   };
 })();
