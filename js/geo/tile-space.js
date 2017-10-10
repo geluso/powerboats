@@ -258,3 +258,23 @@ TileSpace.prototype.getByKey = function(key) {
   var tile = this.keyedTiles[key];
   return tile;
 };
+
+TileSpace.prototype.nextTileInDirection = function(tile, direction) {
+  var nextKey;
+  if (direction === "north") {
+    nextKey = tile.north();
+  } else if (direction === "north-east") {
+    nextKey = tile.northEast();
+  } else if (direction === "north-west") {
+    nextKey = tile.northWest();
+  } else if (direction === "south") {
+    nextKey = tile.south();
+  } else if (direction === "south-east") {
+    nextKey = tile.southEast();
+  } else if (direction === "south-west") {
+    nextKey = tile.southWest();
+  }
+
+  var nextTile = this.getByKey(nextKey);
+  return nextTile;
+};

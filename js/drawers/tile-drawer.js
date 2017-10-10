@@ -28,7 +28,7 @@ function TileDrawer(ctx) {
     }
 
     this.ctx.save();
-    this.ctx.font = "6px serif";
+    this.ctx.font = "8px serif";
     this.ctx.textAlign = "center";
     this.ctx.textBaseLine = "hanging";
                           

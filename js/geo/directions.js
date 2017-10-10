@@ -17,3 +17,4 @@ Directions.randomDirection = function() {
   var index = Math.floor(Math.random() * range);
   return Directions.possibleDirections[index];
 }
+

@@ -2,6 +2,10 @@ function ThreeBuoyBoard() {
   this.type = "Three Buoys";
   this.players = 6;
   this.boats = [];
+
+  this.start = undefined;
+  this.startDirection = undefined;
+  this.buoys = [];
 }
 
 ThreeBuoyBoard.prototype = new FullscreenBoard();
@@ -17,30 +21,34 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
     buoysPlaced++;
   }
 
-  var startFinish = _.sample(this.tilespace.tiles);
-  startFinish.resource = START_RED;
+  this.start = this.tilespace.getByKey("32,-30,-2");
+  this.startDirection = Directions.randomDirection();
+  this.start.resource = START_RED;
 
   var max = 5;
-  for (var i = 1; i <= max; i++) {
-    var yy = startFinish.y + i * TILE_HEIGHT * 4;
-    var thing = this.getTile(startFinish.x, yy);
+  var i = 1;
+  var tile = this.start;
+  while (i <= max) {
+    tile = space.nextTileInDirection(tile, this.startDirection);
+
     if (i === max) {
-      thing.resource = START_RED;
+      tile.resource = START_RED;
     } else if (i % 2 === 1) {
-      thing.resource = START_WHITE;
+      tile.resource = START_WHITE;
     } else {
-      thing.resource = START_BLACK;
+      tile.resource = START_BLACK;
     }
+    i++;
   }
 
   var colors = ["yellow", "purple", "white", "green", "orange"];
   var index = 0;
-  var current = startFinish;
+  var current = this.start;
   while (index < colors.length) {
     var boat = new Boat(colors[index], current);
     this.boats.push(boat);
 
-    current = space.getByKey(current.south());
+    current = space.nextTileInDirection(current, this.startDirection);
 
     index++;
   }
