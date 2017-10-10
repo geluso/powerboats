@@ -1,5 +1,6 @@
 function TileDrawer(ctx) {
   this.ctx = ctx;
+  this.buoyDrawer = new BuoyDrawer(ctx);
 
   this.drawTiles = function(tiles) {
     this.ctx.save();
@@ -7,6 +8,10 @@ function TileDrawer(ctx) {
     for (var i = 0; i < tiles.length; i++) {
       var tile = tiles[i];
       this.draw(tile);
+
+      if (tile.buoy) {
+        this.buoyDrawer.draw(tile.buoy, tile.x, tile.y);
+      }
     }
 
     this.ctx.restore();

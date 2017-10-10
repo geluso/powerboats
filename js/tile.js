@@ -10,9 +10,9 @@ function SetTileSize(size) {
   TILE_HEIGHT = Math.sqrt(3) / 2 * HALF_EDGE;
 }
 
-function Tile(x, y, resource, token) {
+function Tile(x, y, resource, buoy) {
   this.resource = resource;
-  this.token = token;
+  this.buoy = buoy;
   this.hover = false;
   this.isDirty = true;
 

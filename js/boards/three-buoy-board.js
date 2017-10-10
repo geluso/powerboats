@@ -17,7 +17,7 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
   var buoysPlaced = 1;
   while (buoysPlaced <= this.NUMBER_OF_BUOYS) {
     var tile = _.sample(this.tilespace.tiles);
-    tile.token = new Token(buoysPlaced);
+    tile.buoy = new Buoy(buoysPlaced);
     buoysPlaced++;
   }
 

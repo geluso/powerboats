@@ -1,14 +1,13 @@
-
-function TokenDrawer(ctx) {
+function BuoyDrawer(ctx) {
   this.ctx = ctx;
 
-  this.draw = function(token, x, y) {
-    var TOKEN_SIZE = TILE_SIZE * .75;
+  this.draw = function(buoy, x, y) {
+    var BUOY_SIZE = TILE_SIZE * .75;
     this.ctx.save();
 
     this.ctx.translate(x, y);
 
-    var radius = TOKEN_SIZE; // Arc radius
+    var radius = BUOY_SIZE; // Arc radius
     var startAngle = 0; // Starting point on circle
     var endAngle = 2 * Math.PI; // End point on circle
 
@@ -32,7 +31,7 @@ function TokenDrawer(ctx) {
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
     this.ctx.font = "12px sans-serif";
-    this.ctx.fillText(token.value, 0, 0);
+    this.ctx.fillText(buoy.turnNumber, 0, 0);
 
     this.ctx.restore();
   }
