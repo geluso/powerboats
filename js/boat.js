@@ -7,7 +7,7 @@ class Boat {
     this.directionIndex = 0;
     this.direction = Directions.randomDirection();
 
-    this.dice = [];
+    this.dice = [new Dice()];
   }
 
   speed() {
@@ -36,20 +36,8 @@ class Boat {
   }
 
   goStraight() {
-    var speed = this.speed();
-    var direction = this.direction;
-
-    console.log(speed, direction);
-
-    var n = 0;
-    var current = this.tile;
-    while (n < speed) {
-      current = space.nextTileInDirection(current, direction);
-      n++;
-    }
-
-    this.tile = current;
-    this.tile.isDirty = true;
+    var route = this.getCurrentRouteTiles();
+    this.tile = route[route.length - 1];
     draw();
   }
 
@@ -72,5 +60,44 @@ class Boat {
 
   rerollDice(index) {
     this.dice[index].reroll();
+  }
+
+  highlightRoute() {
+    this.unhighlightRoute();
+
+    var tiles = this.getCurrentRouteTiles();
+    for (var i = 0; i < tiles.length; i++) {
+      tiles[i].highlight();
+    }
+
+    this.currentlyHighlightedRoute = tiles;
+    draw();
+  }
+
+  unhighlightRoute() {
+    if (!this.currentlyHighlightedRoute) {
+      return;
+    }
+
+    var tiles = this.currentlyHighlightedRoute;
+    for (var i = 0; i < tiles.length; i++) {
+      tiles[i].unhighlight();
+    }
+  }
+
+  getCurrentRouteTiles() {
+    var tiles = [this.tile];
+    var speed = this.speed();
+    var direction = this.direction;
+
+    var n = 0;
+    var current = this.tile;
+    while (n < speed) {
+      current = space.nextTileInDirection(current, direction);
+      tiles.push(current);
+      n++;
+    }
+
+    return tiles;
   }
 }

@@ -22,6 +22,16 @@ function Tile(x, y, resource, token) {
   this.shape = new Hexagon(x, y, TILE_SIZE);
 }
 
+Tile.prototype.highlight = function() {
+  this.hover = true;
+  this.isDirty = true;
+}
+
+Tile.prototype.unhighlight = function() {
+  this.hover = false;
+  this.isDirty = true;
+}
+
 Tile.prototype.setX = function(x) {
   this.x = x;
   this.shape.x = x;

@@ -21,30 +21,36 @@
 
 
   function turnLeft() {
-    console.log("turnLeft");
     PLAYER.turnLeft();
+    PLAYER.highlightRoute();
   };
   function goStraight() {
-    console.log("goStraight");
     PLAYER.goStraight();
+    PLAYER.highlightRoute();
   };
   function turnRight() {
-    console.log("turnRight");
     PLAYER.turnRight();
+    PLAYER.highlightRoute();
   };
 
   function slowDown() {
-    console.log("slowDown");
     PLAYER.slowDown();
-    PLAYER.goStraight();
+    PLAYER.highlightRoute();
+
+    reportSpeed();
   };
   function maintainSpeed() {
-    console.log("maintainSpeed");
-    PLAYER.goStraight();
+    PLAYER.highlightRoute();
   };
   function speedUp() {
-    console.log("speedUp");
     PLAYER.speedUp();
-    PLAYER.goStraight();
+    PLAYER.highlightRoute();
+
+    reportSpeed();
   };
+
+  var speedIndicator = document.getElementById("player-speed");
+  function reportSpeed() {
+    speedIndicator.textContent = PLAYER.speed();
+  }
 })();
