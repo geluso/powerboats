@@ -21,7 +21,8 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
     buoysPlaced++;
   }
 
-  this.start = this.tilespace.getByKey("32,-30,-2");
+  var startPos = CONFIG.START_POSITION;
+  this.start = this.tilespace.getByKey(startPos);
   this.startDirection = Directions.randomDirection();
   this.start.resource = START_RED;
 
@@ -41,7 +42,7 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
     i++;
   }
 
-  var colors = ["yellow", "purple", "white", "green", "orange"];
+  var colors = CONFIG.COLORS;
   var index = 0;
   var current = this.start;
   while (index < colors.length) {
@@ -52,6 +53,8 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
 
     index++;
   }
+
+  PLAYER = this.boats[Math.floor(Math.random() * this.boats.length)];
 
   return this;
 };

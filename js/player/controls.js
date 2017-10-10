@@ -22,12 +22,15 @@
 
   function turnLeft() {
     console.log("turnLeft");
+    PLAYER.turnLeft();
   };
   function goStraight() {
     console.log("goStraight");
+    PLAYER.goStraight();
   };
   function turnRight() {
     console.log("turnRight");
+    PLAYER.turnRight();
   };
 
   function slowDown() {

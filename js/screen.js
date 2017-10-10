@@ -56,7 +56,7 @@ Screen.prototype.handleClick = function(e) {
   }
 
   SCREEN.dirty = false;
-  if (thing !== LAST_THING) {
+  if (thing !== LAST_THING && LAST_THING !== undefined) {
     SCREEN.dirty = true;
     SCREEN.game.state.execute(thing);
     SCREEN.game.scores.update(SCREEN.game.board);
