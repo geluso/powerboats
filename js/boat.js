@@ -5,7 +5,7 @@ class Boat {
     this.color = color;
     this.tile = tile;
     this.directionIndex = 0;
-    this.direction = DIRECTIONS[this.directionIndex];
+    this.direction = Directions.randomDirection();
   }
 
   turnLeft() {

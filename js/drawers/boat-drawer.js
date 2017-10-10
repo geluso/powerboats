@@ -11,8 +11,7 @@ function BoatDrawer(ctx) {
 
     this.ctx.translate(x, y);
 
-    var direction = Directions.randomDirection();
-    var degrees = Directions.directionToAngle[direction];
+    var degrees = Directions.directionToAngle[boat.direction];
     var radian = (degrees / 360) * (2 * Math.PI);
     this.ctx.rotate(radian);
 
