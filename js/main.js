@@ -6,7 +6,7 @@ function debug() {
 }
 
 var space;
-var board;
+var BOARD;
 var game;
 var SCREEN;
 
@@ -16,6 +16,8 @@ function main() {
 }
 
 function newGame(board) {
+  BOARD = board;
+
   if (SCREEN !== undefined) {
     SCREEN.destoryHandlers();
   }
