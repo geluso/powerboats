@@ -19,16 +19,38 @@ class Boat {
 
   turnLeft() {
     this.directionIndex--;
+    if (this.directionIndex === -1) {
+      this.directionIndex = DIRECTIONS.length - 1;
+    }
     this.direction = DIRECTIONS[this.directionIndex];
+    this.tile.isDirty = true;
+    draw();
   }
 
   turnRight() {
     this.directionIndex++;
+    this.directionIndex %= DIRECTIONS.length;
     this.direction = DIRECTIONS[this.directionIndex];
+    this.tile.isDirty = true;
+    draw();
   }
 
   goStraight() {
+    var speed = this.speed();
+    var direction = this.direction;
 
+    console.log(speed, direction);
+
+    var n = 0;
+    var current = this.tile;
+    while (n < speed) {
+      current = space.nextTileInDirection(current, direction);
+      n++;
+    }
+
+    this.tile = current;
+    this.tile.isDirty = true;
+    draw();
   }
 
   speedUp() {

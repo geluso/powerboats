@@ -47,6 +47,10 @@ Screen.prototype.handleMousemove = function(e) {
 };
 
 Screen.prototype.handleClick = function(e) {
+  if (e.target.tagName === "BUTTON") {
+    return;
+  }
+
   MOUSE_X = e.clientX;
   MOUSE_Y = e.clientY;
 
