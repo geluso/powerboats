@@ -1,4 +1,4 @@
-var CONTROLS = function() {
+var CONTROLS = (function() {
   var turnLeftButton = document.getElementById("turn-left");
   var goStraightButton = document.getElementById("go-straight");
   var turnRightButton = document.getElementById("turn-right");
@@ -54,6 +54,13 @@ var CONTROLS = function() {
     speedIndicator.textContent = PLAYER.speed();
   }
 
-  // display the initial speed.
-  reportSpeed();
-};
+  return {
+    turnLeft: turnLeft,
+    turnRight: turnRight,
+    goStraight: goStraight,
+    slowDown: slowDown,
+    speedUp: speedUp,
+    maintainSpeed: maintainSpeed,
+    reportSpeed: reportSpeed
+  };
+})();

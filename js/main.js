@@ -36,7 +36,7 @@ function newGame(board) {
   SCREEN.draw();
   PLAYER.highlightRoute();
 
-  CONTROLS();
+  CONTROLS.reportSpeed();
 }
 
 function draw() {
