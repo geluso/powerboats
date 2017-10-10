@@ -24,7 +24,6 @@ StateRoll.prototype.execute = function() {
   } else {
     msg = "rolled " + roll + ".";
   }
-  GameLog(msg, this.game.turn.currentTurn);
 
   if (roll === 7) {
     halveResources(this.game.players);

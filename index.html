@@ -43,8 +43,6 @@
     <script src="js/drawers/board-drawer.js"></script>
     <script src="js/drawers/tile-drawer.js"></script>
 
-    <script src="js/gamelog.js"></script>
-
     <script src="js/mouse.js"></script>
     <script src="js/game.js"></script>
     <script src="js/screen.js"></script>
@@ -55,78 +53,18 @@
       <canvas id="canvas"></canvas>
     </div>
 
-    <div class="info top">
-      <div id="choose-board">
-        <button id="four-players">4 Players</button>
-        <button id="six-players">6 Players</button>
-        <button id="fullscreen">Fullscreen</button>
+    <div id="actions">
+      <div class="toggle-actions hide">[-]</div>
+      <div class="toggle-actions show">[+]</div>
+      <div id="turn-actions">
+        <button id="slowdown">Turn Left</button>
+        <button id="maintain">Center</button>
+        <button id="speedup">Turn Right</button>
       </div>
-      <div class="player"></div>
-      <div class="messages"></div>
-    </div>
-
-    <div id="gamelog">
-    </div>
-
-    <div id="scoreboard">
-      <div class="player"></div><div class="score">0</div>
-      <div class="player"></div><div class="score">0</div>
-      <div class="player"></div><div class="score">0</div>
-      <div class="player"></div><div class="score">0</div>
-      <div class="player"></div><div class="score">0</div>
-      <div class="player"></div><div class="score">0</div>
-    </div>
-
-    <div class="info bottom">
-      <div class="resources">
-        you have
-        <div class="resource brick">
-          <div class="value brick"></div>
-        </div>
-
-        <div class="resource wood">
-          <div class="value wood"></div>
-        </div>
-
-        <div class="resource sheep">
-          <div class="value sheep"></div>
-        </div>
-
-        <div class="resource wheat">
-          <div class="value wheat"></div>
-        </div>
-
-        <div class="resource ore">
-          <div class="value ore"></div>
-        </div>
-
-      </div>
-
-      <div class="trade resources">
-        offer
-        <div class="offer">
-          <div class="resource brick">0</div>
-          <div class="resource wood">0</div>
-          <div class="resource sheep selected">4</div>
-          <div class="resource wheat">0</div>
-          <div class="resource ore">0</div>
-        </div>
-
-        for
-        <div class="receive">
-          <div class="resource brick selected">1</div>
-          <div class="resource wood">0</div>
-          <div class="resource sheep">0</div>
-          <div class="resource wheat">0</div>
-          <div class="resource ore">0</div>
-        </div>
-
-      </div>
-
-      <div class="actions">
-        <button class="trade">trade</button>
-        <button class="roll">roll!</button>
-        <button class="endturn">end turn</button>
+      <div id="speed-actions">
+        <button id="slowdown">(-) Slow Down</button>
+        <button id="maintain">Maintain Speed</button>
+        <button id="speedup">Speed Up (+)</button>
       </div>
     </div>
   </body>

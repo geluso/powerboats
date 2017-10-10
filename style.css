@@ -9,120 +9,35 @@ body {
   background-color: CornflowerBlue;
 }
 
-.info {
-  display: none;
-  width: 100%;
-
+#actions {
   position: absolute;
+  bottom: 0;
   left: 0;
-
-  padding: .5em;
+  right: 0;
   text-align: center;
+  padding: .5em;
 
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0,0,0,.4);
 }
 
-.top { 
+.toggle-actions {
+  position: absolute;
   top: 0;
-}
-
-.info.top .player {
-  width: 20px;
-  height: 20px;
-  border: solid black 1px;
-  margin-right: 5px;
-  display: inline-block;
-}
-
-#choose-board {
-  position: absolute;
-  left: 0;
-  margin-left: 1em;
-}
-
-#gamelog {
-  display: none;
-  position: absolute;
-  top: 3em;
-  left: 0;
-  padding-top: 2em;
-  padding: .2em;
-  background-color: rgba(0,0,0,.5);
-  height: 300px;
-  overflow-y: scroll;
-}
-
-#gamelog .player {
-  width: 10px;
-  height: 10px;
-  border: solid black 1px;
-  margin-right: 5px;
-
-  display: inline-block;
-}
-
-#gamelog .message {
-  display: inline-block;
-  font-size: 12pt;
-}
-
-#scoreboard {
-  display: none;
-  position: absolute;
-  top: 3em;
   right: 0;
   padding: .2em;
-  background-color: rgba(0,0,0,.5);
+  color: #ccc;
 }
 
-#scoreboard .player {
-  width: 20px;
-  height: 20px;
-  border: solid black 1px;
-  display: inline-block;
-  margin-right: 5px;
+.toggle-actions.hide {
+
 }
 
-#scoreboard .score {
-  display: inline-block;
-}
-
-.bottom { 
-  bottom: 0;
-}
-
-.info.error {
-  color: red;
-}
-
-.info div {
-  display: inline-block;
-}
-
-.scoreboard {
+.toggle-actions.show {
   display: none;
-  margin-left: 2em;
 }
 
-.trade.resources {
-  display: none;
-  margin-left: 1em;
-  margin-right: 1em;
-}
-
-.resource {
-  width: 20px;
-  height: 20px;
-  border: solid black 1px;
-
-  font-size: 17px;
-  color: black;
-  font-weight: bold;
+#actions button {
   cursor: pointer;
-}
-
-.actions button {
-  cursor: pointer;
-  font-size: 30px;
+  font-size: 20px;
 }
 

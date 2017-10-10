@@ -8,7 +8,6 @@ function Game(board) {
 
   _.each(PLAYERS, function(playerColor) {
     if (playerColor === "red") {
-      GameLog("enters game.", playerColor);
     } else {
       // make sure the total number of players doesn't exceed what the
       // board can support

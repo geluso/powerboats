@@ -20,8 +20,6 @@ function newGame(board) {
     SCREEN.destoryHandlers();
   }
   
-  ClearLog();
-
   // determine the size
   var width = window.innerWidth;
   var height = window.innerHeight;
