@@ -1,6 +1,6 @@
 var CONFIG = {
   DRAW_COORDS: false,
-  DRAW_HOVER_COORDS: false,
+  DRAW_HOVER_COORDS: true,
   COORD_TEXT_SIZE: "8px",
   MIN_DICE: 1,
   MAX_DICE: 3,

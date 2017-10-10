@@ -11,11 +11,29 @@ class BuoyDetector {
   }
 
   track(tile) {
-    if (tile.x === this.buoy.tile.x) {
+    if (tile.xIndex === this.buoy.tile.xIndex) {
       this.crossDirection["north"] = true;
       this.approachPath.push("north");
       this.crossDirection["south"] = true;
       this.approachPath.push("south");
+
+      tile.isDirty = true;
+    }
+
+    if (tile.yIndex === this.buoy.tile.yIndex) {
+      this.crossDirection["north-east"] = true;
+      this.approachPath.push("north-east");
+      this.crossDirection["south-west"] = true;
+      this.approachPath.push("south-west");
+
+      tile.isDirty = true;
+    }
+
+    if (tile.zIndex === this.buoy.tile.zIndex) {
+      this.crossDirection["north-west"] = true;
+      this.approachPath.push("north-west");
+      this.crossDirection["south-east"] = true;
+      this.approachPath.push("south-east");
 
       tile.isDirty = true;
     }
@@ -33,12 +51,12 @@ class BuoyDetector {
     var southEast = BOARD.tilespace.getByKey(center.southEast());
 
     Point.draw(ctx, north, this.getDirectionStatus("north"));
-    Point.draw(ctx, northWest, this.getDirectionStatus());
-    Point.draw(ctx, northEast, this.getDirectionStatus());
+    Point.draw(ctx, northWest, this.getDirectionStatus("north-west"));
+    Point.draw(ctx, northEast, this.getDirectionStatus("north-east"));
 
     Point.draw(ctx, south, this.getDirectionStatus("south"));
-    Point.draw(ctx, southWest, this.getDirectionStatus());
-    Point.draw(ctx, southEast, this.getDirectionStatus());
+    Point.draw(ctx, southWest, this.getDirectionStatus("south-west"));
+    Point.draw(ctx, southEast, this.getDirectionStatus("south-east"));
   }
 
   getDirectionStatus(direction) {
