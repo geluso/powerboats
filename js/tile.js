@@ -14,6 +14,7 @@ function Tile(x, y, resource, buoy) {
   this.resource = resource;
   this.buoy = buoy;
   this.hover = false;
+  this.isGivingDamage = false;
   this.isDirty = true;
 
   this.x = x;
@@ -29,6 +30,12 @@ Tile.prototype.highlight = function() {
 
 Tile.prototype.unhighlight = function() {
   this.hover = false;
+  this.isGivingDamage = false;
+  this.isDirty = true;
+}
+
+Tile.prototype.givingDamage = function() {
+  this.isGivingDamage = true;
   this.isDirty = true;
 }
 

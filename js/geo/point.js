@@ -14,7 +14,15 @@ Point.distance = function(x1, y1, x2, y2) {
   return distance;
 };
 
-Point.draw = function(ctx, x, y, radius) {
+Point.draw = function(ctx, tile) {
+  var radius = 4;
+  var x = tile.x;
+  var y = tile.y;
+  var fill = "white";
+  if (tile.isGivingDamage) {
+    fill = "red";
+  }
+
   ctx.save();
   ctx.translate(x, y);
 
@@ -24,7 +32,7 @@ Point.draw = function(ctx, x, y, radius) {
   var path = new Path2D();
   path.arc(0, 0, radius, startAngle, endAngle);
 
-  ctx.fillStyle = "white";
+  ctx.fillStyle = fill;
   ctx.fill(path);
 
   ctx.strokeStyle = "black";

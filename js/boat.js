@@ -2,12 +2,14 @@ DIRECTIONS = ["north", "north-east", "south-east", "south", "south-west", "north
 
 class Boat {
   constructor(color, tile) {
+    this.damage = 0;
     this.color = color;
     this.tile = tile;
     this.directionIndex = 0;
     this.direction = Directions.randomDirection();
 
     this.dice = [new Dice()];
+
   }
 
   speed() {
@@ -92,10 +94,17 @@ class Boat {
 
     var n = 0;
     var current = this.tile;
+    var isTakingDamage = false;
     while (n < speed && current) {
       current = space.nextTileInDirection(current, direction);
       if (current) {
         tiles.push(current);
+
+        if (isTakingDamage || current.resource === LAND) {
+          isTakingDamage = true;
+          current.givingDamage();
+        }
+
         n++;
       }
     }

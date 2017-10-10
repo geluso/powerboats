@@ -22,10 +22,10 @@ BoardDrawer.prototype.draw = function() {
     this.tileDrawer.drawTiles(board.tiles);
   }
 
-  for (var i = 0; i < board.everything.length; i++) {
-    if (board.everything[i].hover) {
-      var thing = board.everything[i];
-      Point.draw(this.ctx, thing.x, thing.y, 4);
+  for (var i = 0; i < board.tiles.length; i++) {
+    if (board.tiles[i].hover) {
+      var tile = board.tiles[i];
+      Point.draw(this.ctx, tile);
     }
   }
 
