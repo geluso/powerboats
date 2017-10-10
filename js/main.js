@@ -33,8 +33,10 @@ function newGame(board) {
 
   game = new Game(board);
   SCREEN = new Screen(width, height, game);
-  PLAYER.highlightRoute();
   SCREEN.draw();
+  PLAYER.highlightRoute();
+
+  CONTROLS();
 }
 
 function draw() {
