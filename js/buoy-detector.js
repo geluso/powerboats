@@ -3,11 +3,9 @@ class BuoyDetector {
     this.buoy = buoy;
     this.crossDirection = {};
     this.approachPath = [];
+    this.pointsActivated = 0;
 
-    for (var i = 0; i < Directions.possibleDirections.length; i++) {
-      var direction = Directions.possibleDirections[i];
-      this.crossDirection[direction] = false;
-    }
+    this.registerAllDirections(false);
 
     this.center = this.buoy.tile;
   }
@@ -23,10 +21,6 @@ class BuoyDetector {
   }
 
   track(tile) {
-    if (!this.north) {
-      this.initDirections();
-    }
-
     function tileDistance(t1, t2) {
       var dx = t1.xIndex - t2.xIndex;
       var dy = t1.yIndex - t2.yIndex;
@@ -37,38 +31,42 @@ class BuoyDetector {
 
     if (tile.xIndex === this.buoy.tile.xIndex) {
       if (tileDistance(tile, this.north) < tileDistance(tile, this.south)) {
-        this.crossDirection["north"] = true;
-        this.approachPath.push("north");
+        this.registerDirection("north");
       } else {
-        this.crossDirection["south"] = true;
-        this.approachPath.push("south");
+        this.registerDirection("south");
       }
-
-      tile.isDirty = true;
     }
 
     if (tile.yIndex === this.buoy.tile.yIndex) {
       if (tileDistance(tile, this.northEast) < tileDistance(tile, this.southWest)) {
-        this.crossDirection["north-east"] = true;
-        this.approachPath.push("north-east");
+        this.registerDirection("north-east");
       } else {
-        this.crossDirection["south-west"] = true;
-        this.approachPath.push("south-west");
+        this.registerDirection("south-west");
       }
-
-      tile.isDirty = true;
     }
 
     if (tile.zIndex === this.buoy.tile.zIndex) {
       if (tileDistance(tile, this.northWest) < tileDistance(tile, this.southEast)) {
-        this.crossDirection["north-west"] = true;
-        this.approachPath.push("north-west");
+        this.registerDirection("north-west");
       } else {
-        this.crossDirection["south-east"] = true;
-        this.approachPath.push("south-east");
+        this.registerDirection("south-east");
       }
+    }
+  }
 
-      tile.isDirty = true;
+  registerDirection(direction) {
+    this.crossDirection[direction] = true;
+    this.approachPath.push(direction);
+    this.pointsActivated++;
+    if (this.pointsActivated >= 4) {
+      this.registerAllDirections(true);
+    }
+  }
+
+  registerAllDirections(bool) {
+    for (var i = 0; i < Directions.possibleDirections.length; i++) {
+      var direction = Directions.possibleDirections[i];
+      this.crossDirection[direction] = bool;
     }
   }
 
