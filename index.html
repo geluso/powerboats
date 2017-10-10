@@ -3,6 +3,26 @@
     <title>Powerboats</title>
     <link rel="icon" href="http://5tephen.com/img/cheeseplane.gif" type="image/gif"/>
     <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="board">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="actions">
+      <div class="toggle-actions hide">[-]</div>
+      <div class="toggle-actions show">[+]</div>
+      <div id="turn-actions">
+        <button id="turn-left">Turn Left</button>
+        <button id="go-straight">Center</button>
+        <button id="turn-right">Turn Right</button>
+      </div>
+      <div id="speed-actions">
+        <button id="slowdown">(-) Slow Down</button>
+        <button id="maintain">Maintain Speed</button>
+        <button id="speedup">Speed Up (+)</button>
+      </div>
+    </div>
 
     <script src="thirdjs/jquery.js"></script>
     <script src="thirdjs/lodash.js"></script>
@@ -18,6 +38,7 @@
     <script src="js/geo/tile-space.js"></script>
 
     <script src="js/players.js"></script>
+    <script src="js/player/controls.js"></script>
 
     <script src="js/resources.js"></script>
     <script src="js/tile.js"></script>
@@ -47,25 +68,5 @@
     <script src="js/game.js"></script>
     <script src="js/screen.js"></script>
     <script src="js/main.js"></script>
-  </head>
-  <body>
-    <div class="board">
-      <canvas id="canvas"></canvas>
-    </div>
-
-    <div id="actions">
-      <div class="toggle-actions hide">[-]</div>
-      <div class="toggle-actions show">[+]</div>
-      <div id="turn-actions">
-        <button id="slowdown">Turn Left</button>
-        <button id="maintain">Center</button>
-        <button id="speedup">Turn Right</button>
-      </div>
-      <div id="speed-actions">
-        <button id="slowdown">(-) Slow Down</button>
-        <button id="maintain">Maintain Speed</button>
-        <button id="speedup">Speed Up (+)</button>
-      </div>
-    </div>
   </body>
 </html>
