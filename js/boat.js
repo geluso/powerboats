@@ -92,10 +92,12 @@ class Boat {
 
     var n = 0;
     var current = this.tile;
-    while (n < speed) {
+    while (n < speed && current) {
       current = space.nextTileInDirection(current, direction);
-      tiles.push(current);
-      n++;
+      if (current) {
+        tiles.push(current);
+        n++;
+      }
     }
 
     return tiles;

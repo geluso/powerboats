@@ -260,6 +260,10 @@ TileSpace.prototype.getByKey = function(key) {
 };
 
 TileSpace.prototype.nextTileInDirection = function(tile, direction) {
+  if (!tile) {
+    return;
+  }
+
   var nextKey;
   if (direction === "north") {
     nextKey = tile.north();
