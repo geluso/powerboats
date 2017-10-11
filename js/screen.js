@@ -60,10 +60,8 @@ Screen.prototype.handleClick = function(e) {
   }
 
   SCREEN.dirty = false;
-  if (thing !== LAST_THING && LAST_THING !== undefined) {
+  if (thing && LAST_THING && thing !== LAST_THING) {
     SCREEN.dirty = true;
-    SCREEN.game.state.execute(thing);
-    SCREEN.game.scores.update(SCREEN.game.board);
     SCREEN.boardDrawer.draw();
   }
 };
