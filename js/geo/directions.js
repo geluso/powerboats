@@ -18,3 +18,20 @@ Directions.randomDirection = function() {
   return Directions.possibleDirections[index];
 }
 
+Directions.clockwiseNext = {
+  "north-west": "north",
+  "north": "north-east",
+  "north-east": "south-east",
+  "south-east": "south",
+  "south": "south-west",
+  "south-west": "north-west"
+};
+
+Directions.counterClockwiseNext = {
+  "north": "north-west",
+  "north-west": "south-west",
+  "south-west": "south",
+  "south": "south-east",
+  "south-east": "north-east",
+  "north-east": "north"
+};

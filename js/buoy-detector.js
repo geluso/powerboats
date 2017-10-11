@@ -55,6 +55,21 @@ class BuoyDetector {
   }
 
   registerDirection(direction, boat) {
+    if (this.approachPath.length > 0) {
+      // don't double-count someone double-triggering
+      // a spot on the buoy.
+      var last = this.approachPath[this.approachPath.length - 1];
+      if (direction === last) {
+        return;
+      }
+
+      // guarantee that someone is making clockwise progress
+      var next = Directions.clockwiseNext[last];
+      if (direction !== next) {
+        return;
+      }
+    }
+
     this.crossDirection[direction] = true;
     this.approachPath.push(direction);
     this.pointsActivated++;
