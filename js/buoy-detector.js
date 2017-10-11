@@ -20,7 +20,7 @@ class BuoyDetector {
     this.southEast = BOARD.tilespace.getByKey(this.center.southEast());
   }
 
-  track(tile) {
+  track(boat, tile) {
     function tileDistance(t1, t2) {
       var dx = t1.xIndex - t2.xIndex;
       var dy = t1.yIndex - t2.yIndex;
@@ -31,35 +31,36 @@ class BuoyDetector {
 
     if (tile.xIndex === this.buoy.tile.xIndex) {
       if (tileDistance(tile, this.north) < tileDistance(tile, this.south)) {
-        this.registerDirection("north");
+        this.registerDirection("north", boat);
       } else {
-        this.registerDirection("south");
+        this.registerDirection("south", boat);
       }
     }
 
     if (tile.yIndex === this.buoy.tile.yIndex) {
       if (tileDistance(tile, this.northEast) < tileDistance(tile, this.southWest)) {
-        this.registerDirection("north-east");
+        this.registerDirection("north-east", boat);
       } else {
-        this.registerDirection("south-west");
+        this.registerDirection("south-west", boat);
       }
     }
 
     if (tile.zIndex === this.buoy.tile.zIndex) {
       if (tileDistance(tile, this.northWest) < tileDistance(tile, this.southEast)) {
-        this.registerDirection("north-west");
+        this.registerDirection("north-west", boat);
       } else {
-        this.registerDirection("south-east");
+        this.registerDirection("south-east", boat);
       }
     }
   }
 
-  registerDirection(direction) {
+  registerDirection(direction, boat) {
     this.crossDirection[direction] = true;
     this.approachPath.push(direction);
     this.pointsActivated++;
     if (this.pointsActivated >= 4) {
       this.registerAllDirections(true);
+      boat.targetNextBuoy();
     }
   }
 

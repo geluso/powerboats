@@ -47,7 +47,11 @@ class Boat {
       var nextTile = route[i];
       if (!isTakingDamage && nextTile.resource !== LAND) {
         this.tile = nextTile;
-        BOARD.buoys[this.buoyIndex].buoyDetector.track(this.tile);
+        var buoy = BOARD.buoys[this.buoyIndex];
+        if (buoy) {
+          var detector = buoy.buoyDetector;
+          detector.track(this, this.tile);
+        }
       } else {
         isTakingDamage = true;
         this.damage++;
@@ -124,5 +128,12 @@ class Boat {
     }
 
     return tiles;
+  }
+
+  targetNextBuoy() {
+    this.buoyIndex++;
+    if (this.buoyIndex >= 3) {
+      console.log("to finish line!", this);
+    }
   }
 }
