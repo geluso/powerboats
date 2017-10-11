@@ -47,11 +47,7 @@ class Boat {
       var nextTile = route[i];
       if (!isTakingDamage && nextTile.resource !== LAND) {
         this.tile = nextTile;
-        var buoy = BOARD.buoys[this.buoyIndex];
-        if (buoy) {
-          var detector = buoy.buoyDetector;
-          detector.track(this, this.tile);
-        }
+        this.trackProgress();
       } else {
         isTakingDamage = true;
         this.damage++;
@@ -59,6 +55,16 @@ class Boat {
     }
 
     draw();
+  }
+
+  trackProgress() {
+    if (this.buoyIndex < BOARD.buoys.length) {
+      var buoy = BOARD.buoys[this.buoyIndex];
+      var detector = buoy.buoyDetector;
+      detector.track(this, this.tile);
+    } else {
+      BOARD.finishLineDetector.track(this, this.tile);
+    }
   }
 
   speedUp() {

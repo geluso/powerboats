@@ -6,6 +6,7 @@ function ThreeBuoyBoard() {
   this.start = undefined;
   this.startDirection = undefined;
   this.buoys = [];
+  this.finishLineDetector = new FinishLineDetector();
 }
 
 ThreeBuoyBoard.prototype = new FullscreenBoard();
@@ -39,11 +40,14 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
   this.startDirection = CONFIG.START_DIRECTION;
   this.start.resource = START_RED;
 
+  this.finishLineDetector.add(this.start);
+
   var max = 5;
   var i = 1;
   var tile = this.start;
   while (i <= max) {
     tile = space.nextTileInDirection(tile, this.startDirection);
+    this.finishLineDetector.add(tile);
 
     if (i === max) {
       tile.resource = START_RED;
