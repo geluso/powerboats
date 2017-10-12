@@ -1,7 +1,6 @@
 function ThreeBuoyBoard() {
   this.type = "Three Buoys";
   this.players = 6;
-  this.boats = [];
 
   this.start = undefined;
   this.startDirection = undefined;
@@ -58,20 +57,6 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
     }
     i++;
   }
-
-  var colors = CONFIG.COLORS;
-  var index = 0;
-  var current = this.start;
-  while (index < colors.length) {
-    var boat = new Boat(colors[index], current);
-    this.boats.push(boat);
-
-    current = space.nextTileInDirection(current, this.startDirection);
-
-    index++;
-  }
-
-  PLAYER = this.boats[Math.floor(Math.random() * this.boats.length)];
 
   return this;
 };

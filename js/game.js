@@ -1,57 +1,36 @@
-function Game(board) {
-  this.board = board;
-  board.game = this;
+class Game {
+  constructor(board) {
+    this.board = board;
+    board.game = this;
 
-  // set up players
-  this.players = ["red"];
-  this.ais = [];
+    this.boats = [];
+    this.currentPlayerIndex = 0;
 
-  _.each(PLAYERS, function(playerColor) {
-    if (playerColor === "red") {
-    } else {
-      // make sure the total number of players doesn't exceed what the
-      // board can support
-      if ((this.ais.length + 1) < board.players) {
-        var ai = new AI(this, playerColor);
-        this.players.push(ai.color);
-        this.ais.push(ai);
-      }
+    var colors = CONFIG.COLORS;
+    var index = 0;
+    var currentTile = board.start;
+    while (index < colors.length) {
+      var boat = new Boat(colors[index], currentTile);
+      this.boats.push(boat);
+
+      currentTile = space.nextTileInDirection(currentTile, board.startDirection);
+
+      index++;
     }
-  }, this);
+  }
 
-  this.currentPlayer = MAIN_PLAYER;
+  draw() {
+    this.board.draw();
+  }
 
-  var that = this;
-  var roller = new StateRoll(this);
-  var turn = new StateTurn(this);
-  this.turn = turn;
+  getCurrentPlayer() {
+    var player = this.boats[this.currentPlayerIndex];
+    return player;
+  }
 
-  $("button.roll").click(function() {
-    roller.execute();
-
-    // trading is enabled after rolling.
-    $("button.trade").attr("disabled", false);
-    $("button.roll").hide();
-    $("button.endturn").show();
-  });
-
-  var that = this;
-  $("button.endturn").click(function() {
-    turn.endTurn();
-
-    _.each(that.ais, function(ai) {
-      // AIs currently only rolling, enumerate, then end.
-      turn.startTurn();
-      roller.execute();
-      ai.enumerate();
-      turn.endTurn();
-    });
-
-    // start the turn of the main player.
-    turn.startTurn();
-  });
+  endTurn() {
+    this.currentPlayerIndex++;
+    this.currentPlayerIndex %= this.boats.length;
+  }
 }
 
-Game.prototype.draw = function() {
-  this.board.draw();
-};

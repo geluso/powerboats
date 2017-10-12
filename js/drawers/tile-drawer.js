@@ -27,7 +27,11 @@ function TileDrawer(ctx) {
     var stroke = "black";
 
     if (tile.hovering) {
-      tile.shape.fillStroke(this.ctx, HOVERED.color, stroke);
+      var player = GAME.getCurrentPlayer();
+      if (player) {
+        var hoverColor = player.color;
+        tile.shape.fillStroke(this.ctx, hoverColor, stroke);
+      }
     } else {
       tile.shape.fillStroke(this.ctx, tile.resource.color, stroke);
     }

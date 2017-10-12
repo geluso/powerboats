@@ -7,7 +7,7 @@ function debug() {
 
 var space;
 var BOARD;
-var game;
+var GAME;
 var SCREEN;
 
 function main() {
@@ -32,10 +32,10 @@ function newGame(board) {
   space.curateBoard();
   board.registerTileSpace(space);
 
-  game = new Game(board);
-  SCREEN = new Screen(width, height, game);
+  GAME = new Game(board);
+  SCREEN = new Screen(width, height, GAME);
   SCREEN.draw();
-  PLAYER.highlightRoute();
+  GAME.getCurrentPlayer().highlightRoute();
 
   CONTROLS.reportSpeed();
 }

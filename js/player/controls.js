@@ -19,39 +19,43 @@ var CONTROLS = (function() {
     btn.addEventListener("click", func);
   }
 
+  function getCurrentPlayer() {
+    var player = GAME.getCurrentPlayer();
+    return player;
+  }
 
   function turnLeft() {
-    PLAYER.turnLeft();
-    PLAYER.highlightRoute();
+    getCurrentPlayer().turnLeft();
+    getCurrentPlayer().highlightRoute();
   };
   function goStraight() {
-    PLAYER.goStraight();
-    PLAYER.highlightRoute();
+    getCurrentPlayer().goStraight();
+    getCurrentPlayer().highlightRoute();
   };
   function turnRight() {
-    PLAYER.turnRight();
-    PLAYER.highlightRoute();
+    getCurrentPlayer().turnRight();
+    getCurrentPlayer().highlightRoute();
   };
 
   function slowDown() {
-    PLAYER.slowDown();
-    PLAYER.highlightRoute();
+    getCurrentPlayer().slowDown();
+    getCurrentPlayer().highlightRoute();
 
     reportSpeed();
   };
   function maintainSpeed() {
-    PLAYER.highlightRoute();
+    getCurrentPlayer().highlightRoute();
   };
   function speedUp() {
-    PLAYER.speedUp();
-    PLAYER.highlightRoute();
+    getCurrentPlayer().speedUp();
+    getCurrentPlayer().highlightRoute();
 
     reportSpeed();
   };
 
   var speedIndicator = document.getElementById("player-speed");
   function reportSpeed() {
-    speedIndicator.textContent = PLAYER.speed();
+    speedIndicator.textContent = getCurrentPlayer().speed();
   }
 
   return {

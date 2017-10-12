@@ -28,6 +28,7 @@ class Boat {
     }
     this.direction = DIRECTIONS[this.directionIndex];
     this.tile.isDirty = true;
+
     draw();
   }
 
@@ -36,6 +37,7 @@ class Boat {
     this.directionIndex %= DIRECTIONS.length;
     this.direction = DIRECTIONS[this.directionIndex];
     this.tile.isDirty = true;
+
     draw();
   }
 
@@ -46,6 +48,7 @@ class Boat {
     for (var i = 0; i < route.length; i++) {
       var nextTile = route[i];
       if (!isTakingDamage && nextTile.resource !== LAND) {
+        this.tile.unhighlight();
         this.tile = nextTile;
         this.trackProgress();
       } else {
@@ -54,7 +57,12 @@ class Boat {
       }
     }
 
+    this.finishMovement();
     draw();
+  }
+
+  finishMovement() {
+    GAME.endTurn();
   }
 
   trackProgress() {

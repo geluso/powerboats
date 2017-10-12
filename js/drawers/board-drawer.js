@@ -5,6 +5,7 @@ function BoardDrawer(ctx, game) {
   this.board = game.board;
 
   this.tileDrawer = new TileDrawer(ctx);
+
   this.boatDrawer = new BoatDrawer(ctx);
 }
 
@@ -22,6 +23,7 @@ BoardDrawer.prototype.draw = function() {
     this.tileDrawer.drawTiles(board.tiles);
   }
 
+  // draw tiles
   for (var i = 0; i < board.tiles.length; i++) {
     if (board.tiles[i].hover) {
       var tile = board.tiles[i];
@@ -29,13 +31,15 @@ BoardDrawer.prototype.draw = function() {
     }
   }
 
-  for (var i = 0; i < board.boats.length; i++) {
-    var boat = board.boats[i];
-    this.boatDrawer.draw(boat);
-  }
-
+  // draw buoys
   for (var i = 0; i < board.buoys.length; i++) {
     var buoy = board.buoys[i];
     buoy.buoyDetector.draw(this.ctx);
+  }
+
+  // draw boats
+  for (var i = 0; i < game.boats.length; i++) {
+    var boat = game.boats[i];
+    this.boatDrawer.draw(boat);
   }
 };
