@@ -18,13 +18,14 @@ Point.draw = function(ctx, tile, fillOverride) {
   var radius = 4;
   var x = tile.x;
   var y = tile.y;
+  
   var fill = "white";
-  if (tile.isGivingDamage) {
-    fill = "red";
-  }
-
   if (fillOverride) {
     fill = fillOverride;
+  }
+  
+  if (tile.isGivingDamage) {
+    fill = "red";
   }
 
   ctx.save();

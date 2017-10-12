@@ -27,7 +27,8 @@ BoardDrawer.prototype.draw = function() {
   for (var i = 0; i < board.tiles.length; i++) {
     if (board.tiles[i].hover) {
       var tile = board.tiles[i];
-      Point.draw(this.ctx, tile);
+      var highlightColor = GAME.getCurrentPlayer().color;
+      Point.draw(this.ctx, tile, highlightColor);
     }
   }
 
