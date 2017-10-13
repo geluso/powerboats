@@ -3,15 +3,17 @@ DIRECTIONS = ["north", "north-east", "south-east", "south", "south-west", "north
 class Boat {
   constructor(color, tile, type) {
     this.damage = 0;
+    this.dice = [new Dice()];
+
     this.color = color;
     this.tile = tile;
     this.type = type;
 
-    this.direction = Directions.randomDirection();
-    this.dice = [new Dice()];
-
     // the highest buoy that this boat has circled.
     this.buoyIndex = 0;
+
+    this.direction = Directions.possibleDirections[0];
+    this.faceBuoy();
   }
 
   speed() {
@@ -24,15 +26,11 @@ class Boat {
   turnLeft() {
     this.direction = Directions.counterClockwiseNext[this.direction];
     this.tile.isDirty = true;
-
-    draw();
   }
 
   turnRight() {
     this.direction = Directions.clockwiseNext[this.direction];
     this.tile.isDirty = true;
-
-    draw();
   }
 
   checkRouteDamage() {
@@ -45,7 +43,6 @@ class Boat {
     this.damage += damage;
 
     this.finishMovement();
-    draw();
   }
 
   followRoute(isMovingBoatAlongRoute) {
@@ -179,5 +176,24 @@ class Boat {
 
   rightTurnDistanceToBuoy() {
 
+  }
+
+  // rotate in all directions and measure the distance to
+  // the buoy. Remember what direction had the shortest
+  // distance and make that the final facing direction.
+  faceBuoy() {
+    var minDistance = this.straightToDistanceToBuoy();
+    var bestDirection = this.direction;
+
+    for (var direction in Directions.possibleDirections) {
+      this.turnRight();
+      var distance = this.straightToDistanceToBuoy();
+      if (distance < minDistance) {
+        minDistance = distance;
+        bestDirection = this.direction;
+      }
+    }
+
+    this.direction = bestDirection;
   }
 }

@@ -55,6 +55,7 @@ var CONTROLS = (function() {
       // only allow humans to control their own boats, not AI boats.
       if (GAME.getCurrentPlayer().type.includes("human")) {
         func();
+        draw();
       }
     }
   }
