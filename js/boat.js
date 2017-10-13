@@ -56,8 +56,11 @@ class Boat {
       var nextTile = route[i];
       if (!isTakingDamage && nextTile.resource !== LAND) {
         if (isMovingBoatAlongRoute) {
+          // weird unhighlighting to get rid of all route
+          // dots, and mark where the boat started as dirty.
           this.tile.unhighlight();
           this.tile = nextTile;
+          this.tile.unhighlight();
           this.trackProgress();
         }
       } else {
@@ -128,7 +131,7 @@ class Boat {
   }
 
   getCurrentRouteTiles() {
-    var tiles = [this.tile];
+    var tiles = [];
     var speed = this.speed();
     var direction = this.direction;
 
