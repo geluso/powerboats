@@ -7,14 +7,6 @@ var CONTROLS = (function() {
   var maintainSpeedButton = document.getElementById("maintain");
   var speedUpButton = document.getElementById("speedup");
 
-  attach(turnLeftButton, turnLeft);
-  attach(goStraightButton, goStraight);
-  attach(turnRightButton, turnRight);
-
-  attach(slowDownButton, slowDown);
-  attach(maintainSpeedButton, maintainSpeed);
-  attach(speedUpButton, speedUp);
-
   function attach(btn, func) {
     btn.addEventListener("click", func);
   }
@@ -81,6 +73,15 @@ var CONTROLS = (function() {
     var func = publicFunctions[key];
     publicFunctions[key] = wrapInPlayerCheck(func);
   }
+
+  attach(turnLeftButton, publicFunctions.turnLeft);
+  attach(goStraightButton, publicFunctions.goStraight);
+  attach(turnRightButton, publicFunctions.turnRight);
+
+  attach(slowDownButton, publicFunctions.slowDown);
+  attach(maintainSpeedButton, publicFunctions.maintainSpeed);
+  attach(speedUpButton, publicFunctions.speedUp);
+
 
   return publicFunctions;
 })();
