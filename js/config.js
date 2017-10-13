@@ -15,4 +15,5 @@ var CONFIG = {
     "16,-20,4",
   ],
   AI_TURN_DELAY: 1000,
+  PLAYER_TYPES: ["ai", "ai", "ai", "ai", "ai"],
 };

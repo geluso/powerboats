@@ -3,18 +3,16 @@ class Game {
     this.board = board;
     board.game = this;
 
+    // HACK: start it at -1 so it slips into zero by starting with ending a turn.
+    this.currentPlayerIndex = -1;
     this.boats = [];
-    this.currentPlayerIndex = 0;
 
     var colors = CONFIG.COLORS;
     var index = 0;
     var currentTile = board.start;
+    var types = CONFIG.PLAYER_TYPES;
     while (index < colors.length) {
-      var type = "ai";
-      if (index === 0) {
-        type = "local-human";
-      }
-
+      var type = types[index];
       var boat = new Boat(this, colors[index], currentTile, type);
       this.boats.push(boat);
 
@@ -46,7 +44,7 @@ class Game {
     this.currentPlayerIndex++;
     this.currentPlayerIndex %= this.boats.length;
 
-    if (this.currentPlayerIndex !== 0) {
+    if (this.getCurrentPlayer().isAI()) {
       var strategyClass = TurnTowardBuoyFast;
       var ai = new AITurn(this, strategyClass);
       ai.initiateTurnStart();

@@ -26,6 +26,10 @@ class Boat {
     this.faceBuoy();
   }
 
+  isAI() {
+    return this.type.includes("ai");
+  }
+
   speed() {
     var total = this.dice.reduce(function(d1, d2) {
       return d1 + d2.value;
@@ -50,7 +54,10 @@ class Boat {
 
   goStraight() {
     var damage = this.followRoute(true);
-    this.damage += damage;
+    if (damage > 0) {
+      this.damage += damage;
+      this.dice = [];
+    }
 
     this.finishMovement();
   }

@@ -35,7 +35,7 @@ function newGame(board) {
   GAME = new Game(board);
   SCREEN = new Screen(width, height, GAME);
   SCREEN.draw();
-  GAME.getCurrentPlayer().highlightRoute();
+  GAME.delayedEndTurn();
 
   CONTROLS.reportSpeed();
 }
