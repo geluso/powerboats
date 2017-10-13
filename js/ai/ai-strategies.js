@@ -34,6 +34,7 @@ class SpeedUpUntilDamage {
   constructor(game) {
     this.game = game;
     this.cycle = 0;
+    this.MAX_SPEED = 5;
   }
 
   consider() {
@@ -46,6 +47,13 @@ class SpeedUpUntilDamage {
       var damage = boat.checkRouteDamage();
       if (damage === 0) {
         boat.speedUp();
+        if (boat.speed() > 4) {
+          var d1 = new Dice();
+          var d2 = new Dice();
+          d1.value = 3;
+          d2.value = 1;
+          boat.dice = [d1, d2];
+        }
       }
       return false;
     }
