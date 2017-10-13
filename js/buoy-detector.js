@@ -1,6 +1,7 @@
 class BuoyDetector {
   constructor(buoy) {
     this.buoy = buoy;
+    this.tile = buoy.tile;
     this.crossDirection = {};
     this.approachPath = [];
     this.pointsActivated = 0;
@@ -21,6 +22,10 @@ class BuoyDetector {
   }
 
   track(boat, tile) {
+    if (!this.north) {
+      this.initDirections();
+    }
+
     function tileDistance(t1, t2) {
       var dx = t1.xIndex - t2.xIndex;
       var dy = t1.yIndex - t2.yIndex;

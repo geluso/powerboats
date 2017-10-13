@@ -15,7 +15,7 @@ class Game {
         type = "local-human";
       }
 
-      var boat = new Boat(colors[index], currentTile, type);
+      var boat = new Boat(this, colors[index], currentTile, type);
       this.boats.push(boat);
 
       currentTile = space.nextTileInDirection(currentTile, board.startDirection);

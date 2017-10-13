@@ -1,5 +1,6 @@
 class Boat {
-  constructor(color, tile, type) {
+  constructor(game, color, tile, type) {
+    this.game = game;
     this.damage = 0;
     this.dice = [new Dice()];
 
@@ -7,8 +8,19 @@ class Boat {
     this.tile = tile;
     this.type = type;
 
+    // add trackers for each buoy
+    this.trackers = [];
+    for (var i = 0; i < this.game.board.buoys.length; i++) {
+      var buoy = this.game.board.buoys[i];
+      var buoyTracker = new BuoyDetector(buoy);
+      this.trackers.push(buoyTracker);
+    }
+
+    var finishLineDetector = new FinishLineDetector();
+    this.trackers.push(FinishLineDetector);
+
     // the highest buoy that this boat has circled.
-    this.buoyIndex = 0;
+    this.trackerIndex = 0;
 
     this.direction = Directions.possibleDirections[0];
     this.faceBuoy();
@@ -69,16 +81,13 @@ class Boat {
   }
 
   finishMovement() {
-    GAME.endTurn();
+    this.game.endTurn();
   }
 
   trackProgress() {
-    if (this.buoyIndex < BOARD.buoys.length) {
-      var buoy = BOARD.buoys[this.buoyIndex];
-      var detector = buoy.buoyDetector;
-      detector.track(this, this.tile);
-    } else {
-      BOARD.finishLineDetector.track(this, this.tile);
+    if (this.trackerIndex < this.trackers.length) {
+      var tracker = this.trackers[this.trackerIndex];
+      tracker.track(this, this.tile);
     }
   }
 
@@ -152,8 +161,8 @@ class Boat {
   }
 
   targetNextBuoy() {
-    this.buoyIndex++;
-    if (this.buoyIndex >= 3) {
+    this.trackerIndex++;
+    if (this.trackerIndex >= 3) {
       console.log("to finish line!", this);
     }
   }
@@ -162,7 +171,7 @@ class Boat {
     var route = this.getCurrentRouteTiles();
     var routeEnd = route[route.length - 1];
 
-    var currentBuoy = BOARD.buoys[this.buoyIndex];
+    var currentBuoy = this.trackers[this.trackerIndex];
 
     var distance = TileGeo.distance(routeEnd, currentBuoy.tile);
     return distance;
