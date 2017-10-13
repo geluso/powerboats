@@ -1,7 +1,7 @@
 class AITurn {
-  constructor(game) {
+  constructor(game, strategyClass) {
     this.game = game;
-    this.strategy = new GoStraightUntilDamage(game);
+    this.strategy = new strategyClass(game);
   }
 
   initiateTurnStart() {
