@@ -82,6 +82,5 @@ var CONTROLS = (function() {
   attach(maintainSpeedButton, publicFunctions.maintainSpeed);
   attach(speedUpButton, publicFunctions.speedUp);
 
-
   return publicFunctions;
 })();

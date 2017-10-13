@@ -162,4 +162,22 @@ class Boat {
       console.log("to finish line!", this);
     }
   }
+
+  straightToDistanceToBuoy() {
+    var route = this.getCurrentRouteTiles();
+    var routeEnd = route[route.length - 1];
+
+    var currentBuoy = BOARD.buoys[this.buoyIndex];
+
+    var distance = TileGeo.distance(routeEnd, currentBuoy.tile);
+    return distance;
+  }
+
+  leftTurnDistanceToBuoy() {
+
+  }
+
+  rightTurnDistanceToBuoy() {
+
+  }
 }
