@@ -58,7 +58,16 @@ var CONTROLS = (function() {
     speedIndicator.textContent = getCurrentPlayer().speed();
   }
 
-  return {
+  function wrapInPlayerCheck(func) {
+    return function() {
+      // only allow humans to control their own boats, not AI boats.
+      if (GAME.getCurrentPlayer().type.includes("human")) {
+        func();
+      }
+    }
+  }
+
+  var publicFunctions = {
     turnLeft: turnLeft,
     turnRight: turnRight,
     goStraight: goStraight,
@@ -67,4 +76,11 @@ var CONTROLS = (function() {
     maintainSpeed: maintainSpeed,
     reportSpeed: reportSpeed
   };
+
+  for (var key in publicFunctions) {
+    var func = publicFunctions[key];
+    publicFunctions[key] = wrapInPlayerCheck(func);
+  }
+
+  return publicFunctions;
 })();

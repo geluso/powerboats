@@ -10,7 +10,12 @@ class Game {
     var index = 0;
     var currentTile = board.start;
     while (index < colors.length) {
-      var boat = new Boat(colors[index], currentTile);
+      var type = "ai";
+      if (index === 0) {
+        type = "local-human";
+      }
+
+      var boat = new Boat(colors[index], currentTile, type);
       this.boats.push(boat);
 
       currentTile = space.nextTileInDirection(currentTile, board.startDirection);

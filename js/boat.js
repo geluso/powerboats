@@ -1,12 +1,13 @@
 DIRECTIONS = ["north", "north-east", "south-east", "south", "south-west", "north-west"];
 
 class Boat {
-  constructor(color, tile) {
+  constructor(color, tile, type) {
     this.damage = 0;
     this.color = color;
     this.tile = tile;
-    this.direction = Directions.randomDirection();
+    this.type = type;
 
+    this.direction = Directions.randomDirection();
     this.dice = [new Dice()];
 
     // the highest buoy that this boat has circled.
