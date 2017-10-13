@@ -56,6 +56,30 @@ class SpeedUpUntilDamage {
   }
 }
 
+class FaceBuoy {
+  constructor(game) {
+    this.game = game;
+    this.cycle = 0;
+  }
+
+  consider() {
+    this.cycle++;
+
+    // HACK: run the consideration, but falsely return
+    // false so the drawing pauses for a slight delay
+    if (this.cycle === 1) {
+      var boat = this.game.getCurrentPlayer();
+      boat.faceBuoyWithOneTurn();
+      return false;
+    }
+
+    // boats are only allowed to speed up once,
+    // so this strategy only executes once.
+    return true;
+  }
+}
+
+
 class ComposedStrategy {
   constructor(game, considerations) {
     this.churnNumber = {};
@@ -98,6 +122,35 @@ class SpeedUpStraightUntilDamage {
     var considerations = [
       SpeedUpUntilDamage,
       StraightUnlessDamage,
+    ];
+
+    this.runner = new ComposedStrategy(game, considerations);
+  }
+
+  churn() {
+    return this.runner.churn();
+  }
+}
+
+class TurnTowardBuoySlow {
+  constructor(game) {
+    var considerations = [
+      FaceBuoy,
+    ];
+
+    this.runner = new ComposedStrategy(game, considerations);
+  }
+
+  churn() {
+    return this.runner.churn();
+  }
+}
+
+class TurnTowardBuoyFast {
+  constructor(game) {
+    var considerations = [
+      FaceBuoy,
+      SpeedUpUntilDamage,
     ];
 
     this.runner = new ComposedStrategy(game, considerations);

@@ -1,5 +1,3 @@
-DIRECTIONS = ["north", "north-east", "south-east", "south", "south-west", "north-west"];
-
 class Boat {
   constructor(color, tile, type) {
     this.damage = 0;
@@ -181,12 +179,17 @@ class Boat {
   // rotate in all directions and measure the distance to
   // the buoy. Remember what direction had the shortest
   // distance and make that the final facing direction.
-  faceBuoy() {
+  faceBuoy(allowedDirections) {
+    if (allowedDirections === undefined) {
+      allowedDirections = Directions.possibleDirections;
+    }
+
     var minDistance = this.straightToDistanceToBuoy();
     var bestDirection = this.direction;
 
-    for (var direction in Directions.possibleDirections) {
-      this.turnRight();
+    for (var i = 0; i < allowedDirections.length; i++) {
+      var direction = allowedDirections[i];
+      this.direction = direction;
       var distance = this.straightToDistanceToBuoy();
       if (distance < minDistance) {
         minDistance = distance;
@@ -195,5 +198,15 @@ class Boat {
     }
 
     this.direction = bestDirection;
+  }
+
+  faceBuoyWithOneTurn() {
+    var clockwise = Directions.clockwiseNext[this.direction];
+    var counterClockwise = Directions.counterClockwiseNext[this.direction];
+    var allowedDirections = [
+      clockwise, this.direction, counterClockwise
+    ];
+
+    this.faceBuoy(allowedDirections);
   }
 }
