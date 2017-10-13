@@ -5,7 +5,6 @@ class Boat {
     this.damage = 0;
     this.color = color;
     this.tile = tile;
-    this.directionIndex = 0;
     this.direction = Directions.randomDirection();
 
     this.dice = [new Dice()];
@@ -22,20 +21,14 @@ class Boat {
   }
 
   turnLeft() {
-    this.directionIndex--;
-    if (this.directionIndex === -1) {
-      this.directionIndex = DIRECTIONS.length - 1;
-    }
-    this.direction = DIRECTIONS[this.directionIndex];
+    this.direction = Directions.counterClockwiseNext[this.direction];
     this.tile.isDirty = true;
 
     draw();
   }
 
   turnRight() {
-    this.directionIndex++;
-    this.directionIndex %= DIRECTIONS.length;
-    this.direction = DIRECTIONS[this.directionIndex];
+    this.direction = Directions.clockwiseNext[this.direction];
     this.tile.isDirty = true;
 
     draw();
