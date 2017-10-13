@@ -34,6 +34,15 @@ class Game {
   }
 
   endTurn() {
+    draw();
+
+    var that = this;
+    setTimeout(function() {
+      that.delayedEndTurn();
+    }, CONFIG.AI_TURN_DELAY);
+  }
+
+  delayedEndTurn() {
     this.currentPlayerIndex++;
     this.currentPlayerIndex %= this.boats.length;
 
