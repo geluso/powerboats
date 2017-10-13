@@ -41,24 +41,39 @@ class Boat {
     draw();
   }
 
-  goStraight() {
-    var route = this.getCurrentRouteTiles();
-    var isTakingDamage = false;
+  checkRouteDamage() {
+    var damage = this.followRoute(false);
+    return damage;
+  }
 
-    for (var i = 0; i < route.length; i++) {
-      var nextTile = route[i];
-      if (!isTakingDamage && nextTile.resource !== LAND) {
-        this.tile.unhighlight();
-        this.tile = nextTile;
-        this.trackProgress();
-      } else {
-        isTakingDamage = true;
-        this.damage++;
-      }
-    }
+  goStraight() {
+    var damage = this.followRoute(true);
+    this.damage += damage;
 
     this.finishMovement();
     draw();
+  }
+
+  followRoute(isMovingBoatAlongRoute) {
+    var route = this.getCurrentRouteTiles();
+    var isTakingDamage = false;
+
+    var damage = 0;
+    for (var i = 0; i < route.length; i++) {
+      var nextTile = route[i];
+      if (!isTakingDamage && nextTile.resource !== LAND) {
+        if (isMovingBoatAlongRoute) {
+          this.tile.unhighlight();
+          this.tile = nextTile;
+          this.trackProgress();
+        }
+      } else {
+        isTakingDamage = true;
+        damage++;
+      }
+    }
+
+    return damage;
   }
 
   finishMovement() {

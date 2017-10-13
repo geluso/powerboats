@@ -31,6 +31,14 @@ class Game {
   endTurn() {
     this.currentPlayerIndex++;
     this.currentPlayerIndex %= this.boats.length;
+
+    if (this.currentPlayerIndex !== 0) {
+      var ai = new AITurn(this);
+      ai.initiateTurnStart();
+    }
+
+    this.getCurrentPlayer().highlightRoute();
+    draw();
   }
 }
 
