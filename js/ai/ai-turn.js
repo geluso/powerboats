@@ -1,6 +1,7 @@
 class AITurn {
   constructor(game) {
     this.game = game;
+    this.strategy = new GoStraightUntilDamage(game);
   }
 
   initiateTurnStart() {
@@ -18,23 +19,11 @@ class AITurn {
   }
 
   considerOptions() {
-    console.log("considering options");
-    var boat = this.game.getCurrentPlayer();
-    var damage = boat.checkRouteDamage();
-    if (damage > 0) {
-      var coin = Math.random() < .5;
-      if (coin) {
-        boat.turnLeft();
-        console.log(boat.color, "turns left");
-      } else {
-        boat.turnRight();
-        console.log(boat.color, "turns right");
-      }
-
-      boat.highlightRoute();
-      this.waitDelay();
-    } else {
+    var isStrategyResolved = this.strategy.churn();
+    if (isStrategyResolved) {
       this.submitTurn();
+    } else {
+      this.waitDelay();
     }
   }
 
@@ -42,5 +31,4 @@ class AITurn {
     var boat = this.game.getCurrentPlayer();
     boat.goStraight();
   }
-
 }
