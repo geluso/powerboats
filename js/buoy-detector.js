@@ -1,5 +1,6 @@
 class BuoyDetector {
-  constructor(buoy) {
+  constructor(boat, buoy) {
+    this.boat = boat;
     this.buoy = buoy;
     this.tile = buoy.tile;
     this.crossDirection = {};
@@ -107,10 +108,10 @@ class BuoyDetector {
 
   getDirectionStatus(direction) {
     if (this.crossDirection[direction]) {
-      return "green";
+      return "lawngreen";
     }
 
-    return "orange";
+    return this.boat.color;
   }
 }
 

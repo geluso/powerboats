@@ -27,17 +27,6 @@ class FinishLineDetector {
   }
 
   draw(ctx) {
-    if (!this.north) {
-      this.initDirections();
-    }
-
-    Point.draw(ctx, this.north, this.getDirectionStatus("north"));
-    Point.draw(ctx, this.northWest, this.getDirectionStatus("north-west"));
-    Point.draw(ctx, this.northEast, this.getDirectionStatus("north-east"));
-
-    Point.draw(ctx, this.south, this.getDirectionStatus("south"));
-    Point.draw(ctx, this.southWest, this.getDirectionStatus("south-west"));
-    Point.draw(ctx, this.southEast, this.getDirectionStatus("south-east"));
   }
 }
 

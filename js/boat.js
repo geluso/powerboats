@@ -12,12 +12,12 @@ class Boat {
     this.trackers = [];
     for (var i = 0; i < this.game.board.buoys.length; i++) {
       var buoy = this.game.board.buoys[i];
-      var buoyTracker = new BuoyDetector(buoy);
+      var buoyTracker = new BuoyDetector(this, buoy);
       this.trackers.push(buoyTracker);
     }
 
-    var finishLineDetector = new FinishLineDetector();
-    this.trackers.push(FinishLineDetector);
+    var finishTracker = new FinishLineDetector();
+    this.trackers.push(finishTracker);
 
     // the highest buoy that this boat has circled.
     this.trackerIndex = 0;

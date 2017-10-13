@@ -33,5 +33,12 @@ function BoatDrawer(ctx) {
     ctx.stroke(path);
 
     this.ctx.restore();
+
+    if (GAME.getCurrentPlayer() === boat) {
+      for (var j = 0; j < boat.trackers.length; j++) {
+        var tracker = boat.trackers[j];
+        tracker.draw(this.ctx);
+      }
+    }
   };
 }
