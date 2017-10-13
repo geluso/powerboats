@@ -3,7 +3,7 @@ Strategies.Turning = {};
 Strategies.Speed = {};
 Strategies.Damage = {};
 
-Strategies.Turning.straightUnlessDamage = function(game) {
+Strategies.Turning.StraightUnlessDamage = function(game) {
   console.log("considering options");
   var boat = game.getCurrentPlayer();
   var damage = boat.checkRouteDamage();
@@ -24,6 +24,16 @@ Strategies.Turning.straightUnlessDamage = function(game) {
   }
 };
 
+Strategies.Speed.SpeedUpUntilDamage = function(game) {
+  var boat = game.getCurrentPlayer();
+  var damage = boat.checkRouteDamage();
+  if (damage === 0) {
+    boat.speedUp();
+    return false;
+  }
+  return true;
+}
+
 class Strategy {
   constructor(turnStrat, speedStrat, damageStrat) {
     this.turnStrat = turnStrat;
@@ -32,12 +42,10 @@ class Strategy {
   }
 }
 
-class GoStraightUntilDamage {
-  constructor(game) {
+class ComposedStrategy {
+  constructor(game, considerations) {
     this.game = game;
-    this.considerations = [
-      Strategies.Turning.straightUnlessDamage
-    ];
+    this.considerations = considerations;
   }
 
   churn() {
@@ -49,5 +57,34 @@ class GoStraightUntilDamage {
       }
     }
     return true;
+  }
+}
+
+class GoStraightUntilDamage {
+  constructor(game) {
+    var considerations = [
+      Strategies.Turning.StraightUnlessDamage
+    ];
+
+    this.runner = new ComposedStrategy(game, considerations);
+  }
+
+  churn() {
+    return this.runner.churn();
+  }
+}
+
+class SpeedUpStraightUntilDamage {
+  constructor(game) {
+    var considerations = [
+      Strategies.Speed.SpeedUpUntilDamage,
+      Strategies.Turning.StraightUnlessDamage,
+    ];
+
+    this.runner = new ComposedStrategy(game, considerations);
+  }
+
+  churn() {
+    return this.runner.churn();
   }
 }

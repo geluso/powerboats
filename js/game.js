@@ -33,8 +33,11 @@ class Game {
     this.currentPlayerIndex %= this.boats.length;
 
     if (this.currentPlayerIndex !== 0) {
-      var strategy = GoStraightUntilDamage;
-      var ai = new AITurn(this, strategy);
+      var strategyClass = GoStraightUntilDamage;
+      if (this.currentPlayerIndex === 1) {
+        strategyClass = SpeedUpStraightUntilDamage;
+      }
+      var ai = new AITurn(this, strategyClass);
       ai.initiateTurnStart();
     }
 
