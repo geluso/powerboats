@@ -4,7 +4,6 @@ var CONFIG = {
   COORD_TEXT_SIZE: "8px",
   MIN_DICE: 1,
   MAX_DICE: 3,
-  COLORS: ["yellow", "purple", "white", "green", "orange"],
   USE_START_CONFIG: true,
   START_POSITION: "32,-30,-2",
   START_DIRECTION: "south-east",
@@ -15,5 +14,8 @@ var CONFIG = {
     "16,-20,4",
   ],
   AI_TURN_DELAY: 1000,
-  PLAYER_TYPES: ["ai", "ai", "ai", "ai", "ai"],
+  //PLAYER_TYPES: ["ai", "ai", "ai", "ai", "ai"],
+  //COLORS: ["yellow", "purple", "white", "green", "orange"],
+  COLORS: ["yellow"],
+  PLAYER_TYPES: ["local-human"],
 };

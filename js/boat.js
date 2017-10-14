@@ -4,6 +4,8 @@ class Boat {
     this.damage = 0;
     this.dice = [new Dice()];
 
+    this.planner = new RoutePlanner(game.board, this);
+
     this.color = color;
     this.tile = tile;
     this.type = type;
@@ -224,5 +226,29 @@ class Boat {
     ];
 
     this.faceBuoy(allowedDirections);
+  }
+
+  clone() {
+    var clone = new Boat(this.game, this.color, this.tile, this.type);
+    clone.damage = this.damage;
+    clone.direction = this.direction;
+    clone.trackerIndex = this.trackerIndex;
+
+    clone.dice = [];
+    for (var i = 0; i < this.dice.length; i++) {
+      var dice = new Dice();
+      dice.value = this.dice[i].value;
+      clone.dice.push(dice);
+    }
+
+    clone.trackers = [];
+    for (var i = 0; i < this.trackers.length; i++) {
+      var tracker = this.trackers[i].clone(clone);
+      clone.trackers.push(tracker);
+    }
+
+    console.log("origi", this);
+    console.log("clone", clone);
+    return clone;
   }
 }

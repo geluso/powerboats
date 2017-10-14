@@ -28,5 +28,9 @@ class FinishLineDetector {
 
   draw(ctx) {
   }
+
+  clone() {
+    return new FinishLineDetector();
+  }
 }
 

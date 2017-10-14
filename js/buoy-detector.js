@@ -113,5 +113,27 @@ class BuoyDetector {
 
     return this.boat.color;
   }
+
+  clone(boat) {
+    var clone = new BuoyDetector(boat, this.buoy);
+
+    clone.boat = boat;
+    clone.buoy = this.buoy;
+    clone.tile = this.buoy.tile;
+    clone.pointsActivated = this.pointsActivated;
+    clone.center = this.buoy.tile;
+
+    clone.crossDirection = {};
+    for (var key in this.crossDirection) {
+      clone.crossDirection[key] = this.crossDirection[key];
+    }
+
+    clone.approachPath = [];
+    for (var i = 0; i < this.approachPath.length; i++) {
+      clone.approachPath.push(this.approachPath[i]);
+    }
+
+    return clone;
+  }
 }
 

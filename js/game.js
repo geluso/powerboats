@@ -53,5 +53,12 @@ class Game {
     this.getCurrentPlayer().highlightRoute();
     draw();
   }
+
+  explore() {
+    var length = this.boats.length
+    for (var i = 0; i < length; i++) {
+      this.boats[i].planner.explore();
+    }
+  }
 }
 
