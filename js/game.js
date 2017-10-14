@@ -32,6 +32,9 @@ class Game {
   }
 
   endTurn() {
+    if (this.getCurrentPlayer()) {
+      this.getCurrentPlayer().unhighlightRoute();
+    }
     draw();
 
     var that = this;
@@ -41,10 +44,6 @@ class Game {
   }
 
   delayedEndTurn() {
-    if (this.getCurrentPlayer()) {
-      this.getCurrentPlayer().unhighlightRoute();
-    }
-
     this.currentPlayerIndex++;
     this.currentPlayerIndex %= this.boats.length;
 

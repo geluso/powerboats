@@ -24,7 +24,6 @@ class AITurn {
       this.submitTurn();
     } else {
       var boat = this.game.getCurrentPlayer();
-      boat.highlightRoute();
       draw();
       this.waitDelay();
     }
