@@ -21,21 +21,34 @@ class RoutePlanner {
       return;
     }
 
-    var leftBoat = this.boat.clone();
-    var straightBoat = this.boat.clone();
-    var rightBoat = this.boat.clone();
+    var action1 = ["left", "straight", "right"];
+    var action2 = ["slower", "same", "faster"];
 
-    straightBoat.goStraight();
+    var options = [];
+    for (var a1 = 0; a1 < action1.length; a1++) {
+      for (var a2 = 0; a2 < action2.length; a2++) {
+        var newBoat = this.boat.clone();
+        options.push(newBoat);
 
-    leftBoat.turnLeft();
-    leftBoat.goStraight();
+        if (action1[a1] === "left") {
+          newBoat.turnLeft();
+        } else if (action1[a1] === "right") {
+          newBoat.turnRight();
+        }
 
-    rightBoat.turnRight();
-    rightBoat.goStraight();
+        if (action2[a2] === "slower") {
+          newBoat.slowDown();
+        } else if (action2[a2] === "faster") {
+          newBoat.speedUp();
+        }
+
+        // all boats go straight after making their other moves
+        newBoat.goStraight();
+      }
+    }
 
     var bestScore = 0;
     var bestBoat = this.boat;
-    var options = [leftBoat, straightBoat, rightBoat];
     for (var i = 0; i < options.length; i++) {
       var boat = options[i];
       var score = this.scoreTurn(boat);
