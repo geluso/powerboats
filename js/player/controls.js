@@ -28,6 +28,7 @@ var CONTROLS = (function() {
   function goStraight() {
     getCurrentPlayer().goStraight();
     getCurrentPlayer().highlightRoute();
+    GAME.endTurn();
   };
   function turnRight() {
     getCurrentPlayer().turnRight();

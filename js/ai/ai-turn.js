@@ -31,7 +31,6 @@ class AITurn {
   }
 
   submitTurn() {
-    var boat = this.game.getCurrentPlayer();
-    boat.goStraight();
+    GAME.endTurn();
   }
 }

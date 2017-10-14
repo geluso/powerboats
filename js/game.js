@@ -45,7 +45,7 @@ class Game {
     this.currentPlayerIndex %= this.boats.length;
 
     if (this.getCurrentPlayer().isAI()) {
-      var strategyClass = TurnTowardBuoyFast;
+      var strategyClass = CONFIG.ALL_AI_STRATEGY;
       var ai = new AITurn(this, strategyClass);
       ai.initiateTurnStart();
     }

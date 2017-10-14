@@ -60,8 +60,6 @@ class Boat {
       this.damage += damage;
       this.dice = [];
     }
-
-    this.finishMovement();
   }
 
   followRoute(isMovingBoatAlongRoute) {
@@ -87,10 +85,6 @@ class Boat {
     }
 
     return damage;
-  }
-
-  finishMovement() {
-    this.game.endTurn();
   }
 
   trackProgress() {
