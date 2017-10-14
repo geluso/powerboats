@@ -60,5 +60,14 @@ class Game {
       this.boats[i].planner.explore();
     }
   }
+
+  replaceCurrentBoat(newBoat) {
+    var oldBoat = this.getCurrentPlayer();
+    oldBoat.tile.isDirty = true;
+    oldBoat.tile.hovering = false;
+
+    this.boats[this.currentPlayerIndex] = newBoat;
+    draw();
+  }
 }
 

@@ -1,10 +1,14 @@
 class FinishLineDetector {
   constructor() {
     this.finishLineTiles = [];
+    this.pointsActivated = 0;
   }
 
   add(tile) {
     this.finishLineTiles.push(tile);
+    if (this.finishLineTiles.length === 1) {
+      this.tile = tile;
+    }
   }
 
   track(boat, tile) {
@@ -20,8 +24,7 @@ class FinishLineDetector {
     for (var i = 0; i < this.finishLineTiles.length; i++) {
       var finishLineTile = this.finishLineTiles[i];
       if (tilesEqual(tile, finishLineTile)) {
-        console.log("WON", boat);
-        return;
+        this.pointsActivated++;
       }
     }
   }
@@ -30,7 +33,12 @@ class FinishLineDetector {
   }
 
   clone() {
-    return new FinishLineDetector();
+    var finish = new FinishLineDetector();
+    for (var i = 0; i < this.finishLineTiles.length; i++) {
+      finish.add(this.finishLineTiles[i]);
+    }
+
+    return finish;
   }
 }
 

@@ -18,7 +18,7 @@ class Boat {
       this.trackers.push(buoyTracker);
     }
 
-    var finishTracker = new FinishLineDetector();
+    var finishTracker = BOARD.finishLineDetector.clone();
     this.trackers.push(finishTracker);
 
     // the highest buoy that this boat has circled.
@@ -247,8 +247,6 @@ class Boat {
       clone.trackers.push(tracker);
     }
 
-    console.log("origi", this);
-    console.log("clone", clone);
     return clone;
   }
 }

@@ -53,16 +53,14 @@ class RoutePlanner {
       var boat = options[i];
       var score = this.scoreTurn(boat);
 
-      console.log(score, boat);
-
       if (score > bestScore) {
         bestScore = score;
         bestBoat = boat;
       }
     }
 
-    GAME.boats.push(bestBoat);
-    draw();
+    // replace old boat with the best option.
+    GAME.replaceCurrentBoat(bestBoat);
   }
 
   scoreTurn(boat) {
@@ -74,11 +72,22 @@ class RoutePlanner {
     var currentTracker = boat.trackers[boat.trackerIndex];
     score += 10 * currentTracker.pointsActivated;
 
-    // slightly reward boats closer to the buoy
-    score -= TileGeo.distance(boat.tile, currentTracker.tile);
+    if (currentTracker instanceof FinishLineDetector) {
+      score += 1000 * currentTracker.pointsActivated;
+      score -= 2 * TileGeo.distance(boat.tile, currentTracker.tile);
+    } else {
+      // slightly reward boats closer to the buoy
+      score -= TileGeo.distance(boat.tile, currentTracker.tile);
+    }
 
     // slightly punish damage
     score -= 2 * boat.damage;
+
+    // but keep boat from destroying itself.
+    if (boat.damage >= 4) {
+      return -Infinity;
+    }
+
     return score;
   }
 }
