@@ -41,6 +41,10 @@ class Game {
   }
 
   delayedEndTurn() {
+    if (this.getCurrentPlayer()) {
+      this.getCurrentPlayer().unhighlightRoute();
+    }
+
     this.currentPlayerIndex++;
     this.currentPlayerIndex %= this.boats.length;
 

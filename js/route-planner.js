@@ -7,12 +7,6 @@ class RoutePlanner {
   }
 
   explore(depth) {
-    if (this.boat.explored) {
-      return;
-    }
-    this.boat.explored = true;
-
-
     if (depth === undefined) {
       depth = 0;
     }
