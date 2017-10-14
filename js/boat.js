@@ -223,7 +223,7 @@ class Boat {
   }
 
   clone() {
-    var clone = new Boat(this.game, this.color, this.tile, this.type);
+    var clone = new BoatClone(this.game, this.color, this.tile, this.type);
     clone.damage = this.damage;
     clone.direction = this.direction;
     clone.trackerIndex = this.trackerIndex;
