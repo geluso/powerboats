@@ -7,6 +7,11 @@ var CONTROLS = (function() {
   var maintainSpeedButton = document.getElementById("maintain");
   var speedUpButton = document.getElementById("speedup");
 
+  var aiExplore = document.getElementById("ai-explore");
+  attach(aiExplore, function() {
+    GAME.explore();
+  });
+
   function attach(btn, func) {
     btn.addEventListener("click", func);
   }
