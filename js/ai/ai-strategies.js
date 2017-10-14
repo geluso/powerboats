@@ -101,6 +101,10 @@ class UseRoutePlanner {
     if (this.cycle === 1) {
       var boat = this.game.getCurrentPlayer();
       boat.planner.explore();
+
+      // add delay showing the turn the boat makes
+      // before making the actual move.
+
       return false;
     }
 

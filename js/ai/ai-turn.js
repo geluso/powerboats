@@ -5,13 +5,10 @@ class AITurn {
   }
 
   initiateTurnStart() {
-    console.log("initiating turn");
     this.waitDelay();
   }
 
   waitDelay() {
-    console.log("delaying");
-
     var that = this;
     setTimeout(function() {
       that.considerOptions();  
@@ -20,11 +17,14 @@ class AITurn {
 
   considerOptions() {
     var isStrategyResolved = this.strategy.churn();
+
+    var boat = this.game.getCurrentPlayer();
+    boat.highlightRoute();
+    draw();
+
     if (isStrategyResolved) {
       this.submitTurn();
     } else {
-      var boat = this.game.getCurrentPlayer();
-      draw();
       this.waitDelay();
     }
   }
