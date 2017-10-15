@@ -19,21 +19,14 @@ TileSpace.prototype.init = function(width, height) {
   var biggerOne = width;
   var smallerOne = height;
 
+  var tiles = 30;
   if (height > width) {
     biggerOne = height;
     smallerOne = width;
+    tiles = 60;
   }
 
-  // TILE_SIZE = size;
-  // EDGE_LENGTH = TILE_SIZE;
-  // HALF_EDGE = EDGE_LENGTH / 2;
-  // TILE_HEIGHT = Math.sqrt(3) / 2 * HALF_EDGE;
-
-  var tiles = 30;
-  TILE_HEIGHT = smallerOne / tiles / 4;
-  if (smallerOne === width) {
-    TILE_HEIGHT *= 1.7;
-  }
+  TILE_HEIGHT = height / tiles / 4;
   HALF_EDGE = TILE_HEIGHT / (Math.sqrt(3) / 2);
   EDGE_LENGTH = HALF_EDGE * 2;
   TILE_SIZE = EDGE_LENGTH;
