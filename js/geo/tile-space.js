@@ -264,6 +264,9 @@ TileSpace.prototype.markCoastalEdges = function() {
 
 TileSpace.prototype.getByKey = function(key) {
   var tile = this.keyedTiles[key];
+  if (!tile) {
+    return this.keyedTiles["1,0,-1"];
+  }
   return tile;
 };
 
