@@ -16,9 +16,9 @@ var CONFIG = {
   AI_TURN_DELAY: 1000,
   //PLAYER_TYPES: ["local-human", "ai", "ai", "ai", "ai"],
   //COLORS: ["yellow", "purple", "white", "green", "orange"],
-  //COLORS: ["yellow", "purple"],
-  //PLAYER_TYPES: ["local-human", "ai"],
-  COLORS: ["yellow"],
-  PLAYER_TYPES: ["local-human"],
+  COLORS: ["yellow", "purple"],
+  PLAYER_TYPES: ["local-human", "ai"],
+  //COLORS: ["yellow"],
+  //PLAYER_TYPES: ["local-human"],
   ALL_AI_STRATEGY: RoutePlanningStrategy,
 };
