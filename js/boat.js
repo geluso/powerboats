@@ -223,7 +223,7 @@ class Boat {
   }
 
   clone() {
-    var clone = new BoatClone(this.game, this.color, this.tile, this.type);
+    var clone = new BoatClone(this);
     clone.damage = this.damage;
     clone.direction = this.direction;
     clone.trackerIndex = this.trackerIndex;
@@ -242,5 +242,10 @@ class Boat {
     }
 
     return clone;
+  }
+
+  coords() {
+    var tile = this.tile;
+    return [tile.xIndex, this.yIndex, this.zIndex];
   }
 }

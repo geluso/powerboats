@@ -8,18 +8,12 @@ class RoutePlanner {
 
   explore() {
     var options = this.deepExplore(this.boat);
-    console.log("options:", options);
-
     var bestBoat = this.findBestScore(options);
-    console.log("best:", bestBoat);
 
-    for (var i = 0; i < options.length; i++) {
-      GAME.boats.push(options[i]);
-    }
+    var nextActions = bestBoat.getFirstClone().actions;
+    this.performActions(this.boat, nextActions);
+
     draw();
-
-    // replace old boat with the best option.
-    //GAME.replaceCurrentBoat(bestBoat);
   }
 
   deepExplore(boat, depth, options) {
@@ -31,7 +25,7 @@ class RoutePlanner {
       depth = 1;
     }
 
-    if (depth === 3) {
+    if (depth === 4) {
       return options;
     }
 
@@ -41,22 +35,14 @@ class RoutePlanner {
     for (var a1 = 0; a1 < action1.length; a1++) {
       for (var a2 = 0; a2 < action2.length; a2++) {
         var newBoat = boat.clone();
-        options.push(newBoat);
-
-        if (action1[a1] === "left") {
-          newBoat.turnLeft();
-        } else if (action1[a1] === "right") {
-          newBoat.turnRight();
-        }
-
-        if (action2[a2] === "slower") {
-          newBoat.slowDown();
-        } else if (action2[a2] === "faster") {
-          newBoat.speedUp();
-        }
 
         // all boats go straight after making their other moves
-        newBoat.goStraight();
+        var actions = [action1[a1], action2[a2], "go"];
+
+        options.push(newBoat);
+
+        // manipulate those actions
+        this.performActions(newBoat, actions);
 
         this.deepExplore(newBoat, depth + 1, options);
       }
@@ -65,13 +51,36 @@ class RoutePlanner {
     return options;
   }
 
+  performActions(boat, actions) {
+    for (var i = 0; i < actions.length; i++) {
+      if (actions[i] === "left") {
+        boat.turnLeft();
+      } else if (actions[i] === "right") {
+        boat.turnRight();
+      }
+
+      if (actions[i] === "slower") {
+        boat.slowDown();
+      } else if (actions[i] === "faster") {
+        boat.speedUp();
+      }
+
+      if (actions[i] === "go") {
+        boat.goStraight();
+      }
+    }
+  }
+
   findBestScore(options) {
     var bestScore = 0;
     var bestBoat = options[0].boat;
     for (var i = 0; i < options.length; i++) {
       var boat = options[i];
-      var score = this.scoreTurn(boat);
+      if (!boat) {
+        continue;
+      }
 
+      var score = this.scoreTurn(boat);
       if (score > bestScore) {
         bestScore = score;
         bestBoat = boat;
