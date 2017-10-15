@@ -31,6 +31,9 @@ TileSpace.prototype.init = function(width, height) {
 
   var tiles = 30;
   TILE_HEIGHT = smallerOne / tiles / 4;
+  if (smallerOne === width) {
+    TILE_HEIGHT *= 1.7;
+  }
   HALF_EDGE = TILE_HEIGHT / (Math.sqrt(3) / 2);
   EDGE_LENGTH = HALF_EDGE * 2;
   TILE_SIZE = EDGE_LENGTH;
