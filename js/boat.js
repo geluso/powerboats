@@ -166,7 +166,7 @@ class Boat {
   targetNextBuoy() {
     this.trackerIndex++;
     if (this.trackerIndex >= 3) {
-      console.log("to finish line!", this);
+      // to finish line!
     }
   }
 
