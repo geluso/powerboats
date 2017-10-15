@@ -1,3 +1,6 @@
+var OFF_CENTER_INDEX = 0;
+var CAN_ADJUST_SPEED = false;
+
 class Game {
   constructor(board) {
     this.board = board;
@@ -51,6 +54,8 @@ class Game {
       var strategyClass = CONFIG.ALL_AI_STRATEGY;
       var ai = new AITurn(this, strategyClass);
       ai.initiateTurnStart();
+    } else {
+      this.resetRestrictions();
     }
 
     this.getCurrentPlayer().highlightRoute();
@@ -71,6 +76,11 @@ class Game {
 
     this.boats[this.currentPlayerIndex] = newBoat;
     draw();
+  }
+
+  resetRestrictions() {
+    OFF_CENTER_INDEX = 0;
+    CAN_ADJUST_SPEED = true;
   }
 }
 

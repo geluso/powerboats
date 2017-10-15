@@ -22,21 +22,37 @@ var CONTROLS = (function() {
   }
 
   function turnLeft() {
-    getCurrentPlayer().turnLeft();
-    getCurrentPlayer().highlightRoute();
+    if (OFF_CENTER_INDEX > -1) {
+      getCurrentPlayer().turnLeft();
+      getCurrentPlayer().highlightRoute();
+    }
+
+    OFF_CENTER_INDEX--;
+    OFF_CENTER_INDEX = Math.max(OFF_CENTER_INDEX, -1);
   };
+
   function goStraight() {
     getCurrentPlayer().goStraight();
     GAME.endTurn();
   };
+
   function turnRight() {
-    getCurrentPlayer().turnRight();
-    getCurrentPlayer().highlightRoute();
+    if (OFF_CENTER_INDEX < 1) {
+      getCurrentPlayer().turnRight();
+      getCurrentPlayer().highlightRoute();
+    }
+
+    OFF_CENTER_INDEX++;
+    OFF_CENTER_INDEX = Math.min(OFF_CENTER_INDEX, 1);
   };
 
   function slowDown() {
-    getCurrentPlayer().slowDown();
-    getCurrentPlayer().highlightRoute();
+    if (CAN_ADJUST_SPEED) {
+      getCurrentPlayer().slowDown();
+      getCurrentPlayer().highlightRoute();
+    }
+
+    CAN_ADJUST_SPEED = false;
 
     reportSpeed();
   };
@@ -44,8 +60,12 @@ var CONTROLS = (function() {
     getCurrentPlayer().highlightRoute();
   };
   function speedUp() {
-    getCurrentPlayer().speedUp();
-    getCurrentPlayer().highlightRoute();
+    if (CAN_ADJUST_SPEED) {
+      getCurrentPlayer().speedUp();
+      getCurrentPlayer().highlightRoute();
+    }
+
+    CAN_ADJUST_SPEED = false;
 
     reportSpeed();
   };

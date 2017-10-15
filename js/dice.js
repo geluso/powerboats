@@ -1,6 +1,9 @@
 class Dice {
-  constructor() {
+  constructor(val) {
     this.roll();
+    if (val) {
+      this.val = val;
+    }
   }
 
   roll() {

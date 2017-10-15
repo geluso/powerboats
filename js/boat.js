@@ -2,7 +2,7 @@ class Boat {
   constructor(game, color, tile, type) {
     this.game = game;
     this.damage = 0;
-    this.dice = [new Dice()];
+    this.dice = [new Dice(1)];
 
     this.planner = new RoutePlanner(game.board, this);
 
