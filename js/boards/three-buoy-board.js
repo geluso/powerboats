@@ -15,7 +15,7 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
   FullscreenBoard.prototype.init.call(this, tilespace);
   
   var startPos;
-  if (false && CONFIG.USE_BUOY_ARRAY) {
+  if (CONFIG.USE_BUOY_ARRAY) {
     startPos = CONFIG.START_POSITION;
     for (var i = 0; i < CONFIG.BUOYS.length; i++) {
       var buoyKey = CONFIG.BUOYS[i];
