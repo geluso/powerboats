@@ -41,6 +41,9 @@ class Boat {
 
   turnLeft() {
     this.direction = Directions.counterClockwiseNext[this.direction];
+    if (typeof this.tile === "string") {
+        this.tile = this.game.board.tilespace.getByKey(this.tile);
+    }
     this.tile.isDirty = true;
   }
 
