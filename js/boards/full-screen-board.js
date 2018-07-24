@@ -36,6 +36,7 @@ FullscreenBoard.prototype.getTile = function(x, y) {
     var yy = Math.abs(this.tiles[i].y - y);
     if (xx < TILE_SIZE && yy < TILE_SIZE) {
       tile = this.tiles[i];
+      return tile;
     }
   }
 
