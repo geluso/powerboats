@@ -93,21 +93,7 @@ TileSpace.prototype.createHexagons = function() {
       x = Math.floor(x);
       y = Math.floor(y);
 
-      var landBorder = 3;
-      var tile;
-      if (row < landBorder - 1 || col < landBorder ||
-          row > maxRows - landBorder ||
-          col > this.cols - landBorder) {
-        tile = tileGen.landTile(x, y);
-      } else {
-        var choice = Math.random();
-        var threshold = 1 / 40;
-        if (choice < threshold) {
-          tile = tileGen.landTile(x, y);
-        } else {
-          tile = tileGen.waterTile(x, y);
-        }
-      }
+      tile = tileGen.waterTile(x, y);
 
       tile.xIndex = xIndex;
       tile.yIndex = yIndex;

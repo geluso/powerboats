@@ -12,7 +12,7 @@ var SCREEN;
 
 function main() {
   // load the game with the SixPlayerBoard by default.
-  newGame(ThreeBuoyBoard);
+  newGame(FullscreenBoard);
 }
 
 function newGame(board) {
@@ -35,9 +35,6 @@ function newGame(board) {
   GAME = new Game(board);
   SCREEN = new Screen(width, height, GAME);
   SCREEN.draw();
-  GAME.delayedEndTurn();
-
-  CONTROLS.reportSpeed();
 }
 
 function draw() {

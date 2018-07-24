@@ -1,6 +1,5 @@
 function TileDrawer(ctx) {
   this.ctx = ctx;
-  this.buoyDrawer = new BuoyDrawer(ctx);
 
   this.drawTiles = function(tiles) {
     this.ctx.save();
@@ -8,10 +7,6 @@ function TileDrawer(ctx) {
     for (var i = 0; i < tiles.length; i++) {
       var tile = tiles[i];
       this.draw(tile);
-
-      if (tile.buoy) {
-        this.buoyDrawer.draw(tile.buoy, tile.x, tile.y);
-      }
     }
 
     this.ctx.restore();
@@ -27,11 +22,7 @@ function TileDrawer(ctx) {
     var stroke = "black";
 
     if (tile.hovering) {
-      var player = GAME.getCurrentPlayer();
-      if (player) {
-        var hoverColor = player.color;
-        tile.shape.fillStroke(this.ctx, hoverColor, stroke);
-      }
+      tile.shape.fillStroke(this.ctx, "yellow", stroke);
     } else {
       tile.shape.fillStroke(this.ctx, tile.resource.color, stroke);
     }
