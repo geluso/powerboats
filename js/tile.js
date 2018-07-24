@@ -113,6 +113,16 @@ Tile.prototype.southWest = function() {
   return this.keyObjectToKey(key);
 };
 
+Tile.prototype.cycleTile = function() {
+  if (this.resource.color === "yellow") {
+    this.resource = {color: "red"};
+  } else if (this.resource.color === "red") {
+    this.resource = {color: "green"};
+  } else {
+    this.resource = {color: "yellow"};
+  }
+}
+
 function TileGenerator() {
   this.waterTile = function(x, y) {
     var resource = WATER;

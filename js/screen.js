@@ -59,6 +59,10 @@ Screen.prototype.handleClick = function(e) {
     return;
   }
 
+  if (thing.cycleTile) {
+    thing.cycleTile();
+  }
+
   SCREEN.dirty = false;
   if (thing && LAST_THING && thing !== LAST_THING) {
     SCREEN.dirty = true;

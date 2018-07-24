@@ -29,4 +29,5 @@ BoardDrawer.prototype.draw = function() {
       Point.draw(this.ctx, tile, highlightColor);
     }
   }
+  this.ctx.restore();
 };

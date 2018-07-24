@@ -24,7 +24,7 @@ function Hexagon(x, y, size) {
     ctx.save();
 
     this.strokeShape(ctx);
-    ctx.fillStyle = color;
+    ctx.fillStyle = "Teal";
     ctx.fill();
     
     ctx.restore();

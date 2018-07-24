@@ -21,13 +21,13 @@ function TileDrawer(ctx) {
 
     var stroke = "black";
 
+    this.ctx.save();
     if (tile.hovering) {
-      tile.shape.fillStroke(this.ctx, "yellow", stroke);
+      tile.shape.fillStroke(this.ctx, "orange", stroke);
     } else {
       tile.shape.fillStroke(this.ctx, tile.resource.color, stroke);
     }
 
-    this.ctx.save();
     this.ctx.font = CONFIG.COORD_TEXT_SIZE + " serif";
     this.ctx.textAlign = "center";
     this.ctx.textBaseLine = "hanging";
