@@ -9,10 +9,18 @@ var space;
 var BOARD;
 var GAME;
 var SCREEN;
+var CURR_COLOR = "yellow";
 
 function main() {
   // load the game with the SixPlayerBoard by default.
   newGame(FullscreenBoard);
+  for (button of actions.getElementsByClassName("color-picker")){
+      button.addEventListener("click", (ev) => {
+        console.log("selected new color", ev.target);
+        var color = button.getElementsByClassName("color")[0];
+        CURR_COLOR = color.getAttribute("data-color");
+    });
+  }
 }
 
 function newGame(board) {

@@ -114,13 +114,7 @@ Tile.prototype.southWest = function() {
 };
 
 Tile.prototype.cycleTile = function() {
-  if (this.resource.color === "yellow") {
-    this.resource = {color: "red"};
-  } else if (this.resource.color === "red") {
-    this.resource = {color: "green"};
-  } else {
-    this.resource = {color: "yellow"};
-  }
+  this.resource = {color: CURR_COLOR};
 }
 
 function TileGenerator() {
