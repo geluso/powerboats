@@ -56,6 +56,7 @@ class Game {
       ai.initiateTurnStart();
     } else {
       this.resetRestrictions();
+      this.pollForMove();
     }
 
     this.getCurrentPlayer().highlightRoute();
@@ -81,6 +82,60 @@ class Game {
   resetRestrictions() {
     OFF_CENTER_INDEX = 0;
     CAN_ADJUST_SPEED = true;
+  }
+
+  pollForMove() {
+    var url = "http://localhost:8080/command";
+    fetch(url).then(function(response) {
+        var contentType = response.headers.get("content-type");
+        if(contentType && contentType.includes("application/json")) {
+          return response.json();
+        }
+        throw new TypeError("Oops, we haven't got JSON!");
+    })
+    .then((json) => this.handleJson(json) )
+    .catch(function(error) { console.log(error); });
+  }
+
+
+  handleJson(command) {
+      this.applyCommand(command);
+
+      // make sure a local player hasn't submitted a turn.
+      var isTurnFinished = command.isCommitted;
+      if (!this.getCurrentPlayer().isAI() && !isTurnFinished) {
+          setTimeout(() => {
+              this.pollForMove();
+          }, 1000);
+      } else {
+        var url = "http://localhost:8080/command/reset";
+        fetch(url);
+      }
+  }
+
+  applyCommand(command) {
+    var player = this.getCurrentPlayer();
+
+    if (command.isLeft) {
+        CONTROLS.setLeft()
+    } else if (command.isRight) {
+        CONTROLS.setRight()
+    } else if (command.isStraight) {
+        CONTROLS.setCenter()
+    }
+
+    if (command.isSpeedFaster) {
+        CONTROLS.speedUp();
+    } else if (command.isSpeedSlower) {
+        CONTROLS.slowDown();
+    }
+
+    if (command.isCommitted) {
+        // finalize turn after making turn and speed manipulations
+        CONTROLS.goStraight();
+    }
+
+    draw();
   }
 }
 

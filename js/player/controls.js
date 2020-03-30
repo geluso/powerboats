@@ -21,6 +21,26 @@ var CONTROLS = (function() {
     return player;
   }
 
+  function setLeft() {
+    setCenter();
+    turnLeft();
+  }
+
+  function setRight() {
+    setCenter();
+    turnRight();
+  }
+
+  function setCenter() {
+    if (OFF_CENTER_INDEX === -1) {
+        turnRight();
+    }
+
+    if (OFF_CENTER_INDEX === 1) {
+        turnLeft();
+    }
+  }
+
   function turnLeft() {
     if (OFF_CENTER_INDEX > -1) {
       getCurrentPlayer().turnLeft();
@@ -86,13 +106,10 @@ var CONTROLS = (function() {
   }
 
   var publicFunctions = {
-    turnLeft: turnLeft,
-    turnRight: turnRight,
-    goStraight: goStraight,
-    slowDown: slowDown,
-    speedUp: speedUp,
-    maintainSpeed: maintainSpeed,
-    reportSpeed: reportSpeed
+    setLeft, setRight, setCenter,
+    turnLeft, turnRight, goStraight,
+    slowDown, speedUp, maintainSpeed,
+    reportSpeed,
   };
 
   for (var key in publicFunctions) {
