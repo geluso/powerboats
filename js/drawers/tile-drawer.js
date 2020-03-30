@@ -2,7 +2,7 @@ function TileDrawer(ctx) {
   this.ctx = ctx;
   this.buoyDrawer = new BuoyDrawer(ctx);
 
-  this.drawTiles = function(tiles) {
+  this.drawTiles = function (tiles) {
     this.ctx.save();
 
     for (var i = 0; i < tiles.length; i++) {
@@ -18,7 +18,7 @@ function TileDrawer(ctx) {
 
   };
 
-  this.draw = function(tile) {
+  this.draw = function (tile) {
     if (!tile.isDirty) {
       return;
     }
@@ -40,10 +40,10 @@ function TileDrawer(ctx) {
     this.ctx.font = CONFIG.COORD_TEXT_SIZE + " serif";
     this.ctx.textAlign = "center";
     this.ctx.textBaseLine = "hanging";
-                          
+
     var drawCoords = CONFIG.DRAW_COORDS || (tile.hovering && CONFIG.DRAW_HOVER_COORDS);
     if (drawCoords) {
-      var indexLabel = [tile.xIndex, tile.yIndex, tile.zIndex].join(",");
+      var indexLabel = [tile.col, tile.row, tile.zIndex].join(",");
       var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
       if (sum < 30 || true) {
         this.ctx.strokeText(indexLabel, tile.x, tile.y + 2);

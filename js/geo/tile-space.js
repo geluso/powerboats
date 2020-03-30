@@ -12,7 +12,7 @@ function TileSpace() {
   this.everything = [];
 }
 
-TileSpace.prototype.init = function(width, height) {
+TileSpace.prototype.init = function (width, height) {
   this.width = width;
   this.height = height;
 
@@ -46,7 +46,7 @@ TileSpace.prototype.init = function(width, height) {
   return this;
 };
 
-TileSpace.prototype.curateBoard = function() {
+TileSpace.prototype.curateBoard = function () {
   this.gatherAndDedupeCornersAndEdges();
   this.collectNieghboringEdges();
   this.collectNieghboringCorners();
@@ -58,7 +58,7 @@ TileSpace.prototype.curateBoard = function() {
   this.everything = _.union(this.tiles, this.corners, this.edges);
 };
 
-TileSpace.prototype.createHexagons = function() {
+TileSpace.prototype.createHexagons = function () {
   var tileGen = new TileGenerator();
   var maxRows = this.rows + 1;
 
@@ -96,8 +96,8 @@ TileSpace.prototype.createHexagons = function() {
       var landBorder = 3;
       var tile;
       if (row < landBorder - 1 || col < landBorder ||
-          row > maxRows - landBorder ||
-          col > this.cols - landBorder) {
+        row > maxRows - landBorder ||
+        col > this.cols - landBorder) {
         tile = tileGen.landTile(x, y);
       } else {
         var choice = Math.random();
@@ -127,15 +127,15 @@ var CENTER;
 
 // find the centermost tile and schooch all tiles so they're
 // centered in the screen.
-TileSpace.prototype.centerTiles = function() {
+TileSpace.prototype.centerTiles = function () {
   // target the center of the screen.
-  var target = {x: this.width / 2, y: this.height / 2};
+  var target = { x: this.width / 2, y: this.height / 2 };
 
   var bestDiff;
   var bestTile;
 
   // compare each tile to the ideal target point to find the closest center tile.
-  _.each(this.tiles, function(tile) {
+  _.each(this.tiles, function (tile) {
     var diff = Math.abs(tile.x - target.x) + Math.abs(tile.y - target.y);
     if (bestTile === undefined || diff < bestDiff) {
       bestDiff = diff;
@@ -152,26 +152,26 @@ TileSpace.prototype.centerTiles = function() {
   var yOffset = target.y - (this.centerTile.y);
 
   // move all tiles according to the center measured distance
-  _.each(this.tiles, function(tile) {
+  _.each(this.tiles, function (tile) {
     tile.setX(tile.x + xOffset);
     tile.setY(tile.y + yOffset);
   });
 };
 
-TileSpace.prototype.centerOnHexCenter = function() {
+TileSpace.prototype.centerOnHexCenter = function () {
   // this is default layout
 };
 
-TileSpace.prototype.centerOnHexEdges = function() {
+TileSpace.prototype.centerOnHexEdges = function () {
   var xOffset = TILE_HEIGHT + EDGE_LENGTH;
 
   // move all tiles according to the center measured distance
-  _.each(this.tiles, function(tile) {
+  _.each(this.tiles, function (tile) {
     tile.setX(tile.x - xOffset);
   });
 };
 
-TileSpace.prototype.gatherAndDedupeCornersAndEdges = function() {
+TileSpace.prototype.gatherAndDedupeCornersAndEdges = function () {
   // gather and dedupe all corners and edges
   for (var i = 0; i < this.tiles.length; i++) {
     var tile = this.tiles[i];
@@ -188,22 +188,22 @@ TileSpace.prototype.gatherAndDedupeCornersAndEdges = function() {
   }
 };
 
-TileSpace.prototype.collectNieghboringEdges = function() {
+TileSpace.prototype.collectNieghboringEdges = function () {
   // build network of neighboring edges
-  _.each(this.edges, function(edge) {
+  _.each(this.edges, function (edge) {
     var neighbors = edge.getNeighborEdges(this);
     this.edgeGraph[edge.key()] = neighbors;
   }, this);
 };
 
-TileSpace.prototype.collectNieghboringCorners = function() {
+TileSpace.prototype.collectNieghboringCorners = function () {
   // build network of neighboring corners
-  _.each(this.corners, function(corner) {
+  _.each(this.corners, function (corner) {
     this.cornerGraph[corner.key()] = [];
     this.cornerToEdges[corner.key()] = [];
   }, this);
 
-  _.each(this.edges, function(edge) {
+  _.each(this.edges, function (edge) {
     this.cornerGraph[edge.c1.key()].push(edge.c2);
     this.cornerGraph[edge.c2.key()].push(edge.c1);
 
@@ -212,7 +212,7 @@ TileSpace.prototype.collectNieghboringCorners = function() {
   }, this);
 };
 
-TileSpace.prototype.markCoastalEdges = function() {
+TileSpace.prototype.markCoastalEdges = function () {
   var edges;
   this.water = [];
   this.land = [];
@@ -220,27 +220,27 @@ TileSpace.prototype.markCoastalEdges = function() {
   var coastalEdges = [];
   var coastalTiles = [];
 
-  _.each(this.tiles, function(tile) {
+  _.each(this.tiles, function (tile) {
     if (tile.resource.name === "water") {
       this.water.push(tile);
 
       edges = tile.shape.getEdges();
-      _.each(edges, function(edge) {
+      _.each(edges, function (edge) {
         edge.hasWater = true;
       });
     } else {
       this.land.push(tile);
       edges = tile.shape.getEdges();
-      _.each(edges, function(edge) {
+      _.each(edges, function (edge) {
         edge.hasLand = true;
       });
     }
   }, this);
 
-  _.each(this.water, function(tile) {
+  _.each(this.water, function (tile) {
     var edges = tile.shape.getEdges();
 
-    _.each(edges, function(edge) {
+    _.each(edges, function (edge) {
       if (edge.hasLand) {
         coastalEdges.push(edge);
         edge.isCoast = true;
@@ -258,7 +258,7 @@ TileSpace.prototype.markCoastalEdges = function() {
   this.coastalTiles = coastalTiles;
 };
 
-TileSpace.prototype.getByKey = function(key) {
+TileSpace.prototype.getByKey = function (key) {
   var tile = this.keyedTiles[key];
   if (!tile) {
     return this.keyedTiles["1,0,-1"];
@@ -266,7 +266,7 @@ TileSpace.prototype.getByKey = function(key) {
   return tile;
 };
 
-TileSpace.prototype.nextTileInDirection = function(tile, direction) {
+TileSpace.prototype.nextTileInDirection = function (tile, direction) {
   if (!tile) {
     return;
   }

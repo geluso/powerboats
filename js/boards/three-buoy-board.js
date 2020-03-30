@@ -10,10 +10,21 @@ function ThreeBuoyBoard() {
 
 ThreeBuoyBoard.prototype = new FullscreenBoard();
 
-ThreeBuoyBoard.prototype.init = function(tilespace) {
+ThreeBuoyBoard.prototype.init = function (tilespace) {
   // Let the original Board set up itself.
   FullscreenBoard.prototype.init.call(this, tilespace);
-  
+
+  function chooseInsideTile(tiles, minDistance) {
+    while (true) {
+      const tile = _.sample(tiles);
+      const isWithinVertical = tile.row >= minDistance && tile.row < (tilespace.rows - minDistance);
+      const isWithinHorizontal = tile.col >= minDistance && tile.col < (tilespace.cols - minDistance);
+      if (isWithinVertical && isWithinHorizontal) {
+        return tile;
+      }
+    }
+  }
+
   var startPos;
   if (false && CONFIG.USE_BUOY_ARRAY) {
     startPos = CONFIG.START_POSITION;
@@ -25,10 +36,10 @@ ThreeBuoyBoard.prototype.init = function(tilespace) {
       tile.buoy = buoy;
     }
   } else {
-    startPos = _.sample(this.tilespace.tiles);
+    startPos = chooseInsideTile(this.tilespace.tiles, 10);
     var buoysPlaced = 1;
     while (buoysPlaced <= this.NUMBER_OF_BUOYS) {
-      var tile = _.sample(this.tilespace.tiles);
+      var tile = chooseInsideTile(this.tilespace.tiles, 5)
       var buoy = new Buoy(buoysPlaced, tile);
       this.buoys.push(buoy);
 

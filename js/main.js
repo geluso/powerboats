@@ -19,7 +19,7 @@ function newGame(board) {
   if (SCREEN !== undefined) {
     SCREEN.destoryHandlers();
   }
-  
+
   // determine the size
   var width = window.innerWidth;
   var height = window.innerHeight;
@@ -34,7 +34,7 @@ function newGame(board) {
 
   GAME = new Game(board);
   SCREEN = new Screen(width, height, GAME);
-  SCREEN.draw();
+  SCREEN.draw(board);
   GAME.delayedEndTurn();
 
   CONTROLS.reportSpeed();
