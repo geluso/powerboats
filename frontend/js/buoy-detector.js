@@ -1,4 +1,5 @@
 const Directions = require('./geo/directions');
+const Point = require('./geo/point');
 
 class BuoyDetector {
   constructor(boat, buoy, board) {
@@ -119,7 +120,7 @@ class BuoyDetector {
   }
 
   clone(boat) {
-    var clone = new BuoyDetector(boat, this.buoy);
+    var clone = new BuoyDetector(boat, this.buoy, this.board);
 
     clone.boat = boat;
     clone.buoy = this.buoy;

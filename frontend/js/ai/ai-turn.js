@@ -1,7 +1,8 @@
 const CONFIG = require('../config')
 
 class AITurn {
-  constructor(game, strategyClass) {
+  constructor(screen, game, strategyClass) {
+    this.screen = screen;
     this.game = game;
     this.strategy = new strategyClass(game);
   }
@@ -22,7 +23,6 @@ class AITurn {
 
     var boat = this.game.getCurrentPlayer();
     boat.highlightRoute();
-    draw();
 
     if (isStrategyResolved) {
       this.submitTurn();
@@ -32,7 +32,7 @@ class AITurn {
   }
 
   submitTurn() {
-    GAME.endTurn();
+    this.game.endTurn();
   }
 }
 

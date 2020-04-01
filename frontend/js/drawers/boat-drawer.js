@@ -1,5 +1,6 @@
-function BoatDrawer(ctx) {
+function BoatDrawer(ctx, game) {
   this.ctx = ctx;
+  this.game = game;
 
   this.draw = function (boat) {
     var x = boat.tile.x;
@@ -34,7 +35,7 @@ function BoatDrawer(ctx) {
 
     this.ctx.restore();
 
-    if (GAME.getCurrentPlayer() === boat) {
+    if (this.game.getCurrentPlayer() === boat) {
       for (var j = 0; j < boat.trackers.length; j++) {
         var tracker = boat.trackers[j];
         tracker.draw(this.ctx);

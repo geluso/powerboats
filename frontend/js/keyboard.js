@@ -1,34 +1,40 @@
-(function() {
+const Keyboard = {};
+
+Keyboard.init = (controls) => {
   $(document).keyup(release);
 
-  var KEYBOARD = {},
-    LEFT = 37,
-    UP = 38,
-    RIGHT = 39,
-    DOWN = 40;
-    ENTER = 13;
+  const KEYBOARD = {};
+  const LEFT = 37;
+  const UP = 38;
+  const RIGHT = 39;
+  const DOWN = 40;
+  const ENTER = 13;
 
   function release(e) {
     KEYBOARD[e.which] = true;
 
     if (KEYBOARD[LEFT]) {
-      CONTROLS.turnLeft();
+      controls.turnLeft();
     }
 
     if (KEYBOARD[RIGHT]) {
-      CONTROLS.turnRight();
+      controls.turnRight();
     }
 
     if (KEYBOARD[UP]) {
-      CONTROLS.speedUp();
+      controls.speedUp();
     }
     if (KEYBOARD[DOWN]) {
-      CONTROLS.slowDown();
+      controls.slowDown();
     }
     if (KEYBOARD[ENTER]) {
-      CONTROLS.goStraight();
+      controls.goStraight();
     }
 
     KEYBOARD[e.which] = false;
   }
-})();
+};
+
+if (typeof module !== "undefined" && !!module) {
+  module.exports = Keyboard;
+}

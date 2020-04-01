@@ -11,8 +11,7 @@ class Game {
     this.board = board;
     board.game = this;
 
-    // HACK: start it at -1 so it slips into zero by starting with ending a turn.
-    this.currentPlayerIndex = -1;
+    this.currentPlayerIndex = 0;
     this.boats = [];
 
     var colors = CONFIG.COLORS;
@@ -38,10 +37,6 @@ class Game {
     }
   }
 
-  draw() {
-    this.board.draw();
-  }
-
   getCurrentPlayer() {
     var player = this.boats[this.currentPlayerIndex];
     return player;
@@ -51,28 +46,25 @@ class Game {
     if (this.getCurrentPlayer()) {
       this.getCurrentPlayer().unhighlightRoute();
     }
-    draw();
 
-    var that = this;
-    setTimeout(function () {
-      that.delayedEndTurn();
+    setTimeout(() => {
+      this.delayedEndTurn();
     }, CONFIG.AI_TURN_DELAY);
   }
 
-  delayedEndTurn() {
+  delayedEndTurn(screen) {
     this.currentPlayerIndex++;
     this.currentPlayerIndex %= this.boats.length;
 
     if (this.getCurrentPlayer().isAI()) {
       var strategyClass = CONFIG.ALL_AI_STRATEGY;
-      var ai = new AITurn(this, strategyClass);
+      var ai = new AITurn(screen, this, strategyClass);
       ai.initiateTurnStart();
     } else {
       this.resetRestrictions();
     }
 
     this.getCurrentPlayer().highlightRoute();
-    draw();
   }
 
   explore() {
@@ -88,7 +80,6 @@ class Game {
     oldBoat.tile.hovering = false;
 
     this.boats[this.currentPlayerIndex] = newBoat;
-    draw();
   }
 
   resetRestrictions() {

@@ -22,6 +22,9 @@ function Screen(width, height, game) {
   var boardDrawer = new BoardDrawer(ctx, game);
   this.boardDrawer = boardDrawer;
 
+  this.handleMousemove = this.handleMousemove.bind(this);
+  this.handleClick = this.handleClick.bind(this);
+
   $(document).mousemove(this.handleMousemove);
   $(document).click(this.handleClick);
 }
@@ -30,21 +33,21 @@ Screen.prototype.handleMousemove = function (e) {
   MOUSE_X = e.clientX;
   MOUSE_Y = e.clientY;
 
-  var thing = SCREEN.game.board.getTile(MOUSE_X, MOUSE_Y);
+  var thing = this.game.board.getTile(MOUSE_X, MOUSE_Y);
 
-  SCREEN.dirty = false;
+  this.dirty = false;
   if (thing !== LAST_THING) {
     if (LAST_THING !== undefined) {
       LAST_THING.hovering = false;
       LAST_THING.isDirty = true;
     }
-    SCREEN.dirty = true;
+    this.dirty = true;
 
     thing.hovering = true;
     thing.isDirty = true;
 
-    SCREEN.game.board.hovering = thing;
-    SCREEN.boardDrawer.draw();
+    this.game.board.hovering = thing;
+    this.boardDrawer.draw();
 
     LAST_THING = thing;
   }
@@ -58,20 +61,20 @@ Screen.prototype.handleClick = function (e) {
   MOUSE_X = e.clientX;
   MOUSE_Y = e.clientY;
 
-  var thing = SCREEN.game.board.getThing(MOUSE_X, MOUSE_Y);
+  var thing = this.game.board.getThing(MOUSE_X, MOUSE_Y);
   if (thing === undefined) {
     return;
   }
 
-  SCREEN.dirty = false;
+  this.dirty = false;
   if (thing && LAST_THING && thing !== LAST_THING) {
-    SCREEN.dirty = true;
-    SCREEN.boardDrawer.draw();
+    this.dirty = true;
+    this.boardDrawer.draw();
   }
 };
 
 Screen.prototype.draw = function () {
-  SCREEN.boardDrawer.draw();
+  this.boardDrawer.draw();
 };
 
 Screen.prototype.destoryHandlers = function () {

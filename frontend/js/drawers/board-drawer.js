@@ -1,5 +1,6 @@
 const TileDrawer = require('./tile-drawer');
 const BoatDrawer = require('./boat-drawer');
+const Point = require('../geo/point');
 
 function BoardDrawer(ctx, game) {
   this.ctx = ctx;
@@ -7,8 +8,8 @@ function BoardDrawer(ctx, game) {
   this.game = game;
   this.board = game.board;
 
-  this.tileDrawer = new TileDrawer(ctx);
-  this.boatDrawer = new BoatDrawer(ctx);
+  this.tileDrawer = new TileDrawer(ctx, game);
+  this.boatDrawer = new BoatDrawer(ctx, game);
 }
 
 BoardDrawer.prototype.draw = function () {
@@ -29,7 +30,7 @@ BoardDrawer.prototype.draw = function () {
   for (var i = 0; i < board.tiles.length; i++) {
     if (board.tiles[i].hover) {
       var tile = board.tiles[i];
-      var highlightColor = GAME.getCurrentPlayer().color;
+      var highlightColor = this.game.getCurrentPlayer().color;
       Point.draw(this.ctx, tile, highlightColor);
     }
   }

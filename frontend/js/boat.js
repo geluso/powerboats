@@ -86,7 +86,7 @@ class Boat {
     var damage = 0;
     for (var i = 0; i < route.length; i++) {
       var nextTile = route[i];
-      if (!isTakingDamage && nextTile.resource !== LAND) {
+      if (!isTakingDamage && nextTile.resource !== Resources.LAND) {
         if (isMovingBoatAlongRoute) {
           // weird unhighlighting to get rid of all route
           // dots, and mark where the boat started as dirty.
@@ -141,7 +141,6 @@ class Boat {
     }
 
     this.currentlyHighlightedRoute = tiles;
-    draw();
   }
 
   unhighlightRoute() {
@@ -266,6 +265,48 @@ class Boat {
     return [tile.xIndex, this.yIndex, this.zIndex];
   }
 }
+
+class BoatClone extends Boat {
+  constructor(source) {
+    super(source.game, source.color, source.tile, source.type);
+    this.source = source;
+    this.actions = [];
+  }
+
+  getFirstClone() {
+    if (this.source.constructor === Boat) {
+      return this;
+    }
+
+    return this.source.getFirstClone();
+  }
+
+  speedUp() {
+    this.actions.push("faster");
+    super.speedUp();
+  }
+
+  slowDown() {
+    this.actions.push("slower");
+    super.slowDown();
+  }
+
+  turnLeft() {
+    this.actions.push("left");
+    super.turnLeft();
+  }
+
+  turnRight() {
+    this.actions.push("right");
+    super.turnRight();
+  }
+
+  goStraight() {
+    this.actions.push("go");
+    super.goStraight();
+  }
+}
+
 
 if (typeof module !== "undefined" && !!module) {
   module.exports = Boat;

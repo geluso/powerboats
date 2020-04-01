@@ -1,23 +1,13 @@
-var CONTROLS = (function() {
-  var turnLeftButton = document.getElementById("turn-left");
-  var goStraightButton = document.getElementById("go-straight");
-  var turnRightButton = document.getElementById("turn-right");
+const Controls = {};
 
-  var slowDownButton = document.getElementById("slowdown");
-  var maintainSpeedButton = document.getElementById("maintain");
-  var speedUpButton = document.getElementById("speedup");
-
+Controls.initializeControls = function (screen, game) {
   var aiExplore = document.getElementById("ai-explore");
-  attach(aiExplore, function() {
-    GAME.explore();
+  attach(aiExplore, function () {
+    game.explore();
   });
 
-  function attach(btn, func) {
-    btn.addEventListener("click", func);
-  }
-
   function getCurrentPlayer() {
-    var player = GAME.getCurrentPlayer();
+    var player = game.getCurrentPlayer();
     return player;
   }
 
@@ -33,7 +23,7 @@ var CONTROLS = (function() {
 
   function goStraight() {
     getCurrentPlayer().goStraight();
-    GAME.endTurn();
+    game.endTurn();
   };
 
   function turnRight() {
@@ -76,11 +66,11 @@ var CONTROLS = (function() {
   }
 
   function wrapInPlayerCheck(func) {
-    return function() {
+    return function () {
       // only allow humans to control their own boats, not AI boats.
-      if (GAME.getCurrentPlayer().type.includes("human")) {
+      if (game.getCurrentPlayer().type.includes("human")) {
         func();
-        draw();
+        screen.draw();
       }
     }
   }
@@ -100,6 +90,19 @@ var CONTROLS = (function() {
     publicFunctions[key] = wrapInPlayerCheck(func);
   }
 
+  // attach buttons to functions
+  var turnLeftButton = document.getElementById("turn-left");
+  var goStraightButton = document.getElementById("go-straight");
+  var turnRightButton = document.getElementById("turn-right");
+
+  var slowDownButton = document.getElementById("slowdown");
+  var maintainSpeedButton = document.getElementById("maintain");
+  var speedUpButton = document.getElementById("speedup");
+
+  function attach(btn, func) {
+    btn.addEventListener("click", func);
+  }
+
   attach(turnLeftButton, publicFunctions.turnLeft);
   attach(goStraightButton, publicFunctions.goStraight);
   attach(turnRightButton, publicFunctions.turnRight);
@@ -109,4 +112,8 @@ var CONTROLS = (function() {
   attach(speedUpButton, publicFunctions.speedUp);
 
   return publicFunctions;
-})();
+}
+
+if (typeof module !== "undefined" && !!module) {
+  module.exports = Controls;
+}

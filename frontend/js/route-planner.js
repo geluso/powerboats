@@ -1,3 +1,6 @@
+const FinishLineDetector = require('./finish-line-detector');
+const TileGeo = require('./geo/tile-geo');
+
 class RoutePlanner {
   constructor(board, boat) {
     this.board = board;
@@ -12,8 +15,6 @@ class RoutePlanner {
 
     var nextActions = bestBoat.getFirstClone().actions;
     this.performActions(this.boat, nextActions);
-
-    draw();
   }
 
   deepExplore(boat, depth, options) {

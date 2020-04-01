@@ -3,6 +3,9 @@ const TileSpace = require('./geo/tile-space')
 const Game = require('./game')
 const Screen = require('./screen')
 
+const Controls = require('./player/controls')
+const Keyboard = require('./keyboard')
+
 $(document).ready(main);
 
 var DEBUG = false;
@@ -10,41 +13,28 @@ function debug() {
   DEBUG = true;
 }
 
-var space;
-var BOARD;
-var GAME;
-var SCREEN;
-
 function main() {
   // load the game with the SixPlayerBoard by default.
-  newGame(ThreeBuoyBoard);
+  const { game, screen } = newGame(ThreeBuoyBoard);
+  const controls = Controls.initializeControls(screen, game);
+  Keyboard.init(controls);
 }
 
 function newGame(board) {
-  if (SCREEN !== undefined) {
-    SCREEN.destoryHandlers();
-  }
-
   // determine the size
   var width = window.innerWidth;
   var height = window.innerHeight;
 
   space = new TileSpace().init(width, height);
   board = new board().init(space);
-  BOARD = board;
 
   // hanky hacks
   space.curateBoard();
   board.registerTileSpace(space);
 
-  GAME = new Game(board);
-  SCREEN = new Screen(width, height, GAME);
-  SCREEN.draw(board);
-  GAME.delayedEndTurn();
+  const game = new Game(board);
+  const screen = new Screen(width, height, game);
+  screen.draw(board);
 
-  CONTROLS.reportSpeed();
-}
-
-function draw() {
-  SCREEN.draw();
+  return { game, screen };
 }
