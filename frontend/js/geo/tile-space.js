@@ -1,16 +1,9 @@
-const Resources = require('../resources')
 const Tile = require('../tile')
 const _ = require('lodash')
 
 function TileSpace() {
   this.keyedTiles = {};
   this.tiles = [];
-  this.edges = [];
-  this.corners = [];
-
-  this.edgeGraph = {};
-  this.cornerGraph = {};
-  this.cornerToEdges = {};
 
   // a list of all tiles, corners, and edges
   this.everything = [];
@@ -51,15 +44,8 @@ TileSpace.prototype.init = function (width, height) {
 };
 
 TileSpace.prototype.curateBoard = function () {
-  this.gatherAndDedupeCornersAndEdges();
-  this.collectNieghboringEdges();
-  this.collectNieghboringCorners();
-
-  // find coast
-  this.markCoastalEdges();
-
   // make a list containing every tile, corner and edge on the board.
-  this.everything = _.union(this.tiles, this.corners, this.edges);
+  this.everything = _.union(this.tiles, this.edges);
 };
 
 TileSpace.prototype.createHexagons = function () {
@@ -173,93 +159,6 @@ TileSpace.prototype.centerOnHexEdges = function () {
   _.each(this.tiles, (tile) => {
     tile.setX(tile.x - xOffset);
   });
-};
-
-TileSpace.prototype.gatherAndDedupeCornersAndEdges = function () {
-  // gather and dedupe all corners and edges
-  for (var i = 0; i < this.tiles.length; i++) {
-    var tile = this.tiles[i];
-
-    if (tile.resource === Resources.WATER) {
-      continue;
-    }
-
-    var corners = tile.shape.getCorners();
-    this.corners = _.union(this.corners, corners);
-
-    var edges = tile.shape.getEdges();
-    this.edges = _.union(this.edges, edges);
-  }
-};
-
-TileSpace.prototype.collectNieghboringEdges = function () {
-  // build network of neighboring edges
-  _.each(this.edges, (edge) => {
-    var neighbors = edge.getNeighborEdges(this);
-    this.edgeGraph[edge.key()] = neighbors;
-  }, this);
-};
-
-TileSpace.prototype.collectNieghboringCorners = function () {
-  // build network of neighboring corners
-  _.each(this.corners, (corner) => {
-    this.cornerGraph[corner.key()] = [];
-    this.cornerToEdges[corner.key()] = [];
-  }, this);
-
-  _.each(this.edges, (edge) => {
-    this.cornerGraph[edge.c1.key()].push(edge.c2);
-    this.cornerGraph[edge.c2.key()].push(edge.c1);
-
-    this.cornerToEdges[edge.c1.key()].push(edge);
-    this.cornerToEdges[edge.c2.key()].push(edge);
-  }, this);
-};
-
-TileSpace.prototype.markCoastalEdges = function () {
-  var edges;
-  this.water = [];
-  this.land = [];
-
-  var coastalEdges = [];
-  var coastalTiles = [];
-
-  _.each(this.tiles, (tile) => {
-    if (tile.resource.name === "water") {
-      this.water.push(tile);
-
-      edges = tile.shape.getEdges();
-      _.each(edges, (edge) => {
-        edge.hasWater = true;
-      });
-    } else {
-      this.land.push(tile);
-      edges = tile.shape.getEdges();
-      _.each(edges, (edge) => {
-        edge.hasLand = true;
-      });
-    }
-  }, this);
-
-  _.each(this.water, (tile) => {
-    var edges = tile.shape.getEdges();
-
-    _.each(edges, (edge) => {
-      if (edge.hasLand) {
-        coastalEdges.push(edge);
-        edge.isCoast = true;
-        tile.isCoast = true;
-      }
-    });
-
-    // add the tile to the list of coasts once.
-    if (tile.isCoast) {
-      coastalTiles.push(tile);
-    }
-  }, this);
-
-  this.coastalEdges = coastalEdges;
-  this.coastalTiles = coastalTiles;
 };
 
 TileSpace.prototype.getByKey = function (key) {

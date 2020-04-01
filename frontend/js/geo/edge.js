@@ -31,29 +31,17 @@ function Edge(c1, c2) {
     return angle;
   }
 
-  this.getNeighborEdges = function (board) {
-    // an adge is a neighbor if it shares either of two corners
-    var edges = [];
-    var that = this;
-    _.each(board.edges, function (edge) {
-      if (edge.c1.equals(that.c1) || edge.c1.equals(that.c2) ||
-        edge.c2.equals(that.c1) || edge.c2.equals(that.c2)) {
-        edges.push(edge);
-      }
-    });
+  Edge.prototype.key = function () {
+    var key = [this.x, this.y].join(",");
+    return key;
+  }
 
-    _.remove(edges, this);
+  Edge.lookup = {};
 
-    return edges;
+  if (typeof module !== "undefined" && !!module) {
+    module.exports = Edge;
   }
 }
-
-Edge.prototype.key = function () {
-  var key = [this.x, this.y].join(",");
-  return key;
-}
-
-Edge.lookup = {};
 
 if (typeof module !== "undefined" && !!module) {
   module.exports = Edge;
