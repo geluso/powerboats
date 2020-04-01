@@ -18,7 +18,7 @@ FullscreenBoard.prototype.registerTileSpace = function (tilespace) {
   this.water = tilespace.water;
   this.land = tilespace.land;
 
-  this.everything = tilespace.everything;
+  this.everything = tilespace.tiles;
 };
 
 FullscreenBoard.prototype.getTile = function (x, y) {

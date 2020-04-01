@@ -41,3 +41,7 @@ body {
   font-size: 20px;
 }
 
+#lobby {
+  position: absolute;
+  top: 0;
+}

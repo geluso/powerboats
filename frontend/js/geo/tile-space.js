@@ -1,52 +1,17 @@
 const Tile = require('../tile')
 const _ = require('lodash')
 
-function TileSpace() {
+function TileSpace(rows, cols) {
+  this.rows = rows;
+  this.cols = cols;
+
   this.keyedTiles = {};
+  this.keyedTilesRowCol = {};
+
   this.tiles = [];
 
-  // a list of all tiles, corners, and edges
-  this.everything = [];
-}
-
-TileSpace.prototype.init = function (width, height) {
-  this.width = width;
-  this.height = height;
-
-  var biggerOne = width;
-  var smallerOne = height;
-
-  var tiles = 25;
-  if (height > width) {
-    biggerOne = height;
-    smallerOne = width;
-    tiles = 60;
-  }
-
-  TILE_HEIGHT = height / tiles / 4;
-  HALF_EDGE = TILE_HEIGHT / (Math.sqrt(3) / 2);
-  EDGE_LENGTH = HALF_EDGE * 2;
-  TILE_SIZE = EDGE_LENGTH;
-  Tile.SetTileSize(TILE_SIZE);
-
-  // this number was simply measured and estimated
-  // to see how many more cols needed to fill the
-  // screen.
-  var magicRowToColScale = 1.15;
-
-  this.rows = tiles;
-  this.cols = this.rows * (width / height) * magicRowToColScale;
-
   this.createHexagons();
-  this.centerTiles();
-
-  return this;
-};
-
-TileSpace.prototype.curateBoard = function () {
-  // make a list containing every tile, corner and edge on the board.
-  this.everything = _.union(this.tiles, this.edges);
-};
+}
 
 TileSpace.prototype.createHexagons = function () {
   var tileGen = new Tile.TileGenerator();
@@ -60,15 +25,8 @@ TileSpace.prototype.createHexagons = function () {
     yIndex = -row;
     zIndex = row;
     for (var col = 0; col < this.cols; col++) {
-      var xOff = TILE_SIZE * 1.5;
-      var yOff = TILE_SIZE * 1.72;
-
-      var x = xOff * col;
-      var y = yOff * row;
-
       var direction = "up-right";
       if (col % 2 === 1) {
-        y += TILE_SIZE * 0.86;
         direction = "down-right";
       }
 
@@ -80,22 +38,19 @@ TileSpace.prototype.createHexagons = function () {
         yIndex--;
       }
 
-      x = Math.floor(x);
-      y = Math.floor(y);
-
       var landBorder = 2;
       var tile;
       if (row < landBorder - 1 || col < landBorder ||
         row > maxRows - landBorder ||
         col > this.cols - landBorder) {
-        tile = tileGen.landTile(x, y);
+        tile = tileGen.landTile(xIndex, yIndex, zIndex);
       } else {
         var choice = Math.random();
         var threshold = 1 / 40;
         if (choice < threshold) {
-          tile = tileGen.landTile(x, y);
+          tile = tileGen.landTile(xIndex, yIndex, zIndex);
         } else {
-          tile = tileGen.waterTile(x, y);
+          tile = tileGen.waterTile(xIndex, yIndex, zIndex);
         }
       }
 
@@ -104,6 +59,7 @@ TileSpace.prototype.createHexagons = function () {
       tile.zIndex = zIndex;
 
       this.keyedTiles[tile.key()] = tile;
+      this.keyedTilesRowCol[row + ',' + col] = tile;
 
       tile.row = row;
       tile.col = col;
@@ -168,6 +124,11 @@ TileSpace.prototype.getByKey = function (key) {
   }
   return tile;
 };
+
+TileSpace.prototype.getByKeyRowCol = function (row, col) {
+  const key = row + ',' + col;
+  return this.keyedTilesRowCol[key];
+}
 
 TileSpace.prototype.nextTileInDirection = function (tile, direction) {
   if (!tile) {

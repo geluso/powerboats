@@ -15,17 +15,16 @@ function SetTileSize(size) {
 
 Tile.SetTileSize = SetTileSize
 
-function Tile(x, y, resource, buoy) {
+function Tile(xIndex, yIndex, zIndex, resource, buoy) {
   this.resource = resource;
   this.buoy = buoy;
   this.hover = false;
   this.isGivingDamage = false;
   this.isDirty = true;
 
-  this.x = x;
-  this.y = y;
-
-  this.shape = new Hexagon(x, y, TILE_SIZE);
+  this.xIndex = xIndex;
+  this.yIndex = yIndex;
+  this.zIndex = zIndex;
 }
 
 Tile.prototype.toJSON = function () {
@@ -134,15 +133,15 @@ Tile.prototype.southWest = function () {
 };
 
 function TileGenerator() {
-  this.waterTile = function (x, y) {
+  this.waterTile = function (xIndex, yIndex, zIndex) {
     var resource = Resources.WATER;
-    var tile = new Tile(x, y, resource);
+    var tile = new Tile(xIndex, yIndex, zIndex, resource);
     return tile;
   };
 
-  this.landTile = function (x, y) {
+  this.landTile = function (xIndex, yIndex, zIndex) {
     var resource = Resources.LAND;
-    var tile = new Tile(x, y, resource);
+    var tile = new Tile(xIndex, yIndex, zIndex, resource);
     return tile;
   };
 }

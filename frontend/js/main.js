@@ -14,6 +14,15 @@ function debug() {
 }
 
 function main() {
+  const isLocal = true;
+  if (isLocal) {
+    createLocalGame();
+  } else {
+    fetchRemoteGame();
+  }
+}
+
+function createLocalGame() {
   // load the game with the SixPlayerBoard by default.
   const { game, screen } = newGame(ThreeBuoyBoard);
   const controls = Controls.initializeControls(screen, game);
@@ -28,20 +37,27 @@ function main() {
 }
 
 function newGame(board) {
+  const rows = 25;
+  const cols = 55;
+
+  space = new TileSpace(rows, cols);
+  board = new board(space).init(space);
+  const game = new Game(board);
+
   // determine the size
   var width = window.innerWidth;
   var height = window.innerHeight;
-
-  space = new TileSpace().init(width, height);
-  board = new board().init(space);
-
-  // hanky hacks
-  space.curateBoard();
-  board.registerTileSpace(space);
-
-  const game = new Game(board);
   const screen = new Screen(width, height, game);
-  screen.draw(board);
+  screen.draw();
 
   return { game, screen };
+}
+
+function fetchRemoteGame() {
+  const url = 'http://localhost:3000/games/rainier';
+  fetch()
+    .then(res => res.json())
+    .then(json => {
+
+    });
 }
