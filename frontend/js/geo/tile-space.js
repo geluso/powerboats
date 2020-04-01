@@ -16,7 +16,7 @@ TileSpace.prototype.init = function (width, height) {
   var biggerOne = width;
   var smallerOne = height;
 
-  var tiles = 30;
+  var tiles = 25;
   if (height > width) {
     biggerOne = height;
     smallerOne = width;
@@ -83,7 +83,7 @@ TileSpace.prototype.createHexagons = function () {
       x = Math.floor(x);
       y = Math.floor(y);
 
-      var landBorder = 3;
+      var landBorder = 2;
       var tile;
       if (row < landBorder - 1 || col < landBorder ||
         row > maxRows - landBorder ||

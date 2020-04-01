@@ -1,7 +1,5 @@
 const Point = require('../geo/point');
 
-var MIN_LONGEST_ROAD = 5;
-
 function FullscreenBoard() {
   this.type = "board";
   this.players = 6;

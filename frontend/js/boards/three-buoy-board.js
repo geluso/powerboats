@@ -25,11 +25,20 @@ ThreeBuoyBoard.prototype.init = function (tilespace) {
   FullscreenBoard.prototype.init.call(this, tilespace);
 
   function chooseInsideTile(tiles, minDistance) {
-    while (true) {
+    const maxAttempts = 10;
+    let attempts = 0;
+
+    while (attempts < maxAttempts) {
       const tile = _.sample(tiles);
       const isWithinVertical = tile.row >= minDistance && tile.row < (tilespace.rows - minDistance);
       const isWithinHorizontal = tile.col >= minDistance && tile.col < (tilespace.cols - minDistance);
       if (isWithinVertical && isWithinHorizontal) {
+        return tile;
+      }
+
+      attempts++;
+
+      if (attempts === maxAttempts) {
         return tile;
       }
     }
