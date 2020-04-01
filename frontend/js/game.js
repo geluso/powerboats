@@ -1,4 +1,3 @@
-var OFF_CENTER_INDEX = 0;
 var CAN_ADJUST_SPEED = false;
 
 const CONFIG = require('./config')
@@ -83,7 +82,6 @@ class Game {
   }
 
   resetRestrictions() {
-    OFF_CENTER_INDEX = 0;
     CAN_ADJUST_SPEED = true;
   }
 }

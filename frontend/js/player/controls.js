@@ -12,13 +12,13 @@ Controls.initializeControls = function (screen, game) {
   }
 
   function turnLeft() {
-    if (OFF_CENTER_INDEX > -1) {
-      getCurrentPlayer().turnLeft();
-      getCurrentPlayer().highlightRoute();
-    }
+    //if (OFF_CENTER_INDEX > -1) {
+    getCurrentPlayer().turnLeft();
+    getCurrentPlayer().highlightRoute();
+    //}
 
-    OFF_CENTER_INDEX--;
-    OFF_CENTER_INDEX = Math.max(OFF_CENTER_INDEX, -1);
+    // OFF_CENTER_INDEX--;
+    // OFF_CENTER_INDEX = Math.max(OFF_CENTER_INDEX, -1);
   };
 
   function goStraight() {
@@ -27,22 +27,22 @@ Controls.initializeControls = function (screen, game) {
   };
 
   function turnRight() {
-    if (OFF_CENTER_INDEX < 1) {
-      getCurrentPlayer().turnRight();
-      getCurrentPlayer().highlightRoute();
-    }
+    //if (OFF_CENTER_INDEX < 1) {
+    getCurrentPlayer().turnRight();
+    getCurrentPlayer().highlightRoute();
+    //}
 
-    OFF_CENTER_INDEX++;
-    OFF_CENTER_INDEX = Math.min(OFF_CENTER_INDEX, 1);
+    // OFF_CENTER_INDEX++;
+    // OFF_CENTER_INDEX = Math.min(OFF_CENTER_INDEX, 1);
   };
 
   function slowDown() {
-    if (CAN_ADJUST_SPEED) {
-      getCurrentPlayer().slowDown();
-      getCurrentPlayer().highlightRoute();
-    }
+    //if (CAN_ADJUST_SPEED) {
+    getCurrentPlayer().slowDown();
+    getCurrentPlayer().highlightRoute();
+    //}
 
-    CAN_ADJUST_SPEED = false;
+    //CAN_ADJUST_SPEED = false;
 
     reportSpeed();
   };
@@ -50,12 +50,12 @@ Controls.initializeControls = function (screen, game) {
     getCurrentPlayer().highlightRoute();
   };
   function speedUp() {
-    if (CAN_ADJUST_SPEED) {
-      getCurrentPlayer().speedUp();
-      getCurrentPlayer().highlightRoute();
-    }
+    //if (CAN_ADJUST_SPEED) {
+    getCurrentPlayer().speedUp();
+    getCurrentPlayer().highlightRoute();
+    //}
 
-    CAN_ADJUST_SPEED = false;
+    //CAN_ADJUST_SPEED = false;
 
     reportSpeed();
   };
