@@ -12,7 +12,6 @@ function BoardDrawer(ctx, game) {
   this.board = game.board;
   this.tilespace = game.board.tilespace;
 
-  debugger
   this.measure();
 
   this.tileDrawer = new TileDrawer(ctx, game);
@@ -26,23 +25,29 @@ BoardDrawer.prototype.measure = function () {
   TILE_SIZE = EDGE_LENGTH;
   Tile.SetTileSize(TILE_SIZE);
 
-  for (var row = 0; row < this.tilespace.rows; row++) {
+  for (var row = 0; row <= this.tilespace.rows; row++) {
     xIndex = 0;
     yIndex = -row;
     zIndex = row;
     for (var col = 0; col < this.tilespace.cols; col++) {
-      var xOff = TILE_SIZE * 1.5;
-      var yOff = TILE_SIZE * 1.72;
+      let xOff = TILE_SIZE * 1.5;
+      let yOff = TILE_SIZE * 1.72;
 
-      var x = xOff * col;
-      var y = yOff * row;
+      let x = xOff * col;
+      let y = yOff * row;
+
+      if (col % 2 === 1) {
+        y += TILE_SIZE * 0.86;
+      }
 
       const tile = this.tilespace.getByKeyRowCol(row, col)
-      tile.x = x;
-      tile.y = y;
+      if (tile) {
+        tile.x = x;
+        tile.y = y;
 
-      const hexagon = new Hexagon(x, y, TILE_SIZE);
-      tile.shape = hexagon;
+        const hexagon = new Hexagon(x, y, TILE_SIZE);
+        tile.shape = hexagon;
+      }
     }
   }
 
@@ -55,8 +60,6 @@ BoardDrawer.prototype.draw = function () {
   var board = this.board;
 
   this.ctx.save();
-
-  debugger
 
   // draw water tiles first, then land tiles.
   if (board.land && board.water) {
