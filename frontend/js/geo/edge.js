@@ -55,6 +55,6 @@ Edge.prototype.key = function () {
 
 Edge.lookup = {};
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = Edge;
 }

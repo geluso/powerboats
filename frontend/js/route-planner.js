@@ -119,6 +119,6 @@ class RoutePlanner {
   }
 }
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = RoutePlanner;
 }

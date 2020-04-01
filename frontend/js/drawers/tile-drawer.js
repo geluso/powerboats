@@ -1,4 +1,5 @@
-const CONFIG = require('../config')
+const CONFIG = require('../config');
+const BuoyDrawer = require('./buoy-drawer');
 
 function TileDrawer(ctx) {
   this.ctx = ctx;
@@ -56,6 +57,6 @@ function TileDrawer(ctx) {
   };
 }
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = TileDrawer;
 }

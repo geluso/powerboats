@@ -230,6 +230,6 @@ FullscreenBoard.prototype.buildCity = function (corner, player) {
   draw();
 };
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = FullscreenBoard;
 }

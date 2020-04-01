@@ -1,3 +1,6 @@
+const TileDrawer = require('./tile-drawer');
+const BoatDrawer = require('./boat-drawer');
+
 function BoardDrawer(ctx, game) {
   this.ctx = ctx;
 
@@ -38,6 +41,6 @@ BoardDrawer.prototype.draw = function () {
   }
 };
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = BoardDrawer;
 }

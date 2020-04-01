@@ -36,6 +36,6 @@ Directions.counterClockwiseNext = {
   "north-east": "north"
 };
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = Directions;
 }

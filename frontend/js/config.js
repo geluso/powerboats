@@ -25,6 +25,6 @@ var CONFIG = {
   ALL_AI_STRATEGY: AIStrategies.RoutePlanningStrategy,
 };
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = CONFIG;
 }

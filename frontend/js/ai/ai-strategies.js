@@ -222,6 +222,6 @@ const AIStrategies = {
   RoutePlanningStrategy,
 }
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = AIStrategies;
 }

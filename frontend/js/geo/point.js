@@ -46,6 +46,6 @@ Point.draw = function (ctx, tile, fillOverride) {
   ctx.restore();
 };
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = Point;
 }

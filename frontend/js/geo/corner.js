@@ -24,10 +24,6 @@ Corner.prototype.key = function () {
 
 Corner.lookup = {};
 
-if (!!module) {
-  module.exports = Corner;
-}
-
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = Corner;
 }

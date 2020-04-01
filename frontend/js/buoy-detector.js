@@ -141,6 +141,6 @@ class BuoyDetector {
   }
 }
 
-if (!!BuoyDetector) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = BuoyDetector;
 }

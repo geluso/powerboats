@@ -74,6 +74,6 @@ Resources.resourceFromString = function (name) {
   }
 };
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = Resources;
 }

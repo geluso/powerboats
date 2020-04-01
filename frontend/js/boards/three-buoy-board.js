@@ -92,6 +92,6 @@ function createFinishLine() {
 
 ThreeBuoyBoard.prototype.NUMBER_OF_BUOYS = 3;
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = ThreeBuoyBoard;
 }

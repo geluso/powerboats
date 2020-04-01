@@ -149,6 +149,6 @@ function TileGenerator() {
 
 Tile.TileGenerator = TileGenerator;
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = Tile;
 }

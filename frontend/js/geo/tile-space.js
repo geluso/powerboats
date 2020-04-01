@@ -294,6 +294,6 @@ TileSpace.prototype.nextTileInDirection = function (tile, direction) {
   return nextTile;
 };
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = TileSpace;
 }

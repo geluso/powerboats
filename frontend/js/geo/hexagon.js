@@ -149,6 +149,6 @@ function Hexagon(x, y, size) {
   };
 }
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = Hexagon;
 }

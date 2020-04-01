@@ -42,6 +42,6 @@ class FinishLineDetector {
   }
 }
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = FinishLineDetector;
 }

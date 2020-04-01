@@ -3,6 +3,6 @@ function Buoy(turnNumber, tile) {
   this.tile = tile;
 }
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = Buoy;
 }

@@ -4,6 +4,6 @@ function AI(game, color) {
   this.color = color;
 }
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = AI;
 }

@@ -1,3 +1,8 @@
+const ThreeBuoyBoard = require('./boards/three-buoy-board')
+const TileSpace = require('./geo/tile-space')
+const Game = require('./game')
+const Screen = require('./screen')
+
 $(document).ready(main);
 
 var DEBUG = false;

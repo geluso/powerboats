@@ -37,6 +37,6 @@ function BuoyDrawer(ctx) {
   }
 }
 
-if (!!module) {
+if (typeof module !== "undefined" && !!module) {
   module.exports = BuoyDrawer;
 }

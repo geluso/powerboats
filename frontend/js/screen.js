@@ -1,3 +1,5 @@
+const BoardDrawer = require('./drawers/board-drawer')
+
 var MOUSE_X = 0;
 var MOUSE_Y = 0;
 
@@ -76,3 +78,7 @@ Screen.prototype.destoryHandlers = function () {
   document.removeEventListener("mousemove", this.handleMousemove);
   document.removeEventListener("click", this.handleClick);
 };
+
+if (typeof module !== "undefined" && !!module) {
+  module.exports = Screen;
+}
