@@ -18,6 +18,13 @@ function main() {
   const { game, screen } = newGame(ThreeBuoyBoard);
   const controls = Controls.initializeControls(screen, game);
   Keyboard.init(controls);
+
+  function refresh() {
+    screen.draw();
+    requestAnimationFrame(refresh);
+  }
+
+  refresh();
 }
 
 function newGame(board) {
