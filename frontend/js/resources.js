@@ -28,8 +28,16 @@ const HOVERED = {
   color: "yellow"
 };
 
-var Resources = {
+const Resources = {
   WATER, LAND, START_RED, START_BLACK, START_WHITE, HOVERED
+};
+
+Resources.resourceFromString = function (name) {
+  for (var i = 0; i < ALL_RESOURCES.length; i++) {
+    if (ALL_RESOURCES[i].name === name) {
+      return ALL_RESOURCES[i];
+    }
+  }
 };
 
 if (typeof module !== "undefined" && !!module) {

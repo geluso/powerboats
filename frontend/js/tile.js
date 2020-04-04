@@ -1,7 +1,10 @@
 const Resources = require('./resources');
 
 class Tile {
-  constructor(xIndex, yIndex, zIndex, resource) {
+  constructor(row, col, xIndex, yIndex, zIndex, resource) {
+    this.row = row;
+    this.col = col;
+
     this.xIndex = xIndex;
     this.yIndex = yIndex;
     this.zIndex = zIndex;
@@ -13,30 +16,17 @@ class Tile {
     this.isDirty = true;
   }
 
-  static setTileSize(size) {
-    Tile.TILE_SIZE = size;
-    Tile.EDGE_LENGTH = Tile.TILE_SIZE;
-    Tile.HALF_EDGE = Tile.EDGE_LENGTH / 2;
-    Tile.TILE_HEIGHT = Math.sqrt(3) / 2 * Tile.HALF_EDGE;
-  }
+  static fromJSON(json) {
+    const { xIndex, yIndex, zIndex, row, col } = json;
+    const resource = Resources.fromString(json.resourceName);
 
-  static createWaterTile = function (xIndex, yIndex, zIndex) {
-    var resource = Resources.WATER;
-    var tile = new Tile(xIndex, yIndex, zIndex, resource);
-    return tile;
-  }
-
-  static createLandTile = function (xIndex, yIndex, zIndex) {
-    var resource = Resources.LAND;
-    var tile = new Tile(xIndex, yIndex, zIndex, resource);
+    const tile = new Tile(xIndex, yIndex, zIndex, resource);
     return tile;
   }
 
   toJSON() {
     return {
-      resource: this.resource,
-      pixelX: this.x,
-      pixelY: this.y,
+      resourceName: this.resource.name,
 
       xIndex: this.xIndex,
       yIndex: this.yIndex,
@@ -45,6 +35,26 @@ class Tile {
       row: this.row,
       col: this.col
     }
+  }
+
+
+  static setTileSize(size) {
+    Tile.TILE_SIZE = size;
+    Tile.EDGE_LENGTH = Tile.TILE_SIZE;
+    Tile.HALF_EDGE = Tile.EDGE_LENGTH / 2;
+    Tile.TILE_HEIGHT = Math.sqrt(3) / 2 * Tile.HALF_EDGE;
+  }
+
+  static createWaterTile = function (row, col, xIndex, yIndex, zIndex) {
+    var resource = Resources.WATER;
+    var tile = new Tile(row, col, xIndex, yIndex, zIndex, resource);
+    return tile;
+  }
+
+  static createLandTile = function (row, col, xIndex, yIndex, zIndex) {
+    var resource = Resources.LAND;
+    var tile = new Tile(row, col, xIndex, yIndex, zIndex, resource);
+    return tile;
   }
 
   highlight() {

@@ -6,17 +6,19 @@ class JSONTileCreator {
     this.json = json;
   }
 
-  create(xx, yy, zz) {
-    let tile = new Tile(xx, yy, zz);
-    if (this.isLand(xx, yy, zz)) {
-      tile.resource = Resources.LAND;
+  create(row, col, xx, yy, zz) {
+    let resource;
+    if (this.isLand(row, col, xx, yy, zz)) {
+      resource = Resources.LAND;
     } else {
-      tile.resource = Resources.WATER;
+      resource = Resources.WATER;
     }
+
+    let tile = new Tile(row, col, xx, yy, zz, resource);
     return tile;
   }
 
-  isLand(xx, yy, zz) {
+  isLand(row, col, xx, yy, zz) {
     return Math.random() < .5;
   }
 }

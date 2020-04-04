@@ -55,23 +55,21 @@ class TileSpace {
 
         var landBorder = 2;
         var tile;
-        if (row < landBorder - 1 || col < landBorder ||
-          row > maxRows - landBorder ||
-          col > this.cols - landBorder) {
-          tile = Tile.createLandTile(xIndex, yIndex, zIndex);
-        } else {
-          tile = tileCreator.create(xIndex, yIndex, zIndex);
-        }
 
-        tile.xIndex = xIndex;
-        tile.yIndex = yIndex;
-        tile.zIndex = zIndex;
+        const isTopBorder = row < landBorder - 1;
+        const isBottomBorder = row > maxRows - landBorder;
+        const isLeftBorder = col < landBorder;
+        const isRightBorder = col > this.cols - landBorder;
+        const isBorder = isTopBorder || isBottomBorder || isLeftBorder || isRightBorder;
+
+        if (isBorder) {
+          tile = Tile.createLandTile(row, col, xIndex, yIndex, zIndex);
+        } else {
+          tile = tileCreator.create(row, col, xIndex, yIndex, zIndex);
+        }
 
         this.keyedTiles[tile.key()] = tile;
         this.keyedTilesRowCol[row + ',' + col] = tile;
-
-        tile.row = row;
-        tile.col = col;
 
         this.tiles.push(tile);
       }
