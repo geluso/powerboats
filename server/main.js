@@ -8,8 +8,8 @@ var http = require('http').Server(app);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const ThreeBuoyBoard = require('../frontend/js/boards/three-buoy-board');
 const TileSpace = require('../frontend/js/geo/tile-space');
+const Course = require('../frontend/js/course');
 const Game = require('../frontend/js/game');
 
 // manually adjusted for browser.
@@ -23,7 +23,6 @@ board.init(space);
 
 // hanky hacks
 space.curateBoard();
-board.registerTileSpace(space);
 
 console.log('board', board)
 const game = new Game(board);

@@ -1,8 +1,12 @@
-function BuoyDrawer(ctx) {
-  this.ctx = ctx;
+const Tile = require('../tile')
 
-  this.draw = function (buoy, x, y) {
-    var BUOY_SIZE = TILE_SIZE * .75;
+class BuoyDrawer {
+  constructor(ctx) {
+    this.ctx = ctx;
+  }
+
+  draw(buoy, x, y) {
+    var BUOY_SIZE = Tile.TILE_SIZE * .75;
     this.ctx.save();
 
     this.ctx.translate(x, y);
@@ -16,17 +20,17 @@ function BuoyDrawer(ctx) {
       path.arc(0, 0, radius, startAngle, endAngle);
 
       if (i % 2 == 0) {
-        ctx.fillStyle = "red";
+        this.ctx.fillStyle = "red";
       } else {
-        ctx.fillStyle = "white";
+        this.ctx.fillStyle = "white";
       }
-      ctx.fill(path);
-      ctx.stroke(path);
+      this.ctx.fill(path);
+      this.ctx.stroke(path);
 
       radius *= .60;
     }
 
-    ctx.fillStyle = "black";
+    this.ctx.fillStyle = "black";
 
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";

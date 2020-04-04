@@ -2,8 +2,7 @@ const FinishLineDetector = require('./finish-line-detector');
 const TileGeo = require('./geo/tile-geo');
 
 class RoutePlanner {
-  constructor(board, boat) {
-    this.board = board;
+  constructor(boat) {
     this.boat = boat;
 
     this.path = [];

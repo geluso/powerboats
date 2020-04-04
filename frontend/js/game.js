@@ -6,23 +6,23 @@ const Boat = require('./boat');
 const AITurn = require('./ai/ai-turn');
 
 class Game {
-  constructor(board) {
-    this.board = board;
-    board.game = this;
+  constructor(tilespace, course) {
+    this.tilespace = tilespace;
+    this.course = course;
 
     this.currentPlayerIndex = 0;
     this.boats = [];
 
     var colors = CONFIG.COLORS;
     var index = 0;
-    var currentTile = board.start;
+    var currentTile = course.start;
     var types = CONFIG.PLAYER_TYPES;
     while (index < colors.length) {
       var type = types[index];
       var boat = new Boat(this, colors[index], currentTile, type);
       this.boats.push(boat);
 
-      currentTile = this.board.tilespace.nextTileInDirection(currentTile, board.startDirection);
+      currentTile = this.tilespace.nextTileInDirection(currentTile, course.startDirection);
 
       index++;
     }
@@ -32,7 +32,7 @@ class Game {
     return {
       currentPlayerIndex: this.currentPlayerIndex,
       boats: this.boats.map(boat => boat.toJSON()),
-      tiles: this.board.land.map(tile => tile.toJSON())
+      tiles: this.tilespace.land.map(tile => tile.toJSON())
     }
   }
 

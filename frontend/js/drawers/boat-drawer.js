@@ -1,3 +1,5 @@
+const Tile = require('../tile')
+
 function BoatDrawer(ctx, game) {
   this.ctx = ctx;
   this.game = game;
@@ -6,7 +8,7 @@ function BoatDrawer(ctx, game) {
     var x = boat.tile.x;
     var y = boat.tile.y;
 
-    var LENGTH = TILE_SIZE;
+    var LENGTH = Tile.TILE_SIZE;
     var WIDTH = LENGTH / 2;
     this.ctx.save();
 

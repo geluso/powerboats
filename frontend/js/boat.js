@@ -10,7 +10,7 @@ class Boat {
     this.damage = 0;
     this.dice = [new Dice(1)];
 
-    this.planner = new RoutePlanner(game.board, this);
+    this.planner = new RoutePlanner(this);
 
     this.color = color;
     this.tile = tile;
@@ -18,13 +18,13 @@ class Boat {
 
     // add trackers for each buoy
     this.trackers = [];
-    for (var i = 0; i < this.game.board.buoys.length; i++) {
-      var buoy = this.game.board.buoys[i];
-      var buoyTracker = new BuoyDetector(this, buoy, this.game.board);
+    for (var i = 0; i < this.game.course.buoys.length; i++) {
+      var buoy = this.game.course.buoys[i];
+      var buoyTracker = new BuoyDetector(this, buoy, this.game.tilespace);
       this.trackers.push(buoyTracker);
     }
 
-    var finishTracker = game.board.finishLineDetector.clone();
+    var finishTracker = game.course.finishLineDetector.clone();
     this.trackers.push(finishTracker);
 
     // the highest buoy that this boat has circled.
@@ -163,7 +163,7 @@ class Boat {
     var current = this.tile;
     var isTakingDamage = false;
     while (n < speed && current) {
-      current = this.game.board.tilespace.nextTileInDirection(current, direction);
+      current = this.game.tilespace.nextTileInDirection(current, direction);
       if (current) {
         tiles.push(current);
 

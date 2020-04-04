@@ -2,10 +2,10 @@ const Directions = require('./geo/directions');
 const Point = require('./geo/point');
 
 class BuoyDetector {
-  constructor(boat, buoy, board) {
+  constructor(boat, buoy, tilespace) {
     this.boat = boat;
     this.buoy = buoy;
-    this.board = board;
+    this.tilespace = tilespace;
 
     this.tile = buoy.tile;
     this.crossDirection = {};
@@ -18,13 +18,13 @@ class BuoyDetector {
   }
 
   initDirections() {
-    this.north = this.board.tilespace.getByKey(this.center.north());
-    this.northWest = this.board.tilespace.getByKey(this.center.northWest());
-    this.northEast = this.board.tilespace.getByKey(this.center.northEast());
+    this.north = this.tilespace.getByKey(this.center.north());
+    this.northWest = this.tilespace.getByKey(this.center.northWest());
+    this.northEast = this.tilespace.getByKey(this.center.northEast());
 
-    this.south = this.board.tilespace.getByKey(this.center.south());
-    this.southWest = this.board.tilespace.getByKey(this.center.southWest());
-    this.southEast = this.board.tilespace.getByKey(this.center.southEast());
+    this.south = this.tilespace.getByKey(this.center.south());
+    this.southWest = this.tilespace.getByKey(this.center.southWest());
+    this.southEast = this.tilespace.getByKey(this.center.southEast());
   }
 
   track(boat, tile) {
@@ -120,7 +120,7 @@ class BuoyDetector {
   }
 
   clone(boat) {
-    var clone = new BuoyDetector(boat, this.buoy, this.board);
+    var clone = new BuoyDetector(boat, this.buoy, this.tilespace);
 
     clone.boat = boat;
     clone.buoy = this.buoy;

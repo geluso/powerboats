@@ -1,5 +1,5 @@
-const ThreeBuoyBoard = require('./boards/three-buoy-board')
 const TileSpace = require('./geo/tile-space')
+const Course = require('./course')
 const Game = require('./game')
 const Screen = require('./screen')
 
@@ -14,20 +14,31 @@ function debug() {
 }
 
 function main() {
+  // initialize the game and the board
   const isLocal = true;
   if (isLocal) {
-    createLocalGame();
+    const { tilespace, course } = createLocalBoard();
+    beginRender(tilespace, course);
   } else {
-    fetchRemoteGame();
+    const url = 'http://localhost:3000/games/rainier';
+    fetchRemote(url)
+      .then(beginRender)
   }
 }
 
-function createLocalGame() {
-  // load the game with the SixPlayerBoard by default.
-  const { game, screen } = newGame(ThreeBuoyBoard);
+function beginRender(tilespace, course) {
+  const game = new Game(tilespace, course);
+
+  // set up the screen
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  const screen = new Screen(width, height, game);
+
+  // set up the controls
   const controls = Controls.initializeControls(screen, game);
   Keyboard.init(controls);
 
+  // continually refresh
   function refresh() {
     screen.draw();
     requestAnimationFrame(refresh);
@@ -36,28 +47,23 @@ function createLocalGame() {
   refresh();
 }
 
-function newGame(board) {
+function createLocalBoard() {
   const rows = 25;
   const cols = 55;
 
-  space = new TileSpace(rows, cols);
-  board = new board(space).init(space);
-  const game = new Game(board);
+  const tilespace = new TileSpace(rows, cols);
+  const course = new Course(tilespace);
+  course.setup();
 
-  // determine the size
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  const screen = new Screen(width, height, game);
-  screen.draw();
-
-  return { game, screen };
+  return { tilespace, course };
 }
 
-function fetchRemoteGame() {
-  const url = 'http://localhost:3000/games/rainier';
-  fetch()
+function fetchRemote(url) {
+  return fetch(url)
     .then(res => res.json())
     .then(json => {
-
+      const tilespace = TileSpace.fromJSON(json);
+      const course = Course.fromJSON(json);
+      return { tilespace, course };
     });
 }
