@@ -18,14 +18,16 @@ function debug() {
 
 function main() {
   // initialize the game and the board
-  const isLocal = true;
+  const isLocal = false;
   if (isLocal) {
     const { tilespace, course } = createLocalBoard();
     beginRender(tilespace, course);
   } else {
     const url = 'http://localhost:3000/games/rainier';
     fetchRemote(url)
-      .then(beginRender)
+      .then(({ tilespace, course }) => {
+        beginRender(tilespace, course);
+      });
   }
 }
 
@@ -67,8 +69,11 @@ function fetchRemote(url) {
   return fetch(url)
     .then(res => res.json())
     .then(json => {
-      const tilespace = TileSpace.fromJSON(json);
-      const course = Course.fromJSON(json);
-      return { tilespace, course };
+      const tilespace = TileSpace.fromJSON(json.tilespace);
+      const course = new Course(tilespace);
+      course.setup();
+      // const course = Course.fromJSON(json);
+      // return { tilespace, course };
+      return { tilespace, course }
     });
 }

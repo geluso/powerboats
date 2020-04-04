@@ -1,6 +1,9 @@
+const _ = require('lodash')
+
 const Tile = require('../tile');
 const Resources = require('../resources');
-const _ = require('lodash')
+const JSONTileCreator = require('./tile-creators/json-tile-creator')
+
 
 var CENTER;
 
@@ -17,7 +20,7 @@ class TileSpace {
     this.createHexagons(tileCreator);
   }
 
-  fromJSON(json) {
+  static fromJSON(json) {
     const { rows, cols, landTiles } = json;
     const creator = new JSONTileCreator(landTiles);
     return new TileSpace(rows, cols, creator);
@@ -25,11 +28,11 @@ class TileSpace {
 
   toJSON() {
     const json = {
-      rows: this.row,
+      rows: this.rows,
       cols: this.cols,
       landTiles: this.tiles.filter(tile => tile.resource === Resources.LAND).map(tile => tile.toJSON())
     }
-    return JSON.stringify(json);
+    return json;
   }
 
   createHexagons(tileCreator) {

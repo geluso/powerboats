@@ -1,8 +1,11 @@
 var express = require('express');
+var cors = require('cors');
 var bodyParser = require('body-parser');
 
 var app = express();
 var http = require('http').Server(app);
+
+app.use(cors());
 
 // decode POST data in JSON and URL encoded formats
 app.use(bodyParser.json());
@@ -12,23 +15,21 @@ const TileSpace = require('../frontend/js/geo/tile-space');
 const Course = require('../frontend/js/course');
 const Game = require('../frontend/js/game');
 
+const RandomTileCreator = require('../frontend/js/geo/tile-creators/random-tile-creator');
+const JSONTileCreator = require('../frontend/js/geo/tile-creators/json-tile-creator');
+
 // manually adjusted for browser.
 // TODO: make tilespace independent of resolution
 console.log('creating tilespace and board')
-const width = 1440;
-const height = 766;
-const space = new TileSpace().init(width, height);
-const board = new ThreeBuoyBoard();
-board.init(space);
+const randomTiles = new RandomTileCreator(1 / 5);
+const rows = 25;
+const cols = 25;
+const tilespace = new TileSpace(rows, cols, randomTiles);
+const course = new Course(tilespace);
 
-// hanky hacks
-space.curateBoard();
-
-console.log('board', board)
-const game = new Game(board);
 const GAMES = {
   'budweiser': { ace: 99 },
-  'rainier': game,
+  'rainier': { tilespace },
 };
 
 app.get('/games/', (req, res) => {
@@ -43,7 +44,7 @@ app.post('/games/create', (req, res) => {
 app.get('/games/:name', (req, res) => {
   const name = req.params.name;
   const game = GAMES[name];
-  const json = game.toJSON();
+  const json = { tilespace: game.tilespace.toJSON() };
   res.send(json);
 });
 

@@ -1,16 +1,16 @@
 const Tile = require('../../tile')
 
 class RandomTileCreator {
-  constructor() {
-
+  // default: 1 tile of land for every 40 tiles of water
+  constructor(landToWaterRatio = 1 / 40) {
+    this.ratio = landToWaterRatio;
   }
 
   create(row, col, xx, yy, zz) {
     let choice = Math.random();
-    let threshold = 1 / 40;
     let tile;
 
-    if (choice < threshold) {
+    if (choice < this.ratio) {
       tile = Tile.createLandTile(row, col, xx, yy, zz);
     } else {
       tile = Tile.createWaterTile(row, col, xx, yy, zz);
