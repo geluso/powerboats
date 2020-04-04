@@ -7,6 +7,15 @@ class Dice {
       this.val = val;
     }
   }
+  static fromJSON(json) {
+    const dice = new Dice(json.val);
+    return dice;
+  }
+
+  toJSON() {
+    const json = { val: this.val };
+    return json;
+  }
 
   roll() {
     var min = CONFIG.MIN_DICE;
