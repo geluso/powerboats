@@ -61,7 +61,7 @@ class Screen {
     MOUSE_X = e.clientX;
     MOUSE_Y = e.clientY;
 
-    var thing = this.game.board.getTile(MOUSE_X, MOUSE_Y);
+    var thing = this.game.tilespace.getTile(MOUSE_X, MOUSE_Y);
     if (thing === undefined) {
       return;
     }
