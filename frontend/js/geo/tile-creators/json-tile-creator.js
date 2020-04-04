@@ -2,8 +2,8 @@ const Tile = require('../../tile')
 const Resources = require('../../resources');
 
 class JSONTileCreator {
-  constructor(json) {
-    this.json = json;
+  constructor(landTilesJSON) {
+    this.landTilesJSON = landTilesJSON;
   }
 
   create(row, col, xx, yy, zz) {
@@ -19,7 +19,7 @@ class JSONTileCreator {
   }
 
   isLand(row, col, xx, yy, zz) {
-    return Math.random() < .5;
+    return Math.random() < 1 / 10;
   }
 }
 

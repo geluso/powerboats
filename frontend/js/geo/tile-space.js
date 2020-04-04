@@ -17,7 +17,10 @@ class TileSpace {
     this.createHexagons(tileCreator);
   }
 
-  fromJSON() {
+  fromJSON(json) {
+    const { rows, cols, landTiles } = json;
+    const creator = new JSONTileCreator(landTiles);
+    return new TileSpace(rows, cols, creator);
   }
 
   toJSON() {

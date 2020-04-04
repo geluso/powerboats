@@ -55,7 +55,8 @@ function createLocalBoard() {
   const cols = 55;
 
   const randomTiles = new RandomTileCreator();
-  const tilespace = new TileSpace(rows, cols, randomTiles);
+  const jsonTiles = new JSONTileCreator({});
+  const tilespace = new TileSpace(rows, cols, jsonTiles);
   const course = new Course(tilespace);
   course.setup();
 
