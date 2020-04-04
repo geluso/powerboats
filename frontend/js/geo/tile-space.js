@@ -1,4 +1,5 @@
-const Tile = require('../tile')
+const Tile = require('../tile');
+const Resources = require('../resources');
 const _ = require('lodash')
 
 var CENTER;
@@ -23,7 +24,7 @@ class TileSpace {
     const json = {
       rows: this.row,
       cols: this.cols,
-      tiles: this.tiles.map(tile => tile.toJSON())
+      landTiles: this.tiles.filter(tile => tile.resource === Resources.LAND).map(tile => tile.toJSON())
     }
     return JSON.stringify(json);
   }
