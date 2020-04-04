@@ -16,6 +16,8 @@ const TileSpace = require('../frontend/js/geo/tile-space');
 const Course = require('../frontend/js/course');
 const Game = require('../frontend/js/game');
 
+const Boat = require('../frontend/js/boat');
+
 const RandomTileCreator = require('../frontend/js/geo/tile-creators/random-tile-creator');
 const JSONTileCreator = require('../frontend/js/geo/tile-creators/json-tile-creator');
 
@@ -26,14 +28,27 @@ const randomTiles = new RandomTileCreator(1 / 5);
 const rows = 25;
 const cols = 25;
 const tilespace = new TileSpace(rows, cols, randomTiles);
+
 const course = new Course(tilespace);
-const game = new Game(course);
 course.setupBuoys();
 course.setupStartLine(course.start, Config.START_DIRECTION);
 
+// create game and place boats
+const game = new Game(course);
+let currentTile = course.start;
+for (let i = 0; i < Config.PLAYER_TYPES.length; i++) {
+  const color = Config.COLORS[i];
+  const playerType = Config.PLAYER_TYPES[i];
+  const boat = new Boat(game, color, currentTile, playerType);
+  game.boats.push(boat);
+  boat.faceBuoy();
+
+  currentTile = course.tilespace.nextTileInDirection(currentTile, course.startDirection);
+}
+
 const GAMES = {
   'budweiser': { ace: 99 },
-  'rainier': { course },
+  'rainier': game,
 };
 
 app.get('/games/', (req, res) => {
@@ -48,7 +63,7 @@ app.post('/games/create', (req, res) => {
 app.get('/games/:name', (req, res) => {
   const name = req.params.name;
   const game = GAMES[name];
-  const json = { course: course.toJSON() };
+  const json = { game: game.toJSON() };
   res.send(json);
 });
 

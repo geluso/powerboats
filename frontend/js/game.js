@@ -2,6 +2,7 @@ var CAN_ADJUST_SPEED = false;
 
 const Config = require('./config')
 
+const Course = require('./course');
 const Boat = require('./boat');
 const AITurn = require('./ai/ai-turn');
 
@@ -10,9 +11,15 @@ class Game {
     this.course = course;
     this.tilespace = course.tilespace;
 
-    this.currentPlayerIndex = 0;
     this.boats = [];
+    this.currentPlayerIndex = 0;
+  }
 
+  addBoat(boat) {
+
+  }
+
+  placeBoatsOnStartLine() {
     var colors = Config.COLORS;
     var index = 0;
     var currentTile = course.start;
@@ -28,11 +35,27 @@ class Game {
     }
   }
 
+  static fromJSON(json) {
+    const course = Course.fromJSON(json.course);
+    const game = new Game(course);
+
+    json.boats.forEach(boat => {
+      boat = Boat.fromJSON(game, boat);
+      game.boats.push(boat);
+    })
+
+    game.currentPlayerIndex = json.currentPlayerIndex;
+
+    return game;
+  }
+
   toJSON() {
     return {
+      course: this.course.toJSON(),
+
       currentPlayerIndex: this.currentPlayerIndex,
       boats: this.boats.map(boat => boat.toJSON()),
-      tiles: this.tilespace.land.map(tile => tile.toJSON())
+
     }
   }
 

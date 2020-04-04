@@ -5,19 +5,24 @@ const Resources = require('./resources')
 const TileGeo = require('./geo/tile-geo')
 
 class Boat {
-  constructor(game, color, tile, type) {
+  constructor(game, color, tile, type, direction) {
     this.game = game;
-    this.damage = 0;
+
+    this.tile = tile;
+    this.direction = direction;
     this.dice = [new Dice(1)];
 
-    this.planner = new RoutePlanner(this);
-
+    this.damage = 0;
     this.color = color;
-    this.tile = tile;
     this.type = type;
 
-    // add trackers for each buoy
     this.trackers = [];
+    this.planner = new RoutePlanner(this);
+
+    // the highest buoy that this boat has circled.
+    this.trackerIndex = 0;
+
+    // add trackers for each buoy
     for (var i = 0; i < this.game.course.buoys.length; i++) {
       var buoy = this.game.course.buoys[i];
       var buoyTracker = new BuoyDetector(this, buoy, this.game.tilespace);
@@ -26,12 +31,15 @@ class Boat {
 
     var finishTracker = game.course.finishLineDetector.clone();
     this.trackers.push(finishTracker);
+  }
 
-    // the highest buoy that this boat has circled.
-    this.trackerIndex = 0;
-
-    this.direction = Directions.possibleDirections[0];
-    this.faceBuoy();
+  static fromJSON(game, json) {
+    let { damage, dice, color, tile, type, direction } = json;
+    tile = game.tilespace.getByKeyRowCol(tile.row, tile.col);
+    let boat = new Boat(game, color, tile, type);
+    boat.damage = damage;
+    boat.dice = dice.map(dice => Dice.fromJSON(dice));
+    return boat;
   }
 
   toJSON() {
