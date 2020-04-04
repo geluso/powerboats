@@ -3,6 +3,9 @@ const Course = require('./course')
 const Game = require('./game')
 const Screen = require('./screen')
 
+const RandomTileCreator = require('./geo/tile-creators/random-tile-creator');
+const JSONTileCreator = require('./geo/tile-creators/json-tile-creator');
+
 const Controls = require('./player/controls')
 const Keyboard = require('./keyboard')
 
@@ -51,7 +54,8 @@ function createLocalBoard() {
   const rows = 25;
   const cols = 55;
 
-  const tilespace = new TileSpace(rows, cols);
+  const randomTiles = new RandomTileCreator();
+  const tilespace = new TileSpace(rows, cols, randomTiles);
   const course = new Course(tilespace);
   course.setup();
 

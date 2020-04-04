@@ -1,16 +1,16 @@
 const Resources = require('./resources');
 
 class Tile {
-  constructor(xIndex, yIndex, zIndex, resource, buoy) {
-    this.resource = resource;
-    this.buoy = buoy;
-    this.hover = false;
-    this.isGivingDamage = false;
-    this.isDirty = true;
-
+  constructor(xIndex, yIndex, zIndex, resource) {
     this.xIndex = xIndex;
     this.yIndex = yIndex;
     this.zIndex = zIndex;
+    this.resource = resource;
+
+    this.buoy = null;
+    this.hover = false;
+    this.isGivingDamage = false;
+    this.isDirty = true;
   }
 
   static setTileSize(size) {

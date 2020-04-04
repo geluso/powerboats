@@ -4,7 +4,7 @@ const _ = require('lodash')
 var CENTER;
 
 class TileSpace {
-  constructor(rows, cols) {
+  constructor(rows, cols, tileCreator) {
     this.rows = rows;
     this.cols = cols;
 
@@ -13,7 +13,7 @@ class TileSpace {
 
     this.tiles = [];
 
-    this.createHexagons();
+    this.createHexagons(tileCreator);
   }
 
   fromJSON() {
@@ -28,7 +28,7 @@ class TileSpace {
     return JSON.stringify(json);
   }
 
-  createHexagons() {
+  createHexagons(tileCreator) {
     var maxRows = this.rows + 1;
 
     var yIndex = 0;
@@ -59,13 +59,7 @@ class TileSpace {
           col > this.cols - landBorder) {
           tile = Tile.createLandTile(xIndex, yIndex, zIndex);
         } else {
-          var choice = Math.random();
-          var threshold = 1 / 40;
-          if (choice < threshold) {
-            tile = Tile.createLandTile(xIndex, yIndex, zIndex);
-          } else {
-            tile = Tile.createWaterTile(xIndex, yIndex, zIndex);
-          }
+          tile = tileCreator.create(xIndex, yIndex, zIndex);
         }
 
         tile.xIndex = xIndex;
