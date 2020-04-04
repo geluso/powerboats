@@ -1,6 +1,6 @@
 var CAN_ADJUST_SPEED = false;
 
-const CONFIG = require('./config')
+const Config = require('./config')
 
 const Boat = require('./boat');
 const AITurn = require('./ai/ai-turn');
@@ -13,10 +13,10 @@ class Game {
     this.currentPlayerIndex = 0;
     this.boats = [];
 
-    var colors = CONFIG.COLORS;
+    var colors = Config.COLORS;
     var index = 0;
     var currentTile = course.start;
-    var types = CONFIG.PLAYER_TYPES;
+    var types = Config.PLAYER_TYPES;
     while (index < colors.length) {
       var type = types[index];
       var boat = new Boat(this, colors[index], currentTile, type);
@@ -48,7 +48,7 @@ class Game {
 
     setTimeout(() => {
       this.delayedEndTurn();
-    }, CONFIG.AI_TURN_DELAY);
+    }, Config.AI_TURN_DELAY);
   }
 
   delayedEndTurn(screen) {
@@ -56,7 +56,7 @@ class Game {
     this.currentPlayerIndex %= this.boats.length;
 
     if (this.getCurrentPlayer().isAI()) {
-      var strategyClass = CONFIG.ALL_AI_STRATEGY;
+      var strategyClass = Config.ALL_AI_STRATEGY;
       var ai = new AITurn(screen, this, strategyClass);
       ai.initiateTurnStart();
     } else {

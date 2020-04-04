@@ -72,6 +72,7 @@ class GameDrawer {
     // draw boats
     for (var i = 0; i < game.boats.length; i++) {
       var boat = game.boats[i];
+      boat.tile = this.tilespace.getByKeyRowCol(boat.tile.row, boat.tile.col);
       this.boatDrawer.draw(boat);
     }
   }

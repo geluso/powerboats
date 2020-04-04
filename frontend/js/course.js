@@ -25,6 +25,7 @@ class Course {
     const course = new Course(tilespace);
 
     const start = Tile.fromJSON(json.start);
+    start.resource = Resources.START_RED;
     const startDirection = json.startDirection;
     course.setupStartLine(start, startDirection);
 
