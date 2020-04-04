@@ -36,8 +36,10 @@ class Boat {
   static fromJSON(game, json) {
     let { damage, dice, color, tile, type, direction } = json;
     tile = game.tilespace.getByKeyRowCol(tile.row, tile.col);
+
     let boat = new Boat(game, color, tile, type);
     boat.damage = damage;
+    boat.direction = direction;
     boat.dice = dice.map(dice => Dice.fromJSON(dice));
     return boat;
   }

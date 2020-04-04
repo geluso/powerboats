@@ -72,7 +72,7 @@ class RoutePlanner {
   }
 
   findBestScore(options) {
-    var bestScore = 0;
+    var bestScore = -Infinity;
     var bestBoat = options[0].boat;
     for (var i = 0; i < options.length; i++) {
       var boat = options[i];
