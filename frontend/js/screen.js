@@ -35,6 +35,7 @@ class Screen {
     MOUSE_Y = e.clientY;
 
     var thing = this.game.tilespace.getTile(MOUSE_X, MOUSE_Y);
+    if (!thing) return;
 
     this.dirty = false;
     if (thing !== LAST_THING) {

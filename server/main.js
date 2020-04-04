@@ -11,6 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const Config = require('../frontend/js/config');
 const TileSpace = require('../frontend/js/geo/tile-space');
 const Course = require('../frontend/js/course');
 const Game = require('../frontend/js/game');
@@ -26,10 +27,13 @@ const rows = 25;
 const cols = 25;
 const tilespace = new TileSpace(rows, cols, randomTiles);
 const course = new Course(tilespace);
+const game = new Game(course);
+course.setupBuoys();
+course.setupStartLine(course.start, Config.START_DIRECTION);
 
 const GAMES = {
   'budweiser': { ace: 99 },
-  'rainier': { tilespace },
+  'rainier': { course },
 };
 
 app.get('/games/', (req, res) => {
@@ -44,7 +48,7 @@ app.post('/games/create', (req, res) => {
 app.get('/games/:name', (req, res) => {
   const name = req.params.name;
   const game = GAMES[name];
-  const json = { tilespace: game.tilespace.toJSON() };
+  const json = { course: course.toJSON() };
   res.send(json);
 });
 

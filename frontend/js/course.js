@@ -5,6 +5,8 @@ const CONFIG = require('./config');
 const Resources = require('./resources');
 
 const Buoy = require('./buoy');
+const Tile = require('./tile');
+const TileSpace = require('./geo/tile-space');
 const FinishLineDetector = require('./finish-line-detector');
 
 const NUMBER_OF_BUOYS = 3;
@@ -18,7 +20,34 @@ class Course {
     this.finishLineDetector = new FinishLineDetector();
   }
 
-  setup() {
+  static fromJSON(json) {
+    const tilespace = TileSpace.fromJSON(json.tilespace);
+    const course = new Course(tilespace);
+
+    const start = Tile.fromJSON(json.start);
+    const startDirection = json.startDirection;
+    course.setupStartLine(start, startDirection);
+
+    course.buoys = json.buoys.map(buoyJSON => Buoy.fromJSON(buoyJSON));
+    course.buoys.forEach(buoy => {
+      const tile = tilespace.getByKeyRowCol(buoy.tile.row, buoy.tile.col);
+      tile.buoy = buoy;
+    });
+
+    return course;
+  }
+
+  toJSON() {
+    const json = {
+      tilespace: this.tilespace.toJSON(),
+      start: this.start.toJSON(),
+      startDirection: this.startDirection,
+      buoys: this.buoys.map(buoy => buoy.toJSON()),
+    };
+    return json;
+  }
+
+  setupBuoys() {
     const chooseInsideTile = (tiles, minDistance) => {
       const maxAttempts = 10;
       let attempts = 0;
@@ -51,6 +80,8 @@ class Course {
       }
     } else {
       startPos = chooseInsideTile(this.tilespace.tiles, 10);
+      this.start = startPos;
+
       var buoysPlaced = 1;
       while (buoysPlaced <= NUMBER_OF_BUOYS) {
         var tile = chooseInsideTile(this.tilespace.tiles, 5)
@@ -61,9 +92,11 @@ class Course {
         buoysPlaced++;
       }
     }
+  }
 
+  setupStartLine(startPos, startDirection) {
     this.start = startPos;
-    this.startDirection = CONFIG.START_DIRECTION;
+    this.startDirection = startDirection;
     this.start.resource = Resources.START_RED;
 
     this.finishLineDetector.add(this.start);

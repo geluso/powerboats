@@ -6,9 +6,9 @@ const Boat = require('./boat');
 const AITurn = require('./ai/ai-turn');
 
 class Game {
-  constructor(tilespace, course) {
-    this.tilespace = tilespace;
+  constructor(course) {
     this.course = course;
+    this.tilespace = course.tilespace;
 
     this.currentPlayerIndex = 0;
     this.boats = [];

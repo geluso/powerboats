@@ -32,6 +32,10 @@ const Resources = {
   WATER, LAND, START_RED, START_BLACK, START_WHITE, HOVERED
 };
 
+const ALL_RESOURCES = [
+  WATER, LAND, START_RED, START_BLACK, START_WHITE, HOVERED
+];
+
 Resources.resourceFromString = function (name) {
   for (var i = 0; i < ALL_RESOURCES.length; i++) {
     if (ALL_RESOURCES[i].name === name) {

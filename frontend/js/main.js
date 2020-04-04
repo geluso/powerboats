@@ -1,3 +1,5 @@
+const Config = require('./config');
+
 const TileSpace = require('./geo/tile-space')
 const Course = require('./course')
 const Game = require('./game')
@@ -20,19 +22,16 @@ function main() {
   // initialize the game and the board
   const isLocal = false;
   if (isLocal) {
-    const { tilespace, course } = createLocalBoard();
-    beginRender(tilespace, course);
+    const course = createLocalCourse();
+    beginRender(course);
   } else {
     const url = 'http://localhost:3000/games/rainier';
-    fetchRemote(url)
-      .then(({ tilespace, course }) => {
-        beginRender(tilespace, course);
-      });
+    fetchRemoteCourse(url).then(beginRender);
   }
 }
 
-function beginRender(tilespace, course) {
-  const game = new Game(tilespace, course);
+function beginRender(course) {
+  const game = new Game(course);
 
   // set up the screen
   var width = window.innerWidth;
@@ -52,7 +51,7 @@ function beginRender(tilespace, course) {
   refresh();
 }
 
-function createLocalBoard() {
+function createLocalCourse() {
   const rows = 25;
   const cols = 55;
 
@@ -60,20 +59,18 @@ function createLocalBoard() {
   const jsonTiles = new JSONTileCreator({});
   const tilespace = new TileSpace(rows, cols, jsonTiles);
   const course = new Course(tilespace);
-  course.setup();
 
-  return { tilespace, course };
+  course.setupBuoys();
+  course.setupStartLine(course.start, Config.START_DIRECTION);
+
+  return course;
 }
 
-function fetchRemote(url) {
+function fetchRemoteCourse(url) {
   return fetch(url)
     .then(res => res.json())
     .then(json => {
-      const tilespace = TileSpace.fromJSON(json.tilespace);
-      const course = new Course(tilespace);
-      course.setup();
-      // const course = Course.fromJSON(json);
-      // return { tilespace, course };
-      return { tilespace, course }
+      const course = Course.fromJSON(json.course);
+      return course;
     });
 }

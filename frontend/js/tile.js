@@ -17,10 +17,10 @@ class Tile {
   }
 
   static fromJSON(json) {
-    const { xIndex, yIndex, zIndex, row, col } = json;
-    const resource = Resources.fromString(json.resourceName);
+    const { row, col, xIndex, yIndex, zIndex } = json;
+    const resource = Resources.resourceFromString(json.resourceName);
 
-    const tile = new Tile(xIndex, yIndex, zIndex, resource);
+    const tile = new Tile(row, col, xIndex, yIndex, zIndex, resource);
     return tile;
   }
 
