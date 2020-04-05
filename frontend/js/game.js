@@ -59,6 +59,15 @@ class Game {
     }
   }
 
+  updateFromJSON(json) {
+    const boatLookup = {};
+    this.boats.forEach(boat => {
+      boatLookup[boat.color] = boat;
+    })
+
+    boatLookup[json.color].updateFromJSON(json);
+  }
+
   getCurrentPlayer() {
     var player = this.boats[this.currentPlayerIndex];
     return player;

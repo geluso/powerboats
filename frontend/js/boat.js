@@ -44,6 +44,15 @@ class Boat {
     return boat;
   }
 
+  updateFromJSON(json) {
+    this.damage = json.damage;
+    this.color = json.color;
+    this.tile = json.tile;
+    this.type = json.type;
+    this.direction = json.direction;
+    this.dice = json.dice.map(dice => Dice.fromJSON(dice));
+  }
+
   toJSON() {
     return {
       damage: this.damage,

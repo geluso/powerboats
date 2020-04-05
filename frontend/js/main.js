@@ -10,7 +10,8 @@ const JSONTileCreator = require('./geo/tile-creators/json-tile-creator');
 
 const Boat = require('./boat');
 
-const Controls = require('./player/controls')
+const LocalControls = require('./player/local-controls')
+const RemoteControls = require('./player/remote-controls')
 const Keyboard = require('./keyboard')
 
 $(document).ready(main);
@@ -24,23 +25,30 @@ function main() {
   // initialize the game and the board
   const isLocal = false;
   if (isLocal) {
-    const course = createLocalGame();
-    beginRender(course);
+    const game = createLocalGame();
+    beginRender(game, isLocal);
   } else {
     const url = 'http://localhost:3000/games/rainier';
-    fetchRemoteGame(url).then(beginRender);
+    fetchRemoteGame(url).then(game => {
+      beginRender(game, isLocal);
+    });
   }
 }
 
-function beginRender(game) {
+function beginRender(game, isLocal) {
   // set up the screen
   var width = window.innerWidth;
   var height = window.innerHeight;
   const screen = new Screen(width, height, game);
 
   // set up the controls
-  const controls = Controls.initializeControls(screen, game);
-  Keyboard.init(controls);
+  if (isLocal) {
+    LocalControls.initializeControls(screen, game);
+    Keyboard.init(controls);
+  } else {
+    console.log('remote controls')
+    RemoteControls.initializeControls(screen, game);
+  }
 
   // continually refresh
   function refresh() {

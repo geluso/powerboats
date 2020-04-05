@@ -1,3 +1,9 @@
+require('../frontend/thirdjs/seedrandom');
+Math.seedrandom("powerboats!!!!!!!!!!!!!")
+console.log(Math.random());
+console.log(Math.random());
+console.log(Math.random());
+
 var express = require('express');
 var cors = require('cors');
 var bodyParser = require('body-parser');
@@ -24,7 +30,7 @@ const JSONTileCreator = require('../frontend/js/geo/tile-creators/json-tile-crea
 // manually adjusted for browser.
 // TODO: make tilespace independent of resolution
 console.log('creating tilespace and board')
-const randomTiles = new RandomTileCreator(1 / 5);
+const randomTiles = new RandomTileCreator(1 / 10);
 const rows = 25;
 const cols = 25;
 const tilespace = new TileSpace(rows, cols, randomTiles);
@@ -64,6 +70,46 @@ app.get('/games/:name', (req, res) => {
   const name = req.params.name;
   const game = GAMES[name];
   const json = { game: game.toJSON() };
+  res.send(json);
+});
+
+app.get('/games/:name/turn-left', (req, res) => {
+  const name = req.params.name;
+  const game = GAMES[name];
+
+  const player = game.getCurrentPlayer();
+  player.turnLeft();
+
+  const json = { game: game.toJSON() };
+  res.send(json);
+});
+
+app.get('/games/:name/turn-right', (req, res) => {
+  const name = req.params.name;
+  const game = GAMES[name];
+
+  const player = game.getCurrentPlayer();
+  player.turnRight();
+
+  const json = { game: game.toJSON() };
+  res.send(json);
+});
+
+app.get('/games/:name/go-straight', (req, res) => {
+  const name = req.params.name;
+  const game = GAMES[name];
+
+  const player = game.getCurrentPlayer();
+  console.log('was', player.color, player.tile.xIndex, player.tile.yIndex, player.tile.zIndex);
+
+  player.goStraight();
+  game.endTurn();
+
+  console.log('now', player.color, player.tile.xIndex, player.tile.yIndex, player.tile.zIndex);
+
+  const json = {
+    boat: player.toJSON()
+  };
   res.send(json);
 });
 

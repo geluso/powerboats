@@ -37,7 +37,6 @@ class Tile {
     }
   }
 
-
   static setTileSize(size) {
     Tile.TILE_SIZE = size;
     Tile.EDGE_LENGTH = Tile.TILE_SIZE;
@@ -45,13 +44,13 @@ class Tile {
     Tile.TILE_HEIGHT = Math.sqrt(3) / 2 * Tile.HALF_EDGE;
   }
 
-  static createWaterTile = function (row, col, xIndex, yIndex, zIndex) {
+  static createWaterTile(row, col, xIndex, yIndex, zIndex) {
     var resource = Resources.WATER;
     var tile = new Tile(row, col, xIndex, yIndex, zIndex, resource);
     return tile;
   }
 
-  static createLandTile = function (row, col, xIndex, yIndex, zIndex) {
+  static createLandTile(row, col, xIndex, yIndex, zIndex) {
     var resource = Resources.LAND;
     var tile = new Tile(row, col, xIndex, yIndex, zIndex, resource);
     return tile;
