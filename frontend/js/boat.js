@@ -98,7 +98,6 @@ class Boat {
     var damage = this.followRoute(true);
     if (damage > 0) {
       this.damage += damage;
-      this.dice = [];
     }
   }
 
@@ -109,7 +108,10 @@ class Boat {
     var damage = 0;
     for (var i = 0; i < route.length; i++) {
       var nextTile = route[i];
-      if (!isTakingDamage && nextTile.resource !== Resources.LAND) {
+      if (isTakingDamage || !nextTile.isNavigable(this.game.course)) {
+        isTakingDamage = true;
+        damage++;
+      } else {
         if (isMovingBoatAlongRoute) {
           // weird unhighlighting to get rid of all route
           // dots, and mark where the boat started as dirty.
@@ -118,10 +120,6 @@ class Boat {
           this.tile.unhighlight();
           this.trackProgress();
         }
-      } else {
-        console.log('damage at', nextTile.row, nextTile.col);
-        isTakingDamage = true;
-        damage++;
       }
     }
 
@@ -191,7 +189,7 @@ class Boat {
       if (current) {
         tiles.push(current);
 
-        if (isTakingDamage || current.resource === Resources.LAND) {
+        if (isTakingDamage || !current.isNavigable(this.game.course)) {
           isTakingDamage = true;
           current.givingDamage();
         }

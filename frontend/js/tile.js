@@ -104,6 +104,19 @@ class Tile {
     return key;
   };
 
+  isNavigable(course) {
+    if (this.resource === Resources.LAND) {
+      return false;
+    }
+
+    // is there a buoy?
+    if (course.isBuoy(this)) {
+      return false;
+    }
+
+    return true;
+  }
+
   north() {
     var key = this.keyObject();
     key.y++;

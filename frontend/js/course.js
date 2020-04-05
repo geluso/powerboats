@@ -17,6 +17,7 @@ class Course {
     this.start = undefined;
     this.startDirection = undefined;
     this.buoys = [];
+    this.buoyKeys = new Set();
     this.finishLineDetector = new FinishLineDetector();
   }
 
@@ -33,6 +34,7 @@ class Course {
     course.buoys.forEach(buoy => {
       const tile = tilespace.getByKeyRowCol(buoy.tile.row, buoy.tile.col);
       tile.buoy = buoy;
+      course.buoyKeys.add(tile.row + ',' + tile.col);
     });
 
     return course;
@@ -88,6 +90,7 @@ class Course {
         var tile = chooseInsideTile(this.tilespace.tiles, 5)
         var buoy = new Buoy(buoysPlaced, tile);
         this.buoys.push(buoy);
+        this.buoyKeys.add(tile.row + ',' + tile.col);
 
         tile.buoy = buoy;
         buoysPlaced++;
@@ -123,6 +126,11 @@ class Course {
 
     return this;
   };
+
+  isBuoy(tile) {
+    const key = tile.row + ',' + tile.col;
+    return this.buoyKeys.has(key);
+  }
 }
 
 if (typeof module !== "undefined" && !!module) {

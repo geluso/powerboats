@@ -15,8 +15,8 @@ const RandomTileCreator = require('../../frontend/js/geo/tile-creators/random-ti
 const JSONTileCreator = require('../../frontend/js/geo/tile-creators/json-tile-creator');
 
 const randomTiles = new RandomTileCreator(1 / 10);
-const rows = 10;
-const cols = 10;
+const rows = 25;
+const cols = 25;
 const tilespace = new TileSpace(rows, cols, randomTiles);
 
 const course = new Course(tilespace);
@@ -71,7 +71,7 @@ router.put('/:name', (req, res) => {
     player.goStraight();
   } else if (action === 'speedUp') {
     player.speedUp();
-  } else if (action === 'speedDown') {
+  } else if (action === 'slowDown') {
     player.slowDown();
   }
 
