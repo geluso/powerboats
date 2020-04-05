@@ -10,6 +10,7 @@ const JSONTileCreator = require('./geo/tile-creators/json-tile-creator');
 
 const Boat = require('./boat');
 
+const PlayerSelection = require('./player/player-selection')
 const LocalControls = require('./player/local-controls')
 const RemoteControls = require('./player/remote-controls')
 const Keyboard = require('./keyboard')
@@ -44,6 +45,7 @@ function beginRender(game, isLocal) {
   const screen = new Screen(width, height, game);
 
   // set up the controls
+  PlayerSelection.init(game, screen);
   if (isLocal) {
     LocalControls.initializeControls(screen, game);
   } else {

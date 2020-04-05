@@ -72,10 +72,10 @@ RemoteControls.initializeControls = function (screen, game) {
   function wrapInPlayerCheck(func) {
     return function () {
       // only allow humans to control their own boats, not AI boats.
-      if (game.getCurrentPlayer().type.includes("human")) {
-        func();
-        screen.draw();
-      }
+      // if (game.getCurrentPlayer().type.includes("human")) {
+      func();
+      screen.draw();
+      // }
     }
   }
 

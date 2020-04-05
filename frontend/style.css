@@ -45,3 +45,36 @@ body {
   position: absolute;
   top: 0;
 }
+
+.player {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border: solid black 1px;
+}
+
+.controlling {
+  border: solid red 5px;
+  width: 16px;
+  height: 16px;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.purple {
+  background-color: purple;
+}
+
+.white {
+  background-color: white;
+}
+
+.green {
+  background-color: green;
+}
+
+.orange {
+  background-color: orange;
+}

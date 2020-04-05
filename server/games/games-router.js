@@ -65,7 +65,7 @@ router.put('/:name', (req, res) => {
   const { color, action, direction } = req.body;
   const game = GAMES[name];
 
-  const player = game.getCurrentPlayer();
+  const player = game.getPlayer(color);
   player.direction = direction;
   if (action === 'goStraight') {
     player.goStraight();

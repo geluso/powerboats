@@ -15,6 +15,17 @@ class Game {
     this.currentPlayerIndex = 0;
   }
 
+  setCurrentPlayer(color) {
+    this.getCurrentPlayer().unhighlightRoute();
+
+    this.boats.forEach((boat, index) => {
+      if (boat.color === color) {
+        this.currentPlayerIndex = index;
+        this.getCurrentPlayer().highlightRoute();
+      }
+    });
+  }
+
   addBoat(boat) {
 
   }
@@ -71,6 +82,15 @@ class Game {
   getCurrentPlayer() {
     var player = this.boats[this.currentPlayerIndex];
     return player;
+  }
+
+  getPlayer(color) {
+    for (let i = 0; i < this.boats.length; i++) {
+      const boat = this.boats[i];
+      if (boat.color === color) {
+        return boat;
+      }
+    }
   }
 
   endTurn() {

@@ -170,6 +170,7 @@ class Boat {
       return;
     }
 
+    this.tile.unhighlight();
     var tiles = this.currentlyHighlightedRoute;
     for (var i = 0; i < tiles.length; i++) {
       tiles[i].unhighlight();
