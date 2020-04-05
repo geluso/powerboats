@@ -14,7 +14,6 @@ const Boat = require('../../frontend/js/boat');
 const RandomTileCreator = require('../../frontend/js/geo/tile-creators/random-tile-creator');
 const JSONTileCreator = require('../../frontend/js/geo/tile-creators/json-tile-creator');
 
-console.log('creating tilespace and board')
 const randomTiles = new RandomTileCreator(1 / 10);
 const rows = 25;
 const cols = 25;
@@ -60,15 +59,11 @@ router.route('/:name')
   });
 
 router.put('/:name', (req, res) => {
-  console.log('body', req.body);
   const name = req.params.name;
   const { color, action, direction } = req.body;
   const game = GAMES[name];
 
   const player = game.getCurrentPlayer();
-  console.log('action', action, 'body', req.body);
-  console.log('was', color, 'speed', player.speed(), 'pos', player.tile.xIndex, player.tile.yIndex, player.tile.zIndex);
-
   player.direction = direction;
   if (action === 'goStraight') {
     player.goStraight();
@@ -77,9 +72,6 @@ router.put('/:name', (req, res) => {
   } else if (action === 'speedDown') {
     player.slowDown();
   }
-
-  console.log('now', color, 'speed', player.speed(), 'pos', player.tile.xIndex, player.tile.yIndex, player.tile.zIndex);
-  console.log();
 
   const json = {
     boat: player.toJSON()

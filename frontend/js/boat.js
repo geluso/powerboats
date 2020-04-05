@@ -13,6 +13,7 @@ class Boat {
     this.dice = [new Dice(1)];
 
     this.damage = 0;
+    this.damageLocations = [];
     this.color = color;
     this.type = type;
 
@@ -118,6 +119,7 @@ class Boat {
           this.trackProgress();
         }
       } else {
+        console.log('damage at', nextTile.row, nextTile.col);
         isTakingDamage = true;
         damage++;
       }
