@@ -48,7 +48,7 @@ function TileDrawer(ctx, game) {
 
     var drawCoords = CONFIG.DRAW_COORDS || (tile.hovering && CONFIG.DRAW_HOVER_COORDS);
     if (drawCoords) {
-      var indexLabel = [tile.col, tile.row, tile.zIndex].join(",");
+      var indexLabel = [tile.row, tile.col, tile.zIndex].join(",");
       var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
       if (sum < 30 || true) {
         this.ctx.strokeText(indexLabel, tile.x, tile.y + 2);

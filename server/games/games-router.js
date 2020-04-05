@@ -15,8 +15,8 @@ const RandomTileCreator = require('../../frontend/js/geo/tile-creators/random-ti
 const JSONTileCreator = require('../../frontend/js/geo/tile-creators/json-tile-creator');
 
 const randomTiles = new RandomTileCreator(1 / 10);
-const rows = 25;
-const cols = 25;
+const rows = 10;
+const cols = 10;
 const tilespace = new TileSpace(rows, cols, randomTiles);
 
 const course = new Course(tilespace);
@@ -25,6 +25,8 @@ course.setupStartLine(course.start, Config.START_DIRECTION);
 
 // create game and place boats
 const game = new Game(course);
+console.log(game.tilespace.toString());
+
 let currentTile = course.start;
 for (let i = 0; i < Config.PLAYER_TYPES.length; i++) {
   const color = Config.COLORS[i];

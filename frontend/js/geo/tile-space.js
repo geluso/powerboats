@@ -2,6 +2,7 @@ const _ = require('lodash')
 
 const Tile = require('../tile');
 const Resources = require('../resources');
+const RandomTileCreator = require('./tile-creators/random-tile-creator')
 const JSONTileCreator = require('./tile-creators/json-tile-creator')
 
 
@@ -179,6 +180,38 @@ class TileSpace {
     return tile;
   }
 
+  toString() {
+    let grid = '';
+    for (let irow = 0; irow < this.rows; irow++) {
+      let row1 = '';
+      let row2 = ' ';
+      for (let icol = 0; icol < this.cols; icol++) {
+        let tile = this.getByKeyRowCol(irow, icol);
+        let label;
+        if (tile.resource === Resources.WATER) {
+          label = '.  ';
+        } else if (tile.resource === Resources.LAND) {
+          label = 'X  ';
+        } else if (tile.resource === Resources.START_RED) {
+          label = 'R  ';
+        } else if (tile.resource === Resources.START_BLACK) {
+          label = 'B  ';
+        } else if (tile.resource === Resources.START_WHITE) {
+          label = 'W  ';
+        }
+
+        if (icol % 2 === 0) {
+          row1 += label;
+        } else {
+          row2 += label;
+        }
+      }
+
+      grid += row1 + '\n';
+      grid += row2 + '\n';
+    }
+    return grid;
+  }
 }
 
 if (typeof module !== "undefined" && !!module) {

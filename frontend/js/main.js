@@ -36,6 +36,8 @@ function main() {
 }
 
 function beginRender(game, isLocal) {
+  console.log(game.tilespace.toString());
+
   // set up the screen
   var width = window.innerWidth;
   var height = window.innerHeight;
