@@ -42,6 +42,9 @@ class Boat {
     boat.damage = damage;
     boat.direction = direction;
     boat.dice = dice.map(dice => Dice.fromJSON(dice));
+
+    this.trackers = json.trackers.map(tracker => BuoyDetector.fromJSON(boat, tracker));
+
     return boat;
   }
 
@@ -58,14 +61,16 @@ class Boat {
   }
 
   toJSON() {
-    return {
+    const json = {
       damage: this.damage,
       dice: this.dice.map(dice => dice.toJSON()),
       color: this.color,
       tile: this.tile,
       type: this.type,
-      direction: this.direction
+      direction: this.direction,
+      trackers: this.trackers.splice(0, 3).map(tracker => tracker.toJSON()),
     }
+    return json;
   }
 
   isAI() {

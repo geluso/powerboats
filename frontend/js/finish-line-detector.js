@@ -4,6 +4,16 @@ class FinishLineDetector {
     this.pointsActivated = 0;
   }
 
+  static fromJSON() {
+    const finish = new FinishLineDetector();
+    return finish;
+  }
+
+  toJSON() {
+    const json = {};
+    return json;
+  }
+
   add(tile) {
     this.finishLineTiles.push(tile);
     if (this.finishLineTiles.length === 1) {

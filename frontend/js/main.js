@@ -101,6 +101,7 @@ function fetchRemoteGame(url) {
       return game;
     })
     .catch(err => {
+      console.log(err);
       console.log('network request failed. creating local game.');
       return createLocalGame();
     });

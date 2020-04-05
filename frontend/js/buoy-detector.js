@@ -1,3 +1,4 @@
+const Buoy = require('./buoy');
 const Directions = require('./geo/directions');
 const Point = require('./geo/point');
 
@@ -15,6 +16,27 @@ class BuoyDetector {
     this.registerAllDirections(false);
 
     this.center = this.buoy.tile;
+  }
+
+  static fromJSON(boat, json) {
+    const buoy = Buoy.fromJSON(json.buoy);
+    const detector = new BuoyDetector(boat, buoy, boat.game.course.tilespace);
+
+    detector.approachPath = json.approachPath;
+    detector.pointsActivated = json.pointsActivated;
+    detector.crossDirection = json.crossDirection;
+
+    return detector;
+  }
+
+  toJSON() {
+    const json = {
+      buoy: this.buoy.toJSON(),
+      approachPath: this.approachPath,
+      pointsActivated: this.pointsActivated,
+      crossDirection: this.crossDirection,
+    }
+    return json;
   }
 
   initDirections() {
