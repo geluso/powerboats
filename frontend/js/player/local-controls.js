@@ -46,9 +46,7 @@ Controls.initializeControls = function (screen, game) {
 
     reportSpeed();
   };
-  function maintainSpeed() {
-    getCurrentPlayer().highlightRoute();
-  };
+
   function speedUp() {
     //if (CAN_ADJUST_SPEED) {
     getCurrentPlayer().speedUp();
@@ -81,7 +79,6 @@ Controls.initializeControls = function (screen, game) {
     goStraight: goStraight,
     slowDown: slowDown,
     speedUp: speedUp,
-    maintainSpeed: maintainSpeed,
     reportSpeed: reportSpeed
   };
 
@@ -96,7 +93,6 @@ Controls.initializeControls = function (screen, game) {
   var turnRightButton = document.getElementById("turn-right");
 
   var slowDownButton = document.getElementById("slowdown");
-  var maintainSpeedButton = document.getElementById("maintain");
   var speedUpButton = document.getElementById("speedup");
 
   function attach(btn, func) {
@@ -108,7 +104,6 @@ Controls.initializeControls = function (screen, game) {
   attach(turnRightButton, publicFunctions.turnRight);
 
   attach(slowDownButton, publicFunctions.slowDown);
-  attach(maintainSpeedButton, publicFunctions.maintainSpeed);
   attach(speedUpButton, publicFunctions.speedUp);
 
   return publicFunctions;

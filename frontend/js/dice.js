@@ -1,20 +1,20 @@
 const CONFIG = require('./config')
 
 class Dice {
-  constructor(val) {
-    this.roll();
-    if (val) {
-      this.val = val;
+  constructor(value) {
+    if (value) {
+      this.value = value;
+    } else {
+      this.roll();
     }
   }
   static fromJSON(json) {
-    const dice = new Dice(json.val);
+    const dice = new Dice(json);
     return dice;
   }
 
   toJSON() {
-    const json = { val: this.val };
-    return json;
+    return this.value;
   }
 
   roll() {

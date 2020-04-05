@@ -1,6 +1,3 @@
-const Game = require('../game');
-const Screen = require('../screen');
-
 const RemoteControls = {};
 
 RemoteControls.initializeControls = function (screen, game) {
@@ -10,40 +7,67 @@ RemoteControls.initializeControls = function (screen, game) {
   }
 
   function turnLeft() {
-    const url = 'http://localhost:3000/games/rainier/turn-left';
-    console.log('remote turning left');
-    fetch(url)
-      .then(res => res.json())
-      .then(json => {
-        console.log('remote response');
-        game.updateFromJSON(json.game);
-        screen.draw();
-      });
-  };
-
-  function goStraight() {
-    const url = 'http://localhost:3000/games/rainier/go-straight';
-    console.log('remote turning left');
-    fetch(url)
-      .then(res => res.json())
-      .then(json => {
-        console.log('remote response');
-        game.updateFromJSON(json.boat);
-        game.endTurn();
-
-        screen.draw();
-      });
+    getCurrentPlayer().turnLeft();
+    getCurrentPlayer().highlightRoute();
+    screen.draw();
   };
 
   function turnRight() {
-    //if (OFF_CENTER_INDEX < 1) {
     getCurrentPlayer().turnRight();
     getCurrentPlayer().highlightRoute();
-    //}
-
-    // OFF_CENTER_INDEX++;
-    // OFF_CENTER_INDEX = Math.min(OFF_CENTER_INDEX, 1);
+    screen.draw();
   };
+
+  function speedUp() {
+    sendAction('speedUp');
+  }
+
+  function slowDown() {
+    sendAction('slowDown');
+  }
+
+  function goStraight() {
+    sendAction('goStraight');
+  };
+
+  function buildParams(action) {
+    const player = game.getCurrentPlayer();
+    const { color, direction } = player;
+    console.log('action');
+    const gameParams = {
+      color, action, direction,
+    };
+
+    const fetchParams = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(gameParams)
+    }
+
+    return fetchParams;
+  }
+
+  function sendAction(action) {
+    const player = game.getCurrentPlayer();
+    console.log(player.color, player.speed());
+
+    const gameName = 'rainier';
+    const url = 'http://localhost:3000/games/' + gameName;
+    const params = buildParams(action);
+
+    console.log('player was', player.color, player.speed());
+    fetch(url, params)
+      .then(res => res.json())
+      .then(json => {
+        player.tile.isDirty = true;
+
+        game.updateFromJSON(json.boat);
+        player.highlightRoute();
+
+        screen.draw();
+        console.log('player now', player.color, player.speed());
+      });
+  }
 
   function wrapInPlayerCheck(func) {
     return function () {
@@ -59,6 +83,8 @@ RemoteControls.initializeControls = function (screen, game) {
     turnLeft: turnLeft,
     turnRight: turnRight,
     goStraight: goStraight,
+    speedUp: speedUp,
+    slowDown: slowDown,
   };
 
   for (var key in publicFunctions) {
@@ -68,16 +94,22 @@ RemoteControls.initializeControls = function (screen, game) {
 
   // attach buttons to functions
   var turnLeftButton = document.getElementById("turn-left");
-  var goStraightButton = document.getElementById("go-straight");
   var turnRightButton = document.getElementById("turn-right");
+  var goStraightButton = document.getElementById("go-straight");
+
+  var speedUpButton = document.getElementById("speedup");
+  var slowDownButton = document.getElementById("slowdown");
 
   function attach(btn, func) {
     btn.addEventListener("click", func);
   }
 
   attach(turnLeftButton, publicFunctions.turnLeft);
-  attach(goStraightButton, publicFunctions.goStraight);
   attach(turnRightButton, publicFunctions.turnRight);
+  attach(goStraightButton, publicFunctions.goStraight);
+
+  attach(speedUpButton, publicFunctions.speedUp);
+  attach(slowDownButton, publicFunctions.slowDown);
 
   return publicFunctions;
 }

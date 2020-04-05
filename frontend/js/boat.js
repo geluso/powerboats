@@ -45,18 +45,21 @@ class Boat {
   }
 
   updateFromJSON(json) {
+    const { row, col } = json.tile;
+
     this.damage = json.damage;
     this.color = json.color;
-    this.tile = json.tile;
+    this.tile = this.game.tilespace.getByKeyRowCol(row, col);
     this.type = json.type;
     this.direction = json.direction;
+    console.log('dice', json.dice)
     this.dice = json.dice.map(dice => Dice.fromJSON(dice));
   }
 
   toJSON() {
     return {
       damage: this.damage,
-      dice: this.dice,
+      dice: this.dice.map(dice => dice.toJSON()),
       color: this.color,
       tile: this.tile,
       type: this.type,

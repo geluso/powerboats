@@ -44,11 +44,12 @@ function beginRender(game, isLocal) {
   // set up the controls
   if (isLocal) {
     LocalControls.initializeControls(screen, game);
-    Keyboard.init(controls);
   } else {
     console.log('remote controls')
     RemoteControls.initializeControls(screen, game);
   }
+
+  game.getCurrentPlayer().highlightRoute()
 
   // continually refresh
   function refresh() {
