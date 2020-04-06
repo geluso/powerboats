@@ -69,8 +69,7 @@ function createLocalGame() {
   const cols = 55;
 
   const randomTiles = new RandomTileCreator();
-  const jsonTiles = new JSONTileCreator({});
-  const tilespace = new TileSpace(rows, cols, jsonTiles);
+  const tilespace = new TileSpace(rows, cols, randomTiles);
   const course = new Course(tilespace);
 
   course.setupBuoys();
@@ -102,6 +101,7 @@ function fetchRemoteGame(url) {
     })
     .catch(err => {
       console.log('network request failed. creating local game.');
+      debugger
       return createLocalGame();
     });
 }
