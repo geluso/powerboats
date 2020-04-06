@@ -1,4 +1,1 @@
-cd frontend
-parcel build --public-url ./ index.html
-rm release/*
-cp dist/* release
+parcel build --public-url ./ frontend/index.html -d frontend/release
