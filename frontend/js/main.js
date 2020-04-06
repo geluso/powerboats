@@ -49,19 +49,21 @@ function beginRender(game, isLocal) {
   if (isLocal) {
     LocalControls.initializeControls(screen, game);
   } else {
-    console.log('remote controls')
     RemoteControls.initializeControls(screen, game);
   }
 
   game.getCurrentPlayer().highlightRoute()
+  screen.draw();
 
-  // continually refresh
-  function refresh() {
-    screen.draw();
-    requestAnimationFrame(refresh);
-  }
-
-  refresh();
+  setInterval(() => {
+    fetch('/games/rainier')
+      .then(res => res.json())
+      .then(json => {
+        console.log('response', json);
+        game.updateFromJSON(json.game);
+        screen.draw();
+      });
+  }, 1000);
 }
 
 function createLocalGame() {

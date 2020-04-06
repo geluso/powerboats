@@ -73,10 +73,14 @@ router.put('/:name', (req, res) => {
     player.speedUp();
   } else if (action === 'slowDown') {
     player.slowDown();
+  } else if (action === 'turnLeft') {
+    player.turnLeft();
+  } else if (action === 'turnRight') {
+    player.turnRight();
   }
 
   const json = {
-    boat: player.toJSON()
+    game: { boats: [player.toJSON()] }
   };
   res.send(json);
 });

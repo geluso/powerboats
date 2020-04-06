@@ -7,12 +7,16 @@ RemoteControls.initializeControls = function (screen, game) {
   }
 
   function turnLeft() {
+    sendAction('turnLeft');
+
     getCurrentPlayer().turnLeft();
     getCurrentPlayer().highlightRoute();
     screen.draw();
   };
 
   function turnRight() {
+    sendAction('turnRight');
+
     getCurrentPlayer().turnRight();
     getCurrentPlayer().highlightRoute();
     screen.draw();
@@ -33,7 +37,6 @@ RemoteControls.initializeControls = function (screen, game) {
   function buildParams(action) {
     const player = game.getCurrentPlayer();
     const { color, direction } = player;
-    console.log('action');
     const gameParams = {
       color, action, direction,
     };
@@ -49,23 +52,19 @@ RemoteControls.initializeControls = function (screen, game) {
 
   function sendAction(action) {
     const player = game.getCurrentPlayer();
-    console.log(player.color, player.speed());
-
     const gameName = 'rainier';
     const url = '/games/' + gameName;
     const params = buildParams(action);
 
-    console.log('player was', player.color, player.speed());
     fetch(url, params)
       .then(res => res.json())
       .then(json => {
         player.tile.isDirty = true;
 
-        game.updateFromJSON(json.boat);
+        game.updateFromJSON(json.game);
         player.highlightRoute();
 
         screen.draw();
-        console.log('player now', player.color, player.speed());
       });
   }
 
