@@ -10,7 +10,7 @@ class Boat {
 
     this.tile = tile;
     this.direction = direction;
-    this.dice = [new Dice(1)];
+    this.dice = [];
 
     this.damage = 0;
     this.damageLocations = [];
