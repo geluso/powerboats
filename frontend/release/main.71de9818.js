@@ -98,7 +98,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({21:[function(require,module,exports) {
+})({27:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -390,7 +390,7 @@ var AIStrategies = {
 if (typeof module !== "undefined" && !!module) {
   module.exports = AIStrategies;
 }
-},{}],8:[function(require,module,exports) {
+},{}],14:[function(require,module,exports) {
 var AIStrategies = require('./ai/ai-strategies');
 
 var CONFIG = {
@@ -417,7 +417,7 @@ var CONFIG = {
 if (typeof module !== "undefined" && !!module) {
   module.exports = CONFIG;
 }
-},{"./ai/ai-strategies":21}],45:[function(require,module,exports) {
+},{"./ai/ai-strategies":27}],50:[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -570,7 +570,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],44:[function(require,module,exports) {
+},{}],51:[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -656,14 +656,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],43:[function(require,module,exports) {
+},{}],49:[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],42:[function(require,module,exports) {
+},{}],48:[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -2456,7 +2456,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":45,"ieee754":44,"isarray":43,"buffer":42}],28:[function(require,module,exports) {
+},{"base64-js":50,"ieee754":51,"isarray":49,"buffer":48}],34:[function(require,module,exports) {
 var global = arguments[3];
 var Buffer = require("buffer").Buffer;
 var define;
@@ -19573,7 +19573,7 @@ var define;
   }
 }.call(this));
 
-},{"buffer":42}],24:[function(require,module,exports) {
+},{"buffer":48}],30:[function(require,module,exports) {
 var WATER = {
   name: "water",
   color: "CornflowerBlue"
@@ -19621,7 +19621,7 @@ Resources.resourceFromString = function (name) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Resources;
 }
-},{}],23:[function(require,module,exports) {
+},{}],29:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19825,7 +19825,7 @@ Tile.setTileSize(50);
 if (typeof module !== "undefined" && !!module) {
   module.exports = Tile;
 }
-},{"./resources":24}],18:[function(require,module,exports) {
+},{"./resources":30}],24:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19864,7 +19864,7 @@ var RandomTileCreator = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = RandomTileCreator;
 }
-},{"../../tile":23}],19:[function(require,module,exports) {
+},{"../../tile":29}],25:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19913,7 +19913,7 @@ var JSONTileCreator = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = JSONTileCreator;
 }
-},{"../../tile":23,"../../resources":24}],14:[function(require,module,exports) {
+},{"../../tile":29,"../../resources":30}],20:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20162,7 +20162,7 @@ var TileSpace = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = TileSpace;
 }
-},{"lodash":28,"../tile":23,"../resources":24,"./tile-creators/random-tile-creator":18,"./tile-creators/json-tile-creator":19}],26:[function(require,module,exports) {
+},{"lodash":34,"../tile":29,"../resources":30,"./tile-creators/random-tile-creator":24,"./tile-creators/json-tile-creator":25}],32:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20204,7 +20204,7 @@ var Buoy = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Buoy;
 }
-},{"./tile":23}],27:[function(require,module,exports) {
+},{"./tile":29}],33:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20265,7 +20265,7 @@ var FinishLineDetector = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = FinishLineDetector;
 }
-},{}],9:[function(require,module,exports) {
+},{}],15:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20425,7 +20425,7 @@ var Course = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Course;
 }
-},{"lodash":28,"./config":8,"./resources":24,"./buoy":26,"./tile":23,"./geo/tile-space":14,"./finish-line-detector":27}],29:[function(require,module,exports) {
+},{"lodash":34,"./config":14,"./resources":30,"./buoy":32,"./tile":29,"./geo/tile-space":20,"./finish-line-detector":33}],35:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20469,7 +20469,7 @@ var Dice = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Dice;
 }
-},{"./config":8}],32:[function(require,module,exports) {
+},{"./config":14}],38:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20500,7 +20500,7 @@ var TileGeo = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = TileGeo;
 }
-},{}],30:[function(require,module,exports) {
+},{}],36:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20640,7 +20640,7 @@ var RoutePlanner = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = RoutePlanner;
 }
-},{"./finish-line-detector":27,"./geo/tile-geo":32}],37:[function(require,module,exports) {
+},{"./finish-line-detector":33,"./geo/tile-geo":38}],43:[function(require,module,exports) {
 Directions = {};
 Directions.directionToAngle = {
   "north": 0,
@@ -20679,7 +20679,7 @@ Directions.counterClockwiseNext = {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Directions;
 }
-},{}],31:[function(require,module,exports) {
+},{}],37:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20849,7 +20849,7 @@ var BuoyTracker = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = BuoyTracker;
 }
-},{"./geo/directions":37}],12:[function(require,module,exports) {
+},{"./geo/directions":43}],18:[function(require,module,exports) {
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -21262,7 +21262,7 @@ var BoatClone = function (_Boat) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Boat;
 }
-},{"./dice":29,"./route-planner":30,"./buoy-tracker":31,"./resources":24,"./geo/tile-geo":32}],25:[function(require,module,exports) {
+},{"./dice":35,"./route-planner":36,"./buoy-tracker":37,"./resources":30,"./geo/tile-geo":38}],31:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21318,7 +21318,7 @@ var AITurn = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = AITurn;
 }
-},{"../config":8}],10:[function(require,module,exports) {
+},{"../config":14}],16:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21489,7 +21489,7 @@ var Game = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Game;
 }
-},{"./config":8,"./course":9,"./boat":12,"./ai/ai-turn":25}],41:[function(require,module,exports) {
+},{"./config":14,"./course":15,"./boat":18,"./ai/ai-turn":31}],46:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21547,7 +21547,7 @@ var BuoyDrawer = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = BuoyDrawer;
 }
-},{"../tile":23}],33:[function(require,module,exports) {
+},{"../tile":29}],39:[function(require,module,exports) {
 var CONFIG = require('../config');
 var BuoyDrawer = require('./buoy-drawer');
 
@@ -21611,7 +21611,7 @@ function TileDrawer(ctx, game) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = TileDrawer;
 }
-},{"../config":8,"./buoy-drawer":41}],35:[function(require,module,exports) {
+},{"../config":14,"./buoy-drawer":46}],42:[function(require,module,exports) {
 function Point(x, y) {
   this.x = Math.round(x);
   this.y = Math.round(y);
@@ -21663,7 +21663,7 @@ Point.draw = function (ctx, tile, fillOverride) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Point;
 }
-},{}],40:[function(require,module,exports) {
+},{}],47:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21698,7 +21698,7 @@ var BuoyTrackerDrawer = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = BuoyTrackerDrawer;
 }
-},{"../geo/point":35}],34:[function(require,module,exports) {
+},{"../geo/point":42}],41:[function(require,module,exports) {
 var Tile = require('../tile');
 var BuoyTrackerDrawer = require('./buoy-tracker-drawer');
 
@@ -21751,7 +21751,7 @@ function BoatDrawer(ctx, game) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = BoatDrawer;
 }
-},{"../tile":23,"./buoy-tracker-drawer":40}],38:[function(require,module,exports) {
+},{"../tile":29,"./buoy-tracker-drawer":47}],44:[function(require,module,exports) {
 var Point = require('./point');
 
 function Corner(x, y) {
@@ -21781,7 +21781,7 @@ Corner.lookup = {};
 if (typeof module !== "undefined" && !!module) {
   module.exports = Corner;
 }
-},{"./point":35}],39:[function(require,module,exports) {
+},{"./point":42}],45:[function(require,module,exports) {
 var Point = require('./point');
 var Corner = require('./corner');
 
@@ -21830,7 +21830,7 @@ function Edge(c1, c2) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Edge;
 }
-},{"./point":35,"./corner":38,"lodash":28}],36:[function(require,module,exports) {
+},{"./point":42,"./corner":44,"lodash":34}],40:[function(require,module,exports) {
 var Point = require('./point');
 var Corner = require('./corner');
 var Edge = require('./edge');
@@ -21894,7 +21894,7 @@ function Hexagon(x, y, size) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Hexagon;
 }
-},{"./point":35,"./corner":38,"./edge":39}],22:[function(require,module,exports) {
+},{"./point":42,"./corner":44,"./edge":45}],28:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21989,7 +21989,7 @@ var GameDrawer = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = GameDrawer;
 }
-},{"../tile":23,"./tile-drawer":33,"./boat-drawer":34,"../geo/point":35,"../geo/hexagon":36}],11:[function(require,module,exports) {
+},{"../tile":29,"./tile-drawer":39,"./boat-drawer":41,"../geo/point":42,"../geo/hexagon":40}],17:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22093,7 +22093,7 @@ var Screen = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Screen;
 }
-},{"./drawers/game-drawer":22}],15:[function(require,module,exports) {
+},{"./drawers/game-drawer":28}],21:[function(require,module,exports) {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -22137,7 +22137,7 @@ var PlayerSelection = function () {
 if (typeof module !== "undefined" && !!module) {
   module.exports = PlayerSelection;
 }
-},{}],16:[function(require,module,exports) {
+},{}],22:[function(require,module,exports) {
 var Controls = {};
 
 Controls.initializeControls = function (screen, game) {
@@ -22252,7 +22252,7 @@ Controls.initializeControls = function (screen, game) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Controls;
 }
-},{}],17:[function(require,module,exports) {
+},{}],23:[function(require,module,exports) {
 var RemoteControls = {};
 
 RemoteControls.initializeControls = function (screen, game) {
@@ -22374,7 +22374,7 @@ RemoteControls.initializeControls = function (screen, game) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = RemoteControls;
 }
-},{}],13:[function(require,module,exports) {
+},{}],19:[function(require,module,exports) {
 var Keyboard = {};
 
 Keyboard.init = function (controls) {
@@ -22415,7 +22415,7 @@ Keyboard.init = function (controls) {
 if (typeof module !== "undefined" && !!module) {
   module.exports = Keyboard;
 }
-},{}],6:[function(require,module,exports) {
+},{}],12:[function(require,module,exports) {
 var Config = require('./config');
 
 var TileSpace = require('./geo/tile-space');
@@ -22487,8 +22487,7 @@ function createLocalGame() {
   var cols = 55;
 
   var randomTiles = new RandomTileCreator();
-  var jsonTiles = new JSONTileCreator({});
-  var tilespace = new TileSpace(rows, cols, jsonTiles);
+  var tilespace = new TileSpace(rows, cols, randomTiles);
   var course = new Course(tilespace);
 
   course.setupBuoys();
@@ -22519,10 +22518,11 @@ function fetchRemoteGame(url) {
     return game;
   }).catch(function (err) {
     console.log('network request failed. creating local game.');
+    debugger;
     return createLocalGame();
   });
 }
-},{"./config":8,"./geo/tile-space":14,"./course":9,"./game":10,"./screen":11,"./geo/tile-creators/random-tile-creator":18,"./geo/tile-creators/json-tile-creator":19,"./boat":12,"./player/player-selection":15,"./player/local-controls":16,"./player/remote-controls":17,"./keyboard":13}],46:[function(require,module,exports) {
+},{"./config":14,"./geo/tile-space":20,"./course":15,"./game":16,"./screen":17,"./geo/tile-creators/random-tile-creator":24,"./geo/tile-creators/json-tile-creator":25,"./boat":18,"./player/player-selection":21,"./player/local-controls":22,"./player/remote-controls":23,"./keyboard":19}],56:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -22551,7 +22551,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '51120' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56658' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -22692,5 +22692,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[46,6], null)
+},{}]},{},[56,12], null)
 //# sourceMappingURL=/main.71de9818.map

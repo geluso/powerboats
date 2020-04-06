@@ -98,7 +98,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({3:[function(require,module,exports) {
+})({9:[function(require,module,exports) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 // seedrandom.js version 2.0.
@@ -384,7 +384,7 @@ Math, // math: package containing random, pow, and seedrandom
 6, // chunks: at least six RC4 outputs for each double
 52 // significance: there are 52 significant digits in a double
 );
-},{}],46:[function(require,module,exports) {
+},{}],52:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -413,7 +413,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '51120' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56658' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -554,5 +554,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[46,3], null)
+},{}]},{},[52,9], null)
 //# sourceMappingURL=/seedrandom.62e0345b.map
