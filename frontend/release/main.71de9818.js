@@ -22309,7 +22309,7 @@ RemoteControls.initializeControls = function (screen, game) {
     console.log(player.color, player.speed());
 
     var gameName = 'rainier';
-    var url = 'http://localhost:3000/games/' + gameName;
+    var url = '/games/' + gameName;
     var params = buildParams(action);
 
     console.log('player was', player.color, player.speed());
@@ -22447,7 +22447,7 @@ function main() {
     var game = createLocalGame();
     beginRender(game, isLocal);
   } else {
-    var url = 'http://localhost:3000/games/rainier';
+    var url = '/games/rainier';
     fetchRemoteGame(url).then(function (game) {
       beginRender(game, isLocal);
     });

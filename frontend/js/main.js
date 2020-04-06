@@ -29,7 +29,7 @@ function main() {
     const game = createLocalGame();
     beginRender(game, isLocal);
   } else {
-    const url = 'http://localhost:3000/games/rainier';
+    const url = '/games/rainier';
     fetchRemoteGame(url).then(game => {
       beginRender(game, isLocal);
     });

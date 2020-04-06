@@ -52,7 +52,7 @@ RemoteControls.initializeControls = function (screen, game) {
     console.log(player.color, player.speed());
 
     const gameName = 'rainier';
-    const url = 'http://localhost:3000/games/' + gameName;
+    const url = '/games/' + gameName;
     const params = buildParams(action);
 
     console.log('player was', player.color, player.speed());
