@@ -1,15 +1,12 @@
 var express = require('express');
-var cors = require('cors');
-var bodyParser = require('body-parser');
-
 var app = express();
 var http = require('http').Server(app);
 
+var cors = require('cors');
 app.use(cors());
 
+app.use(express.static('frontend/release'));
 app.use(express.json());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 
 const gamesRouter = require('./games/games-router.js');
 app.use('/games', gamesRouter);
