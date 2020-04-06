@@ -1,18 +1,18 @@
-require('../../frontend/thirdjs/seedrandom');
+require('../frontend/thirdjs/seedrandom');
 Math.seedrandom("powerboats!!!!!!!!!!!!!!!!!!!!")
 
 const express = require('express');
 const router = express.Router();
 
-const Config = require('../../frontend/js/config');
-const TileSpace = require('../../frontend/js/geo/tile-space');
-const Course = require('../../frontend/js/course');
-const Game = require('../../frontend/js/game');
+const Config = require('../frontend/js/config');
+const TileSpace = require('../frontend/js/geo/tile-space');
+const Course = require('../frontend/js/course');
+const Game = require('../frontend/js/game');
 
-const Boat = require('../../frontend/js/boat');
+const Boat = require('../frontend/js/boat');
 
-const RandomTileCreator = require('../../frontend/js/geo/tile-creators/random-tile-creator');
-const JSONTileCreator = require('../../frontend/js/geo/tile-creators/json-tile-creator');
+const RandomTileCreator = require('../frontend/js/geo/tile-creators/random-tile-creator');
+const JSONTileCreator = require('../frontend/js/geo/tile-creators/json-tile-creator');
 
 const randomTiles = new RandomTileCreator(1 / 10);
 const rows = 25;
