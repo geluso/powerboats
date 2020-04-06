@@ -1,0 +1,62 @@
+<html>
+
+<head>
+  <title>Powerboats</title>
+  <link rel="icon" href="http://5tephen.com/img/cheeseplane.gif" type="image/gif">
+  <link rel="stylesheet" href="/style.d7a78772.css">
+<script src="/style.d7a78772.js"></script></head>
+
+<body>
+  <div class="board">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- <div id="lobby">
+    <h1>Select a Game</h1>
+    <ul id="games">
+      <li>Budweiser Cup</li>
+      <li>Rainier Cup</li>
+    </ul>
+  </div> -->
+
+  <div id="actions">
+    <div class="toggle-actions hide">[-]</div>
+    <div class="toggle-actions show">[+]</div>
+
+    <div id="players">
+      Controlling:
+      <div data-player="yellow" class="player yellow controlling"></div>
+      <div data-player="purple" class="player purple"></div>
+      <div data-player="white" class="player white"></div>
+      <div data-player="green" class="player green"></div>
+      <div data-player="orange" class="player orange"></div>
+    </div>
+
+    <div id="speed-actions">
+      <button id="slowdown">(-) Slow Down</button>
+      <button id="speedup">Speed Up (+)</button>
+    </div>
+
+    <div id="turn-actions">
+      <button id="turn-left">Turn Left</button>
+      <button id="go-straight">GO!!</button>
+      <button id="ai-explore">AI Explore</button>
+      <button id="turn-right">Turn Right</button>
+    </div>
+  </div>
+
+  <!-- Specifically include seedrandom before lodash so lodash uses the seededd ranom -->
+  <script src="/seedrandom.62e0345b.js"></script>
+
+  <script>
+    Math.seedrandom("powerboats!!!!")
+  </script>
+
+  <script src="/jquery.291048d0.js"></script>
+  <script src="/lodash.fd55d529.js"></script>
+
+  <!-- game logic -->
+  <script src="/main.71de9818.js"></script>
+</body>
+
+</html>
