@@ -1,35 +1,54 @@
 const Directions = require('./geo/directions');
-const Point = require('./geo/point');
 
-class BuoyDetector {
-  constructor(boat, buoy, tilespace) {
-    this.boat = boat;
+class BuoyTracker {
+  constructor(buoy) {
     this.buoy = buoy;
-    this.tilespace = tilespace;
-
-    this.tile = buoy.tile;
     this.crossDirection = {};
     this.approachPath = [];
     this.pointsActivated = 0;
 
     this.registerAllDirections(false);
-
-    this.center = this.buoy.tile;
   }
 
-  initDirections() {
-    this.north = this.tilespace.getByKey(this.center.north());
-    this.northWest = this.tilespace.getByKey(this.center.northWest());
-    this.northEast = this.tilespace.getByKey(this.center.northEast());
+  static fromJSON(game, json) {
+    const buoyIndex = json.buoy.turnNumber - 1;
+    const buoy = game.course.buoys[buoyIndex];
 
-    this.south = this.tilespace.getByKey(this.center.south());
-    this.southWest = this.tilespace.getByKey(this.center.southWest());
-    this.southEast = this.tilespace.getByKey(this.center.southEast());
+    const tracker = new BuoyTracker(buoy);
+    tracker.updateFromJSON(json);
+    return tracker;
   }
 
-  track(boat, tile) {
+  updateFromJSON(json) {
+    this.crossDirection = json.crossDirection;
+    this.approachPath = json.approachPath;
+    this.pointsActivated = json.pointsActivated;
+  }
+
+  toJSON() {
+    const json = {
+      buoy: this.buoy.toJSON(),
+      crossDirection: this.crossDirection,
+      approachPath: this.approachPath,
+      pointsActivated: this.pointsActivated,
+    };
+    return json;
+  }
+
+  initDirections(tilespace) {
+    const center = this.buoy.tile;
+    this.north = tilespace.getByKey(center.north());
+    this.northWest = tilespace.getByKey(center.northWest());
+    this.northEast = tilespace.getByKey(center.northEast());
+
+    this.south = tilespace.getByKey(center.south());
+    this.southWest = tilespace.getByKey(center.southWest());
+    this.southEast = tilespace.getByKey(center.southEast());
+  }
+
+  track(tilespace, boat, tile) {
     if (!this.north) {
-      this.initDirections();
+      this.initDirections(tilespace);
     }
 
     function tileDistance(t1, t2) {
@@ -97,32 +116,16 @@ class BuoyDetector {
     }
   }
 
-  draw(ctx) {
-    if (!this.north) {
-      this.initDirections();
-    }
-
-    Point.draw(ctx, this.north, this.getDirectionStatus("north"));
-    Point.draw(ctx, this.northWest, this.getDirectionStatus("north-west"));
-    Point.draw(ctx, this.northEast, this.getDirectionStatus("north-east"));
-
-    Point.draw(ctx, this.south, this.getDirectionStatus("south"));
-    Point.draw(ctx, this.southWest, this.getDirectionStatus("south-west"));
-    Point.draw(ctx, this.southEast, this.getDirectionStatus("south-east"));
-  }
-
-  getDirectionStatus(direction) {
+  getDirectionStatus(direction, boatColor) {
     if (this.crossDirection[direction]) {
       return "lawngreen";
     }
-
-    return this.boat.color;
+    return boatColor;
   }
 
-  clone(boat) {
-    var clone = new BuoyDetector(boat, this.buoy, this.tilespace);
+  clone() {
+    var clone = new BuoyTracker(this.buoy, this.tilespace);
 
-    clone.boat = boat;
     clone.buoy = this.buoy;
     clone.tile = this.buoy.tile;
     clone.pointsActivated = this.pointsActivated;
@@ -143,5 +146,5 @@ class BuoyDetector {
 }
 
 if (typeof module !== "undefined" && !!module) {
-  module.exports = BuoyDetector;
+  module.exports = BuoyTracker;
 }

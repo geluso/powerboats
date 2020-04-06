@@ -1,4 +1,5 @@
-const Tile = require('../tile')
+const Tile = require('../tile');
+const BuoyTrackerDrawer = require('./buoy-tracker-drawer');
 
 function BoatDrawer(ctx, game) {
   this.ctx = ctx;
@@ -40,7 +41,7 @@ function BoatDrawer(ctx, game) {
     if (this.game.getCurrentPlayer() === boat) {
       for (var j = 0; j < boat.trackers.length; j++) {
         var tracker = boat.trackers[j];
-        tracker.draw(this.ctx);
+        BuoyTrackerDrawer.draw(tracker, this.ctx, boat.game.tilespace, boat.color);
       }
     }
   };

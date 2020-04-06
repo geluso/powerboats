@@ -1,6 +1,6 @@
 const Dice = require('./dice')
 const RoutePlanner = require('./route-planner');
-const BuoyDetector = require('./buoy-detector');
+const BuoyTracker = require('./buoy-tracker');
 const Resources = require('./resources')
 const TileGeo = require('./geo/tile-geo')
 
@@ -26,22 +26,21 @@ class Boat {
     // add trackers for each buoy
     for (var i = 0; i < this.game.course.buoys.length; i++) {
       var buoy = this.game.course.buoys[i];
-      var buoyTracker = new BuoyDetector(this, buoy, this.game.tilespace);
+      var buoyTracker = new BuoyTracker(buoy, this.game.tilespace);
       this.trackers.push(buoyTracker);
     }
 
-    var finishTracker = game.course.finishLineDetector.clone();
-    this.trackers.push(finishTracker);
+    // var finishTracker = game.course.finishLineDetector.clone();
+    // this.trackers.push(finishTracker);
   }
 
   static fromJSON(game, json) {
-    let { damage, dice, color, tile, type, direction } = json;
+    let { color, tile, type } = json;
     tile = game.tilespace.getByKeyRowCol(tile.row, tile.col);
 
     let boat = new Boat(game, color, tile, type);
-    boat.damage = damage;
-    boat.direction = direction;
-    boat.dice = dice.map(dice => Dice.fromJSON(dice));
+    boat.updateFromJSON(json);
+
     return boat;
   }
 
@@ -53,8 +52,11 @@ class Boat {
     this.tile = this.game.tilespace.getByKeyRowCol(row, col);
     this.type = json.type;
     this.direction = json.direction;
-    console.log('dice', json.dice)
     this.dice = json.dice.map(dice => Dice.fromJSON(dice));
+
+    // trackers
+    this.trackerIndex = json.trackerIndex;
+    this.trackers = json.trackers.map(tracker => BuoyTracker.fromJSON(this.game, tracker));
   }
 
   toJSON() {
@@ -64,7 +66,11 @@ class Boat {
       color: this.color,
       tile: this.tile,
       type: this.type,
-      direction: this.direction
+      direction: this.direction,
+
+      // trackers
+      trackerIndex: this.trackerIndex,
+      trackers: this.trackers.map(tracker => tracker.toJSON()),
     }
   }
 
@@ -129,7 +135,7 @@ class Boat {
   trackProgress() {
     if (this.trackerIndex < this.trackers.length) {
       var tracker = this.trackers[this.trackerIndex];
-      tracker.track(this, this.tile);
+      tracker.track(this.game.tilespace, this, this.tile);
     }
   }
 
