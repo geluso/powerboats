@@ -16,6 +16,7 @@ class CurrentGame {
   }
 
   update(json) {
+    console.log('updating', json);
     if (this.game === null) {
       this.game = Game.fromJSON(json.game);
       this.screen.gameDrawer.measure(this.game.tilespace);
@@ -35,7 +36,10 @@ class CurrentGame {
   }
 
   handleMouseMove(e) {
+    if (this.game === null) return;
+
     this.screen.handleMousemove(e, this.game);
+    this.draw();
   }
 }
 

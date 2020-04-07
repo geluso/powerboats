@@ -167,17 +167,15 @@ class TileSpace {
   }
 
   getTile(x, y) {
-    var tile;
-
     for (var i = 0; i < this.tiles.length; i++) {
       var xx = Math.abs(this.tiles[i].x - x);
       var yy = Math.abs(this.tiles[i].y - y);
       if (xx < Tile.TILE_SIZE && yy < Tile.TILE_SIZE) {
-        tile = this.tiles[i];
+        const tile = this.tiles[i];
+        return tile;
       }
     }
-
-    return tile;
+    return null;
   }
 
   toString() {

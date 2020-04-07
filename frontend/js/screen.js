@@ -7,7 +7,7 @@ var LAST_THING;
 
 class Screen {
   constructor(width, height) {
-    this.dirty = true;
+    this.isDirty = true;
 
     var canvas = document.getElementById("canvas");
     canvas.width = width;
@@ -31,18 +31,16 @@ class Screen {
     var thing = game.tilespace.getTile(MOUSE_X, MOUSE_Y);
     if (!thing) return;
 
-    this.dirty = false;
+    this.isDirty = false;
     if (thing !== LAST_THING) {
       if (LAST_THING !== undefined) {
         LAST_THING.hovering = false;
         LAST_THING.isDirty = true;
       }
-      this.dirty = true;
+      this.isDirty = true;
 
       thing.hovering = true;
       thing.isDirty = true;
-
-      this.gameDrawer.draw(game);
 
       LAST_THING = thing;
     }
