@@ -28,6 +28,7 @@ class GameSocket {
     this.serverGames = serverGames;
 
     socket.emit('new-map', { game: serverGames.getGame('rainier').toJSON() });
+    socket.emit('load-all-chat', { chat: serverGames.getChat('rainier') });
 
     socket.on('chat', this.handleChat);
     socket.on('action', this.handleAction);
@@ -35,7 +36,8 @@ class GameSocket {
   }
 
   handleChat = message => {
-    console.log('handle chat', message);
+    const chat = this.serverGames.handleChat(message);
+    this.io.emit('receive-chat', chat);
   }
 
   handleAction = message => {

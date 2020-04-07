@@ -9,7 +9,6 @@ const ServerGames = require('./games/server-games');
 var cors = require('cors');
 app.use(cors());
 
-app.use(express.static('frontend/release'));
 app.use(express.json());
 
 // Let Parcel handle requests

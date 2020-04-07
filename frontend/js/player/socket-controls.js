@@ -13,7 +13,30 @@ class SocketControls {
     this.socket.on('update-game', json => currentGame.updateGame(json));
     this.socket.on('update-player', json => currentGame.updatePlayer(json));
 
+    this.socket.on('load-all-chat', json => currentGame.loadAllChat(json));
+    this.socket.on('receive-chat', json => currentGame.receiveChat(json));
+
     this.attach();
+    this.attachChat();
+  }
+
+  attachChat() {
+    const form = document.getElementById('chat-box');
+    const that = this;
+    form.addEventListener('submit', ev => {
+      ev.preventDefault();
+
+      const input = document.getElementById('chat-input');
+      const text = input.value;
+      input.value = '';
+
+      const data = {
+        color: that.currentGame.game.getCurrentPlayer().color,
+        gameName: 'rainier',
+        message: text
+      }
+      that.socket.emit('chat', data);
+    })
   }
 
   attach() {

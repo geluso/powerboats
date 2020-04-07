@@ -10,6 +10,7 @@ const RandomTileCreator = require('../frontend/js/geo/tile-creators/random-tile-
 class ServerGames {
   constructor() {
     this.games = {};
+    this.chats = {};
   }
 
   getGame(name) {
@@ -44,6 +45,11 @@ class ServerGames {
     this.games[name] = game;
     game.name = name;
 
+    // create a chat for this game.
+    if (this.chats[name] === undefined) {
+      this.chats[name] = [{ color: 'black', message: 'game created' }];
+    }
+
     return game;
   }
 
@@ -73,6 +79,21 @@ class ServerGames {
     const game = this.createGame();
     this.games[gameName] = game;
     return game;
+  }
+
+  getChat(gameName) {
+    const chat = this.chats[gameName];
+    return chat;
+  }
+
+  handleChat(command) {
+    const { gameName, color, message } = command;
+    const chat = this.chats[gameName];
+
+    const chatMessage = { color, message };
+    console.log('got chat', chatMessage);
+    chat.push(chatMessage);
+    return chatMessage;
   }
 }
 

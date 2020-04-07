@@ -37,6 +37,35 @@ class CurrentGame {
     this.draw();
   }
 
+  loadAllChat(json) {
+    this.clearAllChats();
+    json.chat.forEach(this.receiveChat);
+  }
+
+  clearAllChats() {
+    const chatList = document.getElementById('chat');
+    while (chatList.firstChild) {
+      chatList.firstChild.remove();
+    }
+  }
+
+  receiveChat(chat) {
+    const chatList = document.getElementById('chat');
+    const li = document.createElement('li');
+
+    const color = document.createElement('span');
+    color.classList.add('chat-color');
+    color.classList.add(chat.color);
+
+    const message = document.createElement('span');
+    message.textContent = chat.message;
+
+    li.appendChild(color);
+    li.appendChild(message);
+    chatList.appendChild(li);
+
+  }
+
   draw() {
     if (this.game === null) return;
     const player = this.game.getCurrentPlayer();
