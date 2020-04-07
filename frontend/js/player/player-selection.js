@@ -1,5 +1,5 @@
 class PlayerSelection {
-  static init(game, screen) {
+  static init(currentGame) {
     const players = document.getElementById('players');
     const playerSelects = [...players.getElementsByClassName('player')];
 
@@ -11,13 +11,13 @@ class PlayerSelection {
 
       playerSelect.addEventListener('click', () => {
         const color = playerSelect.getAttribute('data-player');
-        game.setCurrentPlayer(color);
+        currentGame.setCurrentPlayer(color);
 
         currentPlayerSelect.classList.remove('controlling');
         playerSelect.classList.add('controlling');
         currentPlayerSelect = playerSelect;
 
-        screen.draw();
+        currentGame.draw();
       });
     });
   }

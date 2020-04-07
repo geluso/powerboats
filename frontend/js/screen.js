@@ -6,9 +6,8 @@ var MOUSE_Y = 0;
 var LAST_THING;
 
 class Screen {
-  constructor(width, height, game) {
+  constructor(width, height) {
     this.dirty = true;
-    this.game = game;
 
     var canvas = document.getElementById("canvas");
     canvas.width = width;
@@ -20,21 +19,16 @@ class Screen {
     ctx.width = width;
     ctx.height = height;
 
-    var gameDrawer = new GameDrawer(ctx, game);
-    this.gameDrawer = gameDrawer;
+    this.gameDrawer = new GameDrawer(ctx);
 
     this.handleMousemove = this.handleMousemove.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-
-    $(document).mousemove(this.handleMousemove);
-    $(document).click(this.handleClick);
   }
 
-  handleMousemove(e) {
+  handleMousemove(e, game) {
     MOUSE_X = e.clientX;
     MOUSE_Y = e.clientY;
 
-    var thing = this.game.tilespace.getTile(MOUSE_X, MOUSE_Y);
+    var thing = game.tilespace.getTile(MOUSE_X, MOUSE_Y);
     if (!thing) return;
 
     this.dirty = false;
@@ -48,39 +42,18 @@ class Screen {
       thing.hovering = true;
       thing.isDirty = true;
 
-      this.gameDrawer.draw();
+      this.gameDrawer.draw(game);
 
       LAST_THING = thing;
     }
-  };
+  }
 
-  handleClick(e) {
-    if (e.target.tagName === "BUTTON") {
-      return;
-    }
-
-    MOUSE_X = e.clientX;
-    MOUSE_Y = e.clientY;
-
-    var thing = this.game.tilespace.getTile(MOUSE_X, MOUSE_Y);
-    if (thing === undefined) {
-      return;
-    }
-
-    this.dirty = false;
-    if (thing && LAST_THING && thing !== LAST_THING) {
-      this.dirty = true;
-      this.gameDrawer.draw();
-    }
-  };
-
-  draw() {
-    this.gameDrawer.draw();
+  draw(game) {
+    this.gameDrawer.draw(game);
   }
 
   destoryHandlers() {
     document.removeEventListener("mousemove", this.handleMousemove);
-    document.removeEventListener("click", this.handleClick);
   }
 }
 

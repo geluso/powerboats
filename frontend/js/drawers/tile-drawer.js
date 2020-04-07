@@ -1,18 +1,16 @@
 const CONFIG = require('../config');
 const BuoyDrawer = require('./buoy-drawer');
 
-function TileDrawer(ctx, game) {
+function TileDrawer(ctx) {
   this.ctx = ctx;
-  this.game = game;
-
   this.buoyDrawer = new BuoyDrawer(ctx);
 
-  this.drawTiles = function (tiles) {
+  this.drawTiles = function (tiles, accentColor) {
     this.ctx.save();
 
     for (var i = 0; i < tiles.length; i++) {
       var tile = tiles[i];
-      this.draw(tile);
+      this.draw(tile, accentColor);
 
       if (tile.buoy) {
         this.buoyDrawer.draw(tile.buoy, tile.x, tile.y);
@@ -23,7 +21,7 @@ function TileDrawer(ctx, game) {
 
   };
 
-  this.draw = function (tile) {
+  this.draw = function (tile, accentColor) {
     if (!tile.isDirty) {
       return;
     }
@@ -32,11 +30,7 @@ function TileDrawer(ctx, game) {
     var stroke = "black";
 
     if (tile.hovering) {
-      var player = this.game.getCurrentPlayer();
-      if (player) {
-        var hoverColor = player.color;
-        tile.shape.fillStroke(this.ctx, hoverColor, stroke);
-      }
+      tile.shape.fillStroke(this.ctx, accentColor, stroke);
     } else {
       tile.shape.fillStroke(this.ctx, tile.resource.color, stroke);
     }

@@ -15,37 +15,6 @@ class Game {
     this.currentPlayerIndex = 0;
   }
 
-  setCurrentPlayer(color) {
-    this.getCurrentPlayer().unhighlightRoute();
-
-    this.boats.forEach((boat, index) => {
-      if (boat.color === color) {
-        this.currentPlayerIndex = index;
-        this.getCurrentPlayer().highlightRoute();
-      }
-    });
-  }
-
-  addBoat(boat) {
-
-  }
-
-  placeBoatsOnStartLine() {
-    var colors = Config.COLORS;
-    var index = 0;
-    var currentTile = course.start;
-    var types = Config.PLAYER_TYPES;
-    while (index < colors.length) {
-      var type = types[index];
-      var boat = new Boat(this, colors[index], currentTile, type);
-      this.boats.push(boat);
-
-      currentTile = this.tilespace.nextTileInDirection(currentTile, course.startDirection);
-
-      index++;
-    }
-  }
-
   static fromJSON(json) {
     const course = Course.fromJSON(json.course);
     const game = new Game(course);
@@ -89,6 +58,34 @@ class Game {
     });
 
     this.getCurrentPlayer().highlightRoute();
+  }
+
+
+  setCurrentPlayer(color) {
+    this.getCurrentPlayer().unhighlightRoute();
+
+    this.boats.forEach((boat, index) => {
+      if (boat.color === color) {
+        this.currentPlayerIndex = index;
+        this.getCurrentPlayer().highlightRoute();
+      }
+    });
+  }
+
+  placeBoatsOnStartLine() {
+    var colors = Config.COLORS;
+    var index = 0;
+    var currentTile = course.start;
+    var types = Config.PLAYER_TYPES;
+    while (index < colors.length) {
+      var type = types[index];
+      var boat = new Boat(this, colors[index], currentTile, type);
+      this.boats.push(boat);
+
+      currentTile = this.tilespace.nextTileInDirection(currentTile, course.startDirection);
+
+      index++;
+    }
   }
 
   getCurrentPlayer() {

@@ -1,7 +1,5 @@
 const _ = require('lodash');
-
 const CONFIG = require('./config');
-
 const Resources = require('./resources');
 
 const Buoy = require('./buoy');
