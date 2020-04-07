@@ -25,8 +25,9 @@ class Screen {
   }
 
   handleMousemove(e, game) {
-    MOUSE_X = e.clientX;
-    MOUSE_Y = e.clientY;
+    console.log('move', e);
+    MOUSE_X = e.offsetX;
+    MOUSE_Y = e.offsetY;
 
     var thing = game.tilespace.getTile(MOUSE_X, MOUSE_Y);
     if (!thing) return;

@@ -3,14 +3,10 @@
 <head>
   <title>Powerboats</title>
   <link rel="icon" href="http://5tephen.com/img/cheeseplane.gif" type="image/gif">
-  <link rel="stylesheet" href="style.9116be42.css">
+  <link rel="stylesheet" href="style.0e1219f1.css">
 </head>
 
 <body>
-  <div class="board">
-    <canvas id="canvas"></canvas>
-  </div>
-
   <!-- <div id="lobby">
     <h1>Select a Game</h1>
     <ul id="games">
@@ -19,10 +15,7 @@
     </ul>
   </div> -->
 
-  <div id="actions">
-    <div class="toggle-actions hide">[-]</div>
-    <div class="toggle-actions show">[+]</div>
-
+  <div id="actions" class="column column1">
     <div id="players">
       Controlling:
       <div data-player="yellow" class="player yellow controlling"></div>
@@ -32,17 +25,25 @@
       <div data-player="orange" class="player orange"></div>
     </div>
 
-    <div id="speed-actions">
-      <button id="slowdown">(-) Slow Down</button>
-      <button id="speedup">Speed Up (+)</button>
-    </div>
+    <button id="speedup">speed up</button>
+    <button id="slowdown">slow down</button>
 
-    <div id="turn-actions">
-      <button id="turn-left">Turn Left</button>
-      <button id="go-straight">GO!!</button>
-      <button id="new-map">new map</button>
-      <button id="turn-right">Turn Right</button>
-    </div>
+    <hr>
+
+    <button id="turn-left">turn left</button> <br>
+    <button id="turn-right">turn right</button>
+
+    <hr>
+
+    <button id="go-straight">go!!</button> <br>
+
+    <hr>
+
+    <button id="new-map">new map</button> <br>
+  </div>
+
+  <div class="board column column2">
+    <canvas id="canvas"></canvas>
   </div>
 
   <!-- Specifically include seedrandom before lodash so lodash uses the seededd ranom -->
@@ -56,7 +57,7 @@
   <script src="lodash.4873ab91.js"></script>
 
   <!-- game logic -->
-  <script src="main.7ec4b6bd.js"></script>
+  <script src="main.07d88f25.js"></script>
 </body>
 
 </html>

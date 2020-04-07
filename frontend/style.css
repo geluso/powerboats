@@ -9,15 +9,27 @@ body {
   background-color: CornflowerBlue;
 }
 
-#actions {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  padding: .5em;
+.board {
+  margin-left: 155px;
+}
 
+#actions {
+  width: 150px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  text-align: center;
+
+  padding-left: 5px;
   background-color: rgba(0,0,0,.4);
+}
+
+.column {
+  display: inline-block;
+  height: 100%;
 }
 
 .toggle-actions {
@@ -48,8 +60,8 @@ body {
 
 .player {
   display: inline-block;
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
   border: solid black 1px;
 }
 

@@ -12,7 +12,8 @@ function main() {
   PlayerSelection.init(currentGame);
   new SocketControls(currentGame);
 
-  $(document).mousemove(e => {
+  const canvas = document.getElementById('canvas');
+  $(canvas).mousemove(e => {
     currentGame.handleMouseMove(e);
   });
 }
