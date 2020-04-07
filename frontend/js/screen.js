@@ -6,9 +6,9 @@ var MOUSE_Y = 0;
 var LAST_THING;
 
 class Screen {
-  constructor(width, height, game) {
+  constructor(width, height, currentGame) {
     this.dirty = true;
-    this.game = game;
+    this.currentGame = currentGame;
 
     var canvas = document.getElementById("canvas");
     canvas.width = width;
@@ -20,7 +20,7 @@ class Screen {
     ctx.width = width;
     ctx.height = height;
 
-    var gameDrawer = new GameDrawer(ctx, game);
+    var gameDrawer = new GameDrawer(ctx, currentGame);
     this.gameDrawer = gameDrawer;
 
     this.handleMousemove = this.handleMousemove.bind(this);
@@ -31,10 +31,11 @@ class Screen {
   }
 
   handleMousemove(e) {
+    console.log('mouse')
     MOUSE_X = e.clientX;
     MOUSE_Y = e.clientY;
 
-    var thing = this.game.tilespace.getTile(MOUSE_X, MOUSE_Y);
+    var thing = this.currentGame.game.tilespace.getTile(MOUSE_X, MOUSE_Y);
     if (!thing) return;
 
     this.dirty = false;
@@ -62,7 +63,7 @@ class Screen {
     MOUSE_X = e.clientX;
     MOUSE_Y = e.clientY;
 
-    var thing = this.game.tilespace.getTile(MOUSE_X, MOUSE_Y);
+    var thing = this.currentGame.game.tilespace.getTile(MOUSE_X, MOUSE_Y);
     if (thing === undefined) {
       return;
     }
@@ -76,6 +77,10 @@ class Screen {
 
   draw() {
     this.gameDrawer.draw();
+  }
+
+  clear() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
   destoryHandlers() {

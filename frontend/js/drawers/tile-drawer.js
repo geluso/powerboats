@@ -1,9 +1,9 @@
 const CONFIG = require('../config');
 const BuoyDrawer = require('./buoy-drawer');
 
-function TileDrawer(ctx, game) {
+function TileDrawer(ctx, currentGame) {
   this.ctx = ctx;
-  this.game = game;
+  this.currentGame = currentGame;
 
   this.buoyDrawer = new BuoyDrawer(ctx);
 
@@ -24,16 +24,16 @@ function TileDrawer(ctx, game) {
   };
 
   this.draw = function (tile) {
-    if (!tile.isDirty) {
-      return;
-    }
+    if (!tile.isDirty) return;
     tile.isDirty = false;
 
     var stroke = "black";
 
     if (tile.hovering) {
-      var player = this.game.getCurrentPlayer();
+      console.log('hovering');
+      var player = this.currentGame.game.getCurrentPlayer();
       if (player) {
+        console.log('hovering player', player.color);
         var hoverColor = player.color;
         tile.shape.fillStroke(this.ctx, hoverColor, stroke);
       }

@@ -1,1 +1,1 @@
-parcel build --public-url ./ frontend/index.html -d frontend/release
+parcel build --no-minify --public-url ./ frontend/index.html -d frontend/release

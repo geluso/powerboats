@@ -4,6 +4,7 @@ const TileSpace = require('./geo/tile-space')
 const Course = require('./course')
 const Game = require('./game')
 const Screen = require('./screen')
+const CurrentGame = require('./current-game')
 
 const RandomTileCreator = require('./geo/tile-creators/random-tile-creator');
 const JSONTileCreator = require('./geo/tile-creators/json-tile-creator');
@@ -40,30 +41,37 @@ function beginRender(game, isLocal) {
   console.log(game.tilespace.toString());
 
   // set up the screen
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  const screen = new Screen(width, height, game);
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  const currentGame = new CurrentGame(game, screen);
+  let screen = new Screen(width, height, currentGame);
+  currentGame.screen = screen;
 
   // set up the controls
-  PlayerSelection.init(game, screen);
+  PlayerSelection.init(currentGame);
   if (isLocal) {
-    LocalControls.initializeControls(screen, game);
+    LocalControls.initializeControls(currentGame);
   } else {
-    RemoteControls.initializeControls(screen, game);
+    RemoteControls.initializeControls(currentGame);
   }
 
-  game.getCurrentPlayer().highlightRoute()
-  screen.draw();
+  currentGame.game.getCurrentPlayer().highlightRoute()
+  currentGame.screen.draw();
 
-  setInterval(() => {
+  const fetchAndRedraw = () => {
     fetch('/games/rainier')
       .then(res => res.json())
       .then(json => {
-        console.log('response', json);
-        game.updateFromJSON(json.game);
-        screen.draw();
+        currentGame.game.updateFromJSON(json.game);
+
+        const player = currentGame.game.getCurrentPlayer();
+        player.highlightRoute();
+
+        currentGame.screen.draw();
       });
-  }, 1000);
+  };
+  setInterval(fetchAndRedraw, 1000);
 }
 
 function createLocalGame() {

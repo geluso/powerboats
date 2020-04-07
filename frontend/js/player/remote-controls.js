@@ -1,8 +1,11 @@
+const Game = require('../game');
+const GameDrawer = require('../drawers/game-drawer');
+
 const RemoteControls = {};
 
-RemoteControls.initializeControls = function (screen, game) {
+RemoteControls.initializeControls = function (currentGame) {
   function getCurrentPlayer() {
-    var player = game.getCurrentPlayer();
+    var player = currentGame.game.getCurrentPlayer();
     return player;
   }
 
@@ -11,7 +14,7 @@ RemoteControls.initializeControls = function (screen, game) {
 
     getCurrentPlayer().turnLeft();
     getCurrentPlayer().highlightRoute();
-    screen.draw();
+    currentGame.screen.draw();
   };
 
   function turnRight() {
@@ -19,7 +22,7 @@ RemoteControls.initializeControls = function (screen, game) {
 
     getCurrentPlayer().turnRight();
     getCurrentPlayer().highlightRoute();
-    screen.draw();
+    currentGame.screen.draw();
   };
 
   function speedUp() {
@@ -34,8 +37,13 @@ RemoteControls.initializeControls = function (screen, game) {
     sendAction('goStraight');
   };
 
+  function resetGame() {
+    console.log('resetting')
+    sendAction('resetGame');
+  };
+
   function buildParams(action) {
-    const player = game.getCurrentPlayer();
+    const player = currentGame.game.getCurrentPlayer();
     const { color, direction } = player;
     const gameParams = {
       color, action, direction,
@@ -51,7 +59,6 @@ RemoteControls.initializeControls = function (screen, game) {
   }
 
   function sendAction(action) {
-    const player = game.getCurrentPlayer();
     const gameName = 'rainier';
     const url = '/games/' + gameName;
     const params = buildParams(action);
@@ -59,12 +66,26 @@ RemoteControls.initializeControls = function (screen, game) {
     fetch(url, params)
       .then(res => res.json())
       .then(json => {
-        player.tile.isDirty = true;
+        if (json.game.course === undefined) {
+          currentGame.game.updateFromJSON(json.game);
+        } else {
+          currentGame.screen.destroyHandlers();
 
-        game.updateFromJSON(json.game);
+          const game = Game.fromJSON(json.game);
+
+          const width = window.innerWidth;
+          const height = window.innerHeight;
+          const screen = new Screen(width, height, game);
+
+          currentGame.game = game;
+          currentGame.screen = screen;
+        }
+
+        const player = currentGame.game.getCurrentPlayer();
+        player.tile.isDirty = true;
         player.highlightRoute();
 
-        screen.draw();
+        currentGame.screen.draw();
       });
   }
 
@@ -73,7 +94,7 @@ RemoteControls.initializeControls = function (screen, game) {
       // only allow humans to control their own boats, not AI boats.
       // if (game.getCurrentPlayer().type.includes("human")) {
       func();
-      screen.draw();
+      currentGame.screen.draw();
       // }
     }
   }
@@ -84,6 +105,7 @@ RemoteControls.initializeControls = function (screen, game) {
     goStraight: goStraight,
     speedUp: speedUp,
     slowDown: slowDown,
+    resetGame: resetGame,
   };
 
   for (var key in publicFunctions) {
@@ -98,6 +120,7 @@ RemoteControls.initializeControls = function (screen, game) {
 
   var speedUpButton = document.getElementById("speedup");
   var slowDownButton = document.getElementById("slowdown");
+  var resetGameButton = document.getElementById("reset");
 
   function attach(btn, func) {
     btn.addEventListener("click", func);
@@ -109,6 +132,7 @@ RemoteControls.initializeControls = function (screen, game) {
 
   attach(speedUpButton, publicFunctions.speedUp);
   attach(slowDownButton, publicFunctions.slowDown);
+  attach(resetGameButton, publicFunctions.resetGame);
 
   return publicFunctions;
 }

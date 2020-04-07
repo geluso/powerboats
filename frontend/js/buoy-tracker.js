@@ -16,6 +16,9 @@ class BuoyTracker {
 
     const tracker = new BuoyTracker(buoy);
     tracker.updateFromJSON(json);
+
+    tracker.initDirections(game.tilespace);
+
     return tracker;
   }
 

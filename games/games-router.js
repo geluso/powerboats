@@ -14,33 +14,36 @@ const Boat = require('../frontend/js/boat');
 const RandomTileCreator = require('../frontend/js/geo/tile-creators/random-tile-creator');
 const JSONTileCreator = require('../frontend/js/geo/tile-creators/json-tile-creator');
 
-const randomTiles = new RandomTileCreator(1 / 10);
-const rows = 25;
-const cols = 25;
-const tilespace = new TileSpace(rows, cols, randomTiles);
+function resetGame() {
+  const randomTiles = new RandomTileCreator(1 / 10);
+  const rows = 25;
+  const cols = 25;
+  const tilespace = new TileSpace(rows, cols, randomTiles);
 
-const course = new Course(tilespace);
-course.setupBuoys();
-course.setupStartLine(course.start, Config.START_DIRECTION);
+  const course = new Course(tilespace);
+  course.setupBuoys();
+  course.setupStartLine(course.start, Config.START_DIRECTION);
 
-// create game and place boats
-const game = new Game(course);
-console.log(game.tilespace.toString());
+  // create game and place boats
+  const game = new Game(course);
+  console.log(game.tilespace.toString());
 
-let currentTile = course.start;
-for (let i = 0; i < Config.PLAYER_TYPES.length; i++) {
-  const color = Config.COLORS[i];
-  const playerType = Config.PLAYER_TYPES[i];
-  const boat = new Boat(game, color, currentTile, playerType, Config.START_DIRECTION);
-  game.boats.push(boat);
-  boat.faceBuoy();
+  let currentTile = course.start;
+  for (let i = 0; i < Config.PLAYER_TYPES.length; i++) {
+    const color = Config.COLORS[i];
+    const playerType = Config.PLAYER_TYPES[i];
+    const boat = new Boat(game, color, currentTile, playerType, Config.START_DIRECTION);
+    game.boats.push(boat);
+    boat.faceBuoy();
 
-  currentTile = course.tilespace.nextTileInDirection(currentTile, course.startDirection);
+    currentTile = course.tilespace.nextTileInDirection(currentTile, course.startDirection);
+  }
+  return game;
 }
 
 const GAMES = {
   'budweiser': { ace: 99 },
-  'rainier': game,
+  'rainier': resetGame(),
 };
 
 router.route('/')
@@ -77,6 +80,15 @@ router.put('/:name', (req, res) => {
     player.turnLeft();
   } else if (action === 'turnRight') {
     player.turnRight();
+  } else if (action === 'resetGame') {
+    console.log('RESET---------------------')
+    const game = resetGame();
+    GAMES['rainier'] = game;
+    const json = {
+      game: game.toJSON(),
+    };
+    res.send(json);
+    return;
   }
 
   const json = {

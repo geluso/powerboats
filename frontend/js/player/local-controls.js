@@ -1,13 +1,13 @@
 const Controls = {};
 
-Controls.initializeControls = function (screen, game) {
+Controls.initializeControls = function (currentGame) {
   var aiExplore = document.getElementById("ai-explore");
   attach(aiExplore, function () {
-    game.explore();
+    currentGame.game.explore();
   });
 
   function getCurrentPlayer() {
-    var player = game.getCurrentPlayer();
+    var player = currentGame.game.getCurrentPlayer();
     return player;
   }
 
@@ -23,7 +23,7 @@ Controls.initializeControls = function (screen, game) {
 
   function goStraight() {
     getCurrentPlayer().goStraight();
-    game.endTurn();
+    currentGame.game.endTurn();
   };
 
   function turnRight() {
@@ -66,9 +66,9 @@ Controls.initializeControls = function (screen, game) {
   function wrapInPlayerCheck(func) {
     return function () {
       // only allow humans to control their own boats, not AI boats.
-      if (game.getCurrentPlayer().type.includes("human")) {
+      if (currentGame.game.getCurrentPlayer().type.includes("human")) {
         func();
-        screen.draw();
+        currentGame.screen.draw();
       }
     }
   }

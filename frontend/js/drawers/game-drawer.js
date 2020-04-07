@@ -6,27 +6,25 @@ const Point = require('../geo/point');
 const Hexagon = require('../geo/hexagon');
 
 class GameDrawer {
-  constructor(ctx, game) {
+  constructor(ctx, currentGame) {
     this.ctx = ctx;
-
-    this.game = game;
-    this.tilespace = game.tilespace;
+    this.currentGame = currentGame;
 
     this.measure();
 
-    this.tileDrawer = new TileDrawer(ctx, game);
-    this.boatDrawer = new BoatDrawer(ctx, game);
+    this.tileDrawer = new TileDrawer(ctx, currentGame);
+    this.boatDrawer = new BoatDrawer(ctx, currentGame);
   }
 
   measure() {
-    const TILE_HEIGHT = this.ctx.height / this.tilespace.rows / 4;
+    const TILE_HEIGHT = this.ctx.height / this.currentGame.game.tilespace.rows / 4;
     const HALF_EDGE = TILE_HEIGHT / (Math.sqrt(3) / 2);
     const EDGE_LENGTH = HALF_EDGE * 2;
     const TILE_SIZE = EDGE_LENGTH;
     Tile.setTileSize(TILE_SIZE);
 
-    for (var row = 0; row <= this.tilespace.rows; row++) {
-      for (var col = 0; col < this.tilespace.cols; col++) {
+    for (var row = 0; row <= this.currentGame.game.tilespace.rows; row++) {
+      for (var col = 0; col < this.currentGame.game.tilespace.cols; col++) {
         let xOff = TILE_SIZE * 1.5;
         let yOff = TILE_SIZE * 1.72;
 
@@ -37,7 +35,7 @@ class GameDrawer {
           y += TILE_SIZE * 0.86;
         }
 
-        const tile = this.tilespace.getByKeyRowCol(row, col)
+        const tile = this.currentGame.game.tilespace.getByKeyRowCol(row, col)
         if (tile) {
           tile.x = x;
           tile.y = y;
@@ -53,18 +51,18 @@ class GameDrawer {
 
 
   draw() {
-    var game = this.game;
+    const game = this.currentGame.game;
 
     this.ctx.save();
 
     // draw water tiles first, then land tiles.
-    this.tileDrawer.drawTiles(this.tilespace.tiles);
+    this.tileDrawer.drawTiles(this.currentGame.game.tilespace.tiles);
 
     // draw tiles
-    for (var i = 0; i < this.tilespace.tiles.length; i++) {
-      if (this.tilespace.tiles[i].hover) {
-        var tile = this.tilespace.tiles[i];
-        var highlightColor = this.game.getCurrentPlayer().color;
+    for (var i = 0; i < this.currentGame.game.tilespace.tiles.length; i++) {
+      if (this.currentGame.game.tilespace.tiles[i].hover) {
+        var tile = this.currentGame.game.tilespace.tiles[i];
+        var highlightColor = game.getCurrentPlayer().color;
         Point.draw(this.ctx, tile, highlightColor);
       }
     }
@@ -72,7 +70,7 @@ class GameDrawer {
     // draw boats
     for (var i = 0; i < game.boats.length; i++) {
       var boat = game.boats[i];
-      boat.tile = this.tilespace.getByKeyRowCol(boat.tile.row, boat.tile.col);
+      boat.tile = this.currentGame.game.tilespace.getByKeyRowCol(boat.tile.row, boat.tile.col);
       this.boatDrawer.draw(boat);
     }
   }
