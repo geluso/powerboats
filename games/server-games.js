@@ -48,22 +48,6 @@ class ServerGames {
     // create a chat for this game.
     if (this.chats[name] === undefined) {
       this.chats[name] = [{ color: 'black', message: 'game created' }];
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
-      this.chats[name].push({ color: 'black', message: Math.random() });
     }
 
     return game;
