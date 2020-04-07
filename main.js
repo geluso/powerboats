@@ -13,9 +13,9 @@ app.use(express.static('frontend/release'));
 app.use(express.json());
 
 // Let Parcel handle requests
-// const Bundler = require('parcel-bundler')
-// const bundler = new Bundler('client/index.html')
-// app.use(bundler.middleware())
+const Bundler = require('parcel-bundler')
+const bundler = new Bundler('frontend/index.html')
+app.use(bundler.middleware())
 
 const serverGames = new ServerGames();
 serverGames.createGame('rainier');

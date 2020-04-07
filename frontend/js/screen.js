@@ -25,7 +25,6 @@ class Screen {
   }
 
   handleMousemove(e, game) {
-    console.log('move', e);
     MOUSE_X = e.offsetX;
     MOUSE_Y = e.offsetY;
 
