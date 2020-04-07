@@ -11,26 +11,34 @@ class CurrentGame {
     this.game = null;
   }
 
+  reset() {
+    this.game = null;
+  }
+
   setCurrentPlayer(color) {
+    if (this.game === null) return;
     this.game.setCurrentPlayer(color);
   }
 
+  newMap(json) {
+    this.game = Game.fromJSON(json.game);
+    this.screen.gameDrawer.measure(this.game.tilespace);
+    this.draw();
+  }
+
   updateGame(json) {
-    if (this.game === null) {
-      this.game = Game.fromJSON(json.game);
-      this.screen.gameDrawer.measure(this.game.tilespace);
-    } else {
-      this.game.updateFromJSON(json.game);
-    }
+    this.game.updateFromJSON(json.game);
     this.draw();
   }
 
   updatePlayer(json) {
+    if (this.game === null) return;
     this.game.updatePlayer(json.player);
     this.draw();
   }
 
   draw() {
+    if (this.game === null) return;
     const player = this.game.getCurrentPlayer();
     player.highlightRoute();
 
@@ -39,7 +47,6 @@ class CurrentGame {
 
   handleMouseMove(e) {
     if (this.game === null) return;
-
     this.screen.handleMousemove(e, this.game);
     this.draw();
   }

@@ -8,6 +8,8 @@ class SocketControls {
     this.currentGame = currentGame;
 
     this.socket = io();
+
+    this.socket.on('new-map', json => currentGame.newMap(json));
     this.socket.on('update-game', json => currentGame.updateGame(json));
     this.socket.on('update-player', json => currentGame.updatePlayer(json));
 
@@ -22,6 +24,7 @@ class SocketControls {
 
     var speedUpButton = document.getElementById("speedup");
     var slowDownButton = document.getElementById("slowdown");
+    var newMapButton = document.getElementById("new-map");
 
     var actions = {
       turnLeft: this.turnLeft.bind(this),
@@ -29,6 +32,7 @@ class SocketControls {
       goStraight: this.goStraight.bind(this),
       speedUp: this.speedUp.bind(this),
       slowDown: this.slowDown.bind(this),
+      newMap: this.newMap.bind(this),
     };
 
     for (var action in actions) {
@@ -42,6 +46,7 @@ class SocketControls {
 
     this.attachButton(speedUpButton, actions.speedUp);
     this.attachButton(slowDownButton, actions.slowDown);
+    this.attachButton(newMapButton, actions.newMap);
   }
 
   attachButton(btn, func) {
@@ -71,6 +76,10 @@ class SocketControls {
     this.currentGame.draw();
   };
 
+  goStraight() {
+    this.doAction('goStraight');
+  }
+
   speedUp() {
     this.doAction('speedUp');
   }
@@ -79,8 +88,8 @@ class SocketControls {
     this.doAction('slowDown');
   }
 
-  goStraight() {
-    this.doAction('goStraight');
+  newMap() {
+    this.doAction('newMap');
   }
 
   doAction(action) {

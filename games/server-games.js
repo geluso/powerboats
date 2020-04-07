@@ -68,6 +68,12 @@ class ServerGames {
 
     return player;
   }
+
+  newMap(gameName) {
+    const game = this.createGame();
+    this.games[gameName] = game;
+    return game;
+  }
 }
 
 module.exports = ServerGames;
