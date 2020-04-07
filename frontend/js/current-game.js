@@ -63,7 +63,7 @@ class CurrentGame {
     li.appendChild(color);
     li.appendChild(message);
     chatList.appendChild(li);
-
+    chatList.scroll(0, 99999);
   }
 
   draw() {
