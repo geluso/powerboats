@@ -27,7 +27,7 @@ class GameSocket {
     this.socket = socket;
     this.serverGames = serverGames;
 
-    socket.emit('update', { game: serverGames.getGame('rainier').toJSON() });
+    socket.emit('update-game', { game: serverGames.getGame('rainier').toJSON() });
 
     socket.on('chat', this.handleChat);
     socket.on('action', this.handleAction);
@@ -40,7 +40,9 @@ class GameSocket {
 
   handleAction = message => {
     console.log('handle action', message);
-    this.serverGames.handleAction(message);
+
+    const updatedPlayer = this.serverGames.handleAction(message);
+    this.socket.emit('update-player', { player: updatedPlayer });
   }
 
   handleDisconnect = () => {

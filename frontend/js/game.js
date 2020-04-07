@@ -60,6 +60,16 @@ class Game {
     this.getCurrentPlayer().highlightRoute();
   }
 
+  updatePlayer(player) {
+    const boatLookup = {};
+    this.boats.forEach(boat => {
+      boat.tile.isDirty = true;
+      boatLookup[boat.color] = boat;
+    })
+
+    const boat = boatLookup[player.color];
+    boat.updateFromJSON(player);
+  }
 
   setCurrentPlayer(color) {
     this.getCurrentPlayer().unhighlightRoute();

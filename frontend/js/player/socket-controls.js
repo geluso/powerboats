@@ -7,10 +7,9 @@ class SocketControls {
   constructor(currentGame) {
     this.currentGame = currentGame;
 
-    this.update = this.update.bind(this);
-
     this.socket = io();
-    this.socket.on('update', json => this.update(json));
+    this.socket.on('update-game', json => currentGame.updateGame(json));
+    this.socket.on('update-player', json => currentGame.updatePlayer(json));
 
     this.attach();
   }
@@ -85,10 +84,8 @@ class SocketControls {
   }
 
   doAction(action) {
-    console.log('doing action', action);
     const actionParams = this.buildActionParams(action);
     actionParams.gameName = 'rainier';
-
     this.socket.emit('action', actionParams);
   }
 
@@ -100,12 +97,6 @@ class SocketControls {
     };
 
     return actionParams;
-  }
-
-  update(json) {
-    console.log('update', json);
-    console.log('this', this);
-    this.currentGame.update(json);
   }
 }
 

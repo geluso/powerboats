@@ -66,7 +66,7 @@ class ServerGames {
       player.turnRight();
     }
 
-    return game;
+    return player;
   }
 }
 

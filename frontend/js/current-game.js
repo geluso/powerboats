@@ -15,23 +15,25 @@ class CurrentGame {
     this.game.setCurrentPlayer(color);
   }
 
-  update(json) {
-    console.log('updating', json);
+  updateGame(json) {
     if (this.game === null) {
       this.game = Game.fromJSON(json.game);
       this.screen.gameDrawer.measure(this.game.tilespace);
     } else {
       this.game.updateFromJSON(json.game);
     }
+    this.draw();
+  }
 
-    const player = this.game.getCurrentPlayer();
-    player.tile.isDirty = true;
-    player.highlightRoute();
-
+  updatePlayer(json) {
+    this.game.updatePlayer(json.player);
     this.draw();
   }
 
   draw() {
+    const player = this.game.getCurrentPlayer();
+    player.highlightRoute();
+
     this.screen.draw(this.game);
   }
 

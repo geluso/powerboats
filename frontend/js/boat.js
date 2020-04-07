@@ -161,6 +161,7 @@ class Boat {
   }
 
   highlightRoute() {
+    this.tile.isDirty = true;
     this.unhighlightRoute();
 
     var tiles = this.getCurrentRouteTiles();
