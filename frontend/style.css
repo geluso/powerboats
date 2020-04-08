@@ -9,17 +9,27 @@ body {
   background-color: CornflowerBlue;
 }
 
+#nav {
+  background-color: green;
+  border-bottom: solid black 1px;
+  padding: 2px;
+}
+
 .board {
   margin-left: 155px;
 }
 
+#container {
+  position: relative;
+}
+
 #actions {
   width: 150px;
+  border-right: solid black 1px;
 
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
 
   text-align: center;
 

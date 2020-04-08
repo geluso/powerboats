@@ -19,8 +19,8 @@ class ServerGames {
 
   createGame(name) {
     const randomTiles = new RandomTileCreator(1 / 10);
-    const rows = 25;
-    const cols = 25;
+    const rows = 26;
+    const cols = 54;
     const tilespace = new TileSpace(rows, cols, randomTiles);
 
     const course = new Course(tilespace);

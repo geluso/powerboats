@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "nodemon -i dist",
     "test": "yarn test"
   },
   "author": "Steve Geluso",

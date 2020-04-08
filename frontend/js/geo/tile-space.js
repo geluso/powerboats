@@ -64,9 +64,9 @@ class TileSpace {
         var tile;
 
         const isTopBorder = row < landBorder - 1;
-        const isBottomBorder = row > maxRows - landBorder;
+        const isBottomBorder = row >= (maxRows - landBorder);
         const isLeftBorder = col < landBorder;
-        const isRightBorder = col > this.cols - landBorder;
+        const isRightBorder = col >= this.cols - landBorder;
         const isBorder = isTopBorder || isBottomBorder || isLeftBorder || isRightBorder;
 
         if (isBorder) {

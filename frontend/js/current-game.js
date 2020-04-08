@@ -5,7 +5,7 @@ class CurrentGame {
   constructor() {
     // set up the screen
     const width = window.innerWidth;
-    const height = window.innerHeight;
+    const height = window.innerHeight - $("#nav").height();
 
     this.screen = new Screen(width, height);
     this.game = null;
