@@ -30,6 +30,11 @@ class BuoyDrawer {
       radius *= .60;
     }
 
+    // draw turn direction
+    const direction = new Path2D();
+    direction.arc(0, 0, 3 * 2 * radius, startAngle, endAngle);
+    this.ctx.stroke(direction);
+
     this.ctx.fillStyle = "black";
 
     this.ctx.textAlign = "center";
