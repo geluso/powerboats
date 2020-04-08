@@ -1,8 +1,9 @@
-const Dice = require('./dice')
+const Config = require('./config');
+const Dice = require('./dice');
 const RoutePlanner = require('./route-planner');
 const BuoyTracker = require('./buoy-tracker');
-const Resources = require('./resources')
-const TileGeo = require('./geo/tile-geo')
+const Resources = require('./resources');
+const TileGeo = require('./geo/tile-geo');
 
 class Boat {
   constructor(game, color, tile, type, direction) {
@@ -148,6 +149,11 @@ class Boat {
   }
 
   rollInNewDice() {
+    console.log('new dice', this.dice.length >= Config.BOAT_MAX_DICE);
+    if (this.dice.length >= Config.BOAT_MAX_DICE) {
+      return;
+    }
+
     var dice = new Dice();
     this.dice.push(dice);
   }
