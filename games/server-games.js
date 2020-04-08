@@ -54,24 +54,27 @@ class ServerGames {
   }
 
   handleAction(command) {
-    const { gameName, color, action, direction } = command;
+    const { gameName, color, action, direction, params } = command;
 
     const game = this.games[gameName];
     const player = game.getPlayer(color);
+    console.log('player was', player);
     player.direction = direction;
 
     if (action === 'goStraight') {
       player.goStraight();
-    } else if (action === 'speedUp') {
-      player.speedUp();
-    } else if (action === 'slowDown') {
-      player.slowDown();
+    } else if (action === 'rollDice') {
+      console.log('rollDice', action, params);
+      player.rollDice(params.index);
+    } else if (action === 'dropDice') {
+      player.dropDice(params.index);
     } else if (action === 'turnLeft') {
       player.turnLeft();
     } else if (action === 'turnRight') {
       player.turnRight();
     }
 
+    console.log('player now', player);
     return player;
   }
 

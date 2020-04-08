@@ -140,32 +140,35 @@ class Boat {
     }
   }
 
-  speedUp() {
-    this.rollInNewDice();
-  }
+  rollDice(index) {
+    // special case for rerolling an existing dice
+    console.log('boat rolling dice');
+    if (this.dice[index] instanceof Dice) {
+      console.log('reroll')
+      this.dice[index].roll();
+      return;
+    }
 
-  slowDown() {
-    this.dice.pop();
-  }
+    let takenSpots = 0;
+    for (let i = 0; i < this.dice.length; i++) {
+      if (this.dice[i] instanceof Dice) {
+        takenSpots++;
+      }
+    }
 
-  rollInNewDice() {
-    console.log('new dice', this.dice.length >= Config.BOAT_MAX_DICE);
-    const takenSpots = this.dice.length;
+    console.log('dice used', takenSpots);
     const freeSpots = Config.BOAT_MAX_DAMAGE - this.damage - takenSpots;
     if (freeSpots <= 0) {
       return;
     }
 
     var dice = new Dice();
-    this.dice.push(dice);
+    console.log('rolled', dice, 'for spot', index);
+    this.dice[index] = dice;
   }
 
-  removeDice(index) {
-    this.dice.remove(index);
-  }
-
-  rerollDice(index) {
-    this.dice[index].reroll();
+  dropDice(index) {
+    this.dice.splice(index, 1);
   }
 
   highlightRoute() {

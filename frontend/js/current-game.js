@@ -1,7 +1,8 @@
 const Game = require('./game');
 const Screen = require('./screen');
 
-const BoatSpeedsIndicator = require('./boat-speeds-indicator');
+const DiceAllPlayers = require('./dice-all-players');
+const DiceLocalPlayer = require('./dice-local-player');
 
 class CurrentGame {
   constructor() {
@@ -9,7 +10,7 @@ class CurrentGame {
     const width = window.innerWidth - $("#actions").width() - $("#boats").width() - 10;
     const height = window.innerHeight - $("#nav").height();
 
-    this.boatSpeedIndicators = new BoatSpeedsIndicator();
+    this.boatSpeedIndicators = new DiceAllPlayers();
 
     this.screen = new Screen(width, height);
     this.game = null;
@@ -36,6 +37,7 @@ class CurrentGame {
   }
 
   updatePlayer(json) {
+    console.log('update player', json);
     if (this.game === null) return;
     this.game.updatePlayer(json.player);
     this.draw();
@@ -76,7 +78,8 @@ class CurrentGame {
     player.highlightRoute();
 
     this.screen.draw(this.game);
-    BoatSpeedsIndicator.display(this.game);
+    DiceAllPlayers.display(this.game);
+    DiceLocalPlayer.display(this.game.getCurrentPlayer());
   }
 
   handleMouseMove(e) {

@@ -36,9 +36,9 @@ Controls.initializeControls = function (screen, game) {
     // OFF_CENTER_INDEX = Math.min(OFF_CENTER_INDEX, 1);
   };
 
-  function slowDown() {
+  function rollDice(index) {
     //if (CAN_ADJUST_SPEED) {
-    getCurrentPlayer().slowDown();
+    getCurrentPlayer().speedUp();
     getCurrentPlayer().highlightRoute();
     //}
 
@@ -47,9 +47,9 @@ Controls.initializeControls = function (screen, game) {
     reportSpeed();
   };
 
-  function speedUp() {
+  function dropDice(index) {
     //if (CAN_ADJUST_SPEED) {
-    getCurrentPlayer().speedUp();
+    getCurrentPlayer().slowDown();
     getCurrentPlayer().highlightRoute();
     //}
 

@@ -1,4 +1,5 @@
 const io = require('socket.io-client');
+const Config = require('../config');
 
 // socket.emit('chat', { chat: 'hello' });
 // socket.on('', () => {})
@@ -44,17 +45,12 @@ class SocketControls {
     var turnLeftButton = document.getElementById("turn-left");
     var turnRightButton = document.getElementById("turn-right");
     var goStraightButton = document.getElementById("go-straight");
-
-    var speedUpButton = document.getElementById("speedup");
-    var slowDownButton = document.getElementById("slowdown");
     var newMapButton = document.getElementById("new-map");
 
     var actions = {
       turnLeft: this.turnLeft.bind(this),
       turnRight: this.turnRight.bind(this),
       goStraight: this.goStraight.bind(this),
-      speedUp: this.speedUp.bind(this),
-      slowDown: this.slowDown.bind(this),
       newMap: this.newMap.bind(this),
     };
 
@@ -63,12 +59,31 @@ class SocketControls {
       actions[action] = this.wrapWithDraw(func);
     }
 
+    // build up individual dice controls
+    const diceBank = document.getElementById('dice-bank');
+    const diceSpots = diceBank.getElementsByClassName('dice-spot');
+    for (let i = 0; i < Config.BOAT_MAX_DAMAGE; i++) {
+      let spot = diceSpots[i];
+      let rollButton = spot.getElementsByClassName('roll')[0];
+      let dropButton = spot.getElementsByClassName('drop')[0];
+
+      rollButton.addEventListener('click', () => {
+        console.log('roll', i);
+        this.rollDice(i);
+        this.currentGame.draw();
+      });
+
+      dropButton.addEventListener('click', () => {
+        console.log('drop', i);
+        this.dropDice(i);
+        this.currentGame.draw();
+      });
+    }
+
     this.attachButton(turnLeftButton, actions.turnLeft);
     this.attachButton(turnRightButton, actions.turnRight);
     this.attachButton(goStraightButton, actions.goStraight);
 
-    this.attachButton(speedUpButton, actions.speedUp);
-    this.attachButton(slowDownButton, actions.slowDown);
     this.attachButton(newMapButton, actions.newMap);
   }
 
@@ -103,29 +118,30 @@ class SocketControls {
     this.doAction('goStraight');
   }
 
-  speedUp() {
-    this.doAction('speedUp');
+  rollDice(index) {
+    this.doAction('rollDice', { index });
   }
 
-  slowDown() {
-    this.doAction('slowDown');
+  dropDice(index) {
+    this.doAction('dropDice', { index });
   }
 
   newMap() {
     this.doAction('newMap');
   }
 
-  doAction(action) {
-    const actionParams = this.buildActionParams(action);
+  doAction(action, params) {
+    const actionParams = this.buildActionParams(action, params);
     actionParams.gameName = 'rainier';
     this.socket.emit('action', actionParams);
   }
 
-  buildActionParams(action) {
+  buildActionParams(action, params) {
     const player = this.currentGame.game.getCurrentPlayer();
     const { color, direction } = player;
     const actionParams = {
       color, action, direction,
+      params,
     };
 
     return actionParams;

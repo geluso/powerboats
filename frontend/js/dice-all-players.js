@@ -1,4 +1,5 @@
 const Config = require('./config');
+const Dice = require('./dice')
 
 class BoatSpeedsIndicator {
   static clearBoatSpeeds() {
@@ -25,10 +26,10 @@ class BoatSpeedsIndicator {
       if (isDamaged) {
         speed.classList.add('damaged');
         speed.textContent = 'X';
-      } else if (dice === undefined) {
-        speed.textContent = 0;
-      } else {
+      } else if (dice instanceof Dice) {
         speed.textContent = dice.value;
+      } else {
+        speed.textContent = 0;
       }
 
       // add a space between speeds for better visuals

@@ -35,13 +35,44 @@
 
       <hr />
 
-      <button id="turn-left">turn left</button> <br />
-      <button id="turn-right">turn right</button>
+      <div id="dice-bank">
+        <div class="dice-spot">
+          <span class="value">0</span>
+          <button class="roll">roll</button>
+          <button class="drop">drop</button>
+        </div>
+
+        <div class="dice-spot">
+          <span class="value">0</span>
+          <button class="roll">roll</button>
+          <button class="drop">drop</button>
+        </div>
+
+        <div class="dice-spot">
+          <span class="value">0</span>
+          <button class="roll">roll</button>
+          <button class="drop">drop</button>
+        </div>
+
+        <div class="dice-spot">
+          <span class="value">0</span>
+          <button class="roll">roll</button>
+          <button class="drop">drop</button>
+        </div>
+
+        <div class="dice-spot">
+          <span class="value">0</span>
+          <button class="roll">roll</button>
+          <button class="drop">drop</button>
+        </div>
+      </div>
 
       <hr />
 
-      <button id="speedup">speed up</button>
-      <button id="slowdown">slow down</button>
+      <div>
+        <button id="turn-left">left</button>
+        <button id="turn-right">right</button>
+      </div>
 
       <hr />
 
@@ -53,27 +84,6 @@
 
       <hr />
 
-      <div>
-        chat
-        <ul id="chat">
-          <li><span class="chat-color yellow"></span>hi</li>
-          <li><span class="chat-color purple"></span>hi</li>
-          <li><span class="chat-color green"></span>hi</li>
-          <li><span class="chat-color purple"></span>hi</li>
-          <li><span class="chat-color yellow"></span>hi</li>
-          <li><span class="chat-color yellow"></span>hi</li>
-          <li>
-            <span class="chat-color yellow"></span>
-            hi yeah I went to the store but they didn't have any so i am not
-            totally sure what all to do beside wait until they get some more I
-            guess. so what doyou want to do tomorrow though.
-          </li>
-        </ul>
-        <form id="chat-box">
-          <input id="chat-input" type="text" autocomplete="off" tabindex="1" />
-          <input type="submit" value="chat" tabindex="2" />
-        </form>
-      </div>
     </div>
 
     <div class="board column column2">
@@ -81,7 +91,7 @@
     </div>
 
     <div id="boats" class="column column2">
-      <div>Speeds</div>
+      <div>speeds</div>
       <div id="speeds-container">
         <div class="speed-container">
           <span class="chat-color yellow"></span>
@@ -123,6 +133,30 @@
           <span class="speed">2</span>
           <span class="damaged speed">0</span>
         </div>
+      </div>
+
+      <hr />
+
+      <div>
+        chat
+        <ul id="chat">
+          <li><span class="chat-color yellow"></span>hi</li>
+          <li><span class="chat-color purple"></span>hi</li>
+          <li><span class="chat-color green"></span>hi</li>
+          <li><span class="chat-color purple"></span>hi</li>
+          <li><span class="chat-color yellow"></span>hi</li>
+          <li><span class="chat-color yellow"></span>hi</li>
+          <li>
+            <span class="chat-color yellow"></span>
+            hi yeah I went to the store but they didn't have any so i am not
+            totally sure what all to do beside wait until they get some more I
+            guess. so what doyou want to do tomorrow though.
+          </li>
+        </ul>
+        <form id="chat-box">
+          <input id="chat-input" type="text" autocomplete="off" tabindex="1" />
+          <input type="submit" value="chat" tabindex="2" />
+        </form>
       </div>
     </div>
 
