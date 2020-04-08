@@ -1,11 +1,15 @@
 const Game = require('./game');
 const Screen = require('./screen');
 
+const BoatSpeedsIndicator = require('./boat-speeds-indicator');
+
 class CurrentGame {
   constructor() {
     // set up the screen
     const width = window.innerWidth - $("#actions").width() - $("#boats").width() - 10;
     const height = window.innerHeight - $("#nav").height();
+
+    this.boatSpeedIndicators = new BoatSpeedsIndicator();
 
     this.screen = new Screen(width, height);
     this.game = null;
@@ -72,6 +76,7 @@ class CurrentGame {
     player.highlightRoute();
 
     this.screen.draw(this.game);
+    BoatSpeedsIndicator.display(this.game);
   }
 
   handleMouseMove(e) {

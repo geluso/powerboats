@@ -149,3 +149,13 @@ body {
 .black {
   background-color: black;
 }
+
+.speed-container {
+  width: 120px;
+  font-size: 14pt;
+}
+
+.damaged {
+  text-decoration: line-through;
+  color: red;
+}

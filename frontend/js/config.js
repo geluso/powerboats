@@ -6,6 +6,7 @@ var CONFIG = {
   COORD_TEXT_SIZE: "8px",
   MIN_DICE: 1,
   MAX_DICE: 3,
+  BOAT_MAX_DAMAGE: 5,
   USE_START_CONFIG: true,
   START_POSITION: "32,-30,-2",
   START_DIRECTION: "south-east",
