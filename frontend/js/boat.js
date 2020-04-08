@@ -150,7 +150,9 @@ class Boat {
 
   rollInNewDice() {
     console.log('new dice', this.dice.length >= Config.BOAT_MAX_DICE);
-    if (this.dice.length >= Config.BOAT_MAX_DICE) {
+    const takenSpots = this.dice.length;
+    const freeSpots = Config.BOAT_MAX_DAMAGE - this.damage - takenSpots;
+    if (freeSpots <= 0) {
       return;
     }
 
