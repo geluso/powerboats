@@ -68,13 +68,11 @@ class SocketControls {
       let dropButton = spot.getElementsByClassName('drop')[0];
 
       rollButton.addEventListener('click', () => {
-        console.log('roll', i);
         this.rollDice(i);
         this.currentGame.draw();
       });
 
       dropButton.addEventListener('click', () => {
-        console.log('drop', i);
         this.dropDice(i);
         this.currentGame.draw();
       });

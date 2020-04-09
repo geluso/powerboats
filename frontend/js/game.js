@@ -41,17 +41,11 @@ class Game {
 
   updateFromJSON(json) {
     const boatLookup = {};
-    console.log('forEach boat lookup');
     this.boats.forEach(boat => {
       boat.tile.isDirty = true;
       boatLookup[boat.color] = boat;
     })
 
-    console.log('forEach boat json', json.boats);
-    if (json.boats === undefined) {
-      debugger;
-      console.log('debug dawg')
-    }
     json.boats.forEach(boatJSON => {
       const boat = boatLookup[boatJSON.color];
       boat.updateFromJSON(boatJSON);

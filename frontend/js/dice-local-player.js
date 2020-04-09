@@ -2,7 +2,6 @@ const Config = require('./config');
 
 class DiceLocalPlayer {
   static display(player) {
-    console.log('player dice', player)
     const diceBank = document.getElementById('dice-bank');
     const diceSpots = diceBank.getElementsByClassName('dice-spot');
     for (let i = 0; i < Config.BOAT_MAX_DAMAGE; i++) {

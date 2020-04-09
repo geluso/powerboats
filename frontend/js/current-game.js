@@ -37,7 +37,6 @@ class CurrentGame {
   }
 
   updatePlayer(json) {
-    console.log('update player', json);
     if (this.game === null) return;
     this.game.updatePlayer(json.player);
     this.draw();

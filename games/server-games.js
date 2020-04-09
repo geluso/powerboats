@@ -58,13 +58,11 @@ class ServerGames {
 
     const game = this.games[gameName];
     const player = game.getPlayer(color);
-    console.log('player was', player);
     player.direction = direction;
 
     if (action === 'goStraight') {
       player.goStraight();
     } else if (action === 'rollDice') {
-      console.log('rollDice', action, params);
       player.rollDice(params.index);
     } else if (action === 'dropDice') {
       player.dropDice(params.index);
@@ -74,7 +72,6 @@ class ServerGames {
       player.turnRight();
     }
 
-    console.log('player now', player);
     return player;
   }
 
@@ -94,7 +91,6 @@ class ServerGames {
     const chat = this.chats[gameName];
 
     const chatMessage = { color, message };
-    console.log('got chat', chatMessage);
     chat.push(chatMessage);
     return chatMessage;
   }
