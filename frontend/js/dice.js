@@ -5,7 +5,7 @@ class Dice {
     if (value) {
       this.value = value;
     } else {
-      this.roll();
+      this.value = 0;
     }
   }
   static fromJSON(json) {

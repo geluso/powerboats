@@ -142,9 +142,7 @@ class Boat {
 
   rollDice(index) {
     // special case for rerolling an existing dice
-    console.log('boat rolling dice');
     if (this.dice[index] instanceof Dice) {
-      console.log('reroll')
       this.dice[index].roll();
       return;
     }
@@ -156,19 +154,25 @@ class Boat {
       }
     }
 
-    console.log('dice used', takenSpots);
     const freeSpots = Config.BOAT_MAX_DAMAGE - this.damage - takenSpots;
     if (freeSpots <= 0) {
       return;
     }
 
     var dice = new Dice();
-    console.log('rolled', dice, 'for spot', index);
+    dice.roll();
     this.dice[index] = dice;
+
+    this.filterDice();
   }
 
   dropDice(index) {
     this.dice.splice(index, 1);
+    this.filterDice();
+  }
+
+  filterDice() {
+    this.dice = this.dice.filter(dice => !!dice);
   }
 
   highlightRoute() {
