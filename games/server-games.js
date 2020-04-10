@@ -106,6 +106,15 @@ class ServerGames {
     return player;
   }
 
+  aiTurn(color) {
+    const game = this.games['rainier'];
+    const boat = game.getPlayer(color);
+    boat.rollDice(0);
+    boat.goStraight();
+    console.log('ai', boat.stats());
+    return boat;
+  }
+
   newMap(gameName) {
     const game = this.createGame();
     this.games[gameName] = game;

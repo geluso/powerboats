@@ -70,12 +70,14 @@ class SocketControls {
     var turnRightButton = document.getElementById("turn-right");
     var goStraightButton = document.getElementById("go-straight");
     var newMapButton = document.getElementById("new-map");
+    var aiOrangeButton = document.getElementById("ai-orange");
 
     var actions = {
       turnLeft: this.turnLeft.bind(this),
       turnRight: this.turnRight.bind(this),
       goStraight: this.goStraight.bind(this),
       newMap: this.newMap.bind(this),
+      aiOrange: this.aiOrange.bind(this),
     };
 
     for (var action in actions) {
@@ -107,6 +109,7 @@ class SocketControls {
     this.attachButton(goStraightButton, actions.goStraight);
 
     this.attachButton(newMapButton, actions.newMap);
+    this.attachButton(aiOrangeButton, actions.aiOrange);
   }
 
   attachButton(btn, func) {
@@ -150,6 +153,11 @@ class SocketControls {
 
   newMap() {
     this.doAction('newMap');
+  }
+
+  aiOrange() {
+    console.log('ai');
+    this.socket.emit('action', { action: 'ai-turn', color: 'orange' });
   }
 
   doAction(action, params) {
