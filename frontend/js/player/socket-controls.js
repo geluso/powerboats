@@ -68,13 +68,20 @@ class SocketControls {
     // attach buttons to functions
     var turnLeftButton = document.getElementById("turn-left");
     var turnRightButton = document.getElementById("turn-right");
+
+    var slowDownButton = document.getElementById("dice-down");
+    var speedUpButton = document.getElementById("dice-up");
+
     var goStraightButton = document.getElementById("go-straight");
+
     var newMapButton = document.getElementById("new-map");
     var aiOrangeButton = document.getElementById("ai-orange");
 
     var actions = {
       turnLeft: this.turnLeft.bind(this),
       turnRight: this.turnRight.bind(this),
+      slowDown: this.slowDown.bind(this),
+      speedUp: this.speedUp.bind(this),
       goStraight: this.goStraight.bind(this),
       newMap: this.newMap.bind(this),
       aiOrange: this.aiOrange.bind(this),
@@ -106,6 +113,8 @@ class SocketControls {
 
     this.attachButton(turnLeftButton, actions.turnLeft);
     this.attachButton(turnRightButton, actions.turnRight);
+    this.attachButton(slowDownButton, actions.slowDown);
+    this.attachButton(speedUpButton, actions.speedUp);
     this.attachButton(goStraightButton, actions.goStraight);
 
     this.attachButton(newMapButton, actions.newMap);
@@ -138,6 +147,16 @@ class SocketControls {
     this.currentGame.game.getCurrentPlayer().highlightRoute();
     this.currentGame.draw();
   };
+
+  slowDown() {
+    const index = this.currentGame.game.getCurrentPlayer().dice.length - 1;
+    this.dropDice(index);
+  }
+
+  speedUp() {
+    const index = this.currentGame.game.getCurrentPlayer().dice.length;
+    this.rollDice(index);
+  }
 
   goStraight() {
     this.doAction('goStraight');
