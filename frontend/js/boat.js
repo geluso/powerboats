@@ -1,6 +1,6 @@
 const Config = require('./config');
 const Dice = require('./dice');
-const RoutePlanner = require('./route-planner');
+const RoutePlanner = require('./ai/route-planner');
 const BuoyTracker = require('./buoy-tracker');
 const Resources = require('./resources');
 const TileGeo = require('./geo/tile-geo');
@@ -240,6 +240,7 @@ class Boat {
   }
 
   targetNextBuoy() {
+    console.log('targeting next buoy', this.trackerIndex);
     this.trackerIndex++;
     if (this.trackerIndex >= 3) {
       // to finish line!
@@ -330,7 +331,11 @@ class BoatClone extends Boat {
   constructor(source) {
     super(source.game, source.color, source.tile, source.type);
     this.source = source;
-    this.actions = [];
+    if (source.actions === undefined) {
+      this.actions = [];
+    } else {
+      this.actions = [...source.actions];
+    }
   }
 
   getFirstClone() {
@@ -342,27 +347,22 @@ class BoatClone extends Boat {
   }
 
   speedUp() {
-    this.actions.push("faster");
     super.speedUp();
   }
 
   slowDown() {
-    this.actions.push("slower");
     super.slowDown();
   }
 
   turnLeft() {
-    this.actions.push("left");
     super.turnLeft();
   }
 
   turnRight() {
-    this.actions.push("right");
     super.turnRight();
   }
 
   goStraight() {
-    this.actions.push("go");
     super.goStraight();
   }
 }

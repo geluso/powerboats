@@ -1,6 +1,19 @@
 const Config = require('./config');
 
 class History {
+  static createAIMessage(action, playerOld, playerNew) {
+    const aiActionMap = {
+      left: 'turnLeft',
+      right: 'turnRight',
+      slower: 'dropDice',
+      faster: 'rollDice',
+      go: 'goStraight',
+    };
+
+    action = aiActionMap[action];
+    return History.createMessage(action, playerOld, playerNew);
+  }
+
   static createMessage(action, playerOld, playerNew) {
     let oldDice = '' + playerOld.dice;
     let newDice = '' + playerNew.dice;

@@ -1,4 +1,16 @@
 class PlayerSelection {
+  static init(currentGame) {
+    const players = document.getElementById('players');
+    const playerSelects = [...players.getElementsByClassName('player')];
+
+    playerSelects.forEach(playerSelect => {
+      playerSelect.addEventListener('click', () => {
+        const color = playerSelect.getAttribute('data-player');
+        PlayerSelection.setPlayer(currentGame, color);
+      });
+    });
+  }
+
   static setPlayer(currentGame, setColor) {
     const players = document.getElementById('players');
     const playerSelects = [...players.getElementsByClassName('player')];

@@ -157,6 +157,7 @@ class SocketControls {
 
   aiOrange() {
     console.log('ai');
+    PlayerSelection.setPlayer(this.currentGame, 'orange');
     this.socket.emit('action', { action: 'ai-turn', color: 'orange' });
   }
 

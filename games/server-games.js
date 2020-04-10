@@ -5,6 +5,8 @@ const Course = require('../frontend/js/course');
 const Game = require('../frontend/js/game');
 const Boat = require('../frontend/js/boat');
 
+const RoutePlanner = require('../frontend/js/ai/route-planner');
+
 const RandomTileCreator = require('../frontend/js/geo/tile-creators/random-tile-creator');
 
 class ServerGames {
@@ -109,10 +111,11 @@ class ServerGames {
   aiTurn(color) {
     const game = this.games['rainier'];
     const boat = game.getPlayer(color);
-    boat.rollDice(0);
-    boat.goStraight();
-    console.log('ai', boat.stats());
-    return boat;
+
+    const planner = new RoutePlanner(boat);
+    const actions = planner.execute();
+
+    return actions;
   }
 
   newMap(gameName) {

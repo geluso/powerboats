@@ -9,6 +9,7 @@ function main() {
   const currentGame = new CurrentGame();
 
   // set up the controls
+  PlayerSelection.init(currentGame);
   new SocketControls(currentGame);
 
   const canvas = document.getElementById('canvas');
