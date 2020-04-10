@@ -17,6 +17,8 @@ class DiceLocalPlayer {
       const isDamaged = i >= Config.BOAT_MAX_DAMAGE - player.damage;
       if (isDamaged) {
         spot.classList.add('damaged');
+      } else {
+        spot.classList.remove('damaged');
       }
     }
   }

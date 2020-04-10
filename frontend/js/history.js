@@ -1,15 +1,21 @@
 class History {
   static createMessage(action, playerOld, playerNew) {
-    console.log('action', action, playerOld, playerNew);
+    let oldDice = '' + playerOld.dice;
+    let newDice = '' + playerNew.dice;
 
-    const oldDice = JSON.stringify(playerOld.dice);
-    const newDice = JSON.stringify(playerNew.dice);
+    if (oldDice === '') {
+      oldDice = 0;
+    }
+
+    if (newDice === '') {
+      newDice = 0;
+    }
 
     let text;
     if (action === 'rollDice') {
-      text = `rolled from ${oldDice} to ${newDice}`;
+      text = `rolled ${oldDice} to ${newDice}`;
     } else if (action === 'dropDice') {
-      text = `dropped from ${oldDice} to ${newDice}`;
+      text = `dropped ${oldDice} to ${newDice}`;
     } else if (action === 'turnLeft') {
       text = `turned left`;
     } else if (action === 'turnRight') {
@@ -17,9 +23,9 @@ class History {
     } else if (action === 'goStraight') {
       let damage = playerNew.damage - playerOld.damage;
       if (damage > 0) {
-        text = `moved ${playerNew.speed} forward taking ${damage} damage`;
+        text = `moved ${playerNew.speed} w/ ${damage} damage`;
       } else {
-        text = `moved ${playerNew.speed} forward`;
+        text = `moved ${playerNew.speed}`;
       }
     }
 
