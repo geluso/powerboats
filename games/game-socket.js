@@ -29,6 +29,7 @@ class GameSocket {
 
     socket.emit('new-map', { game: serverGames.getGame('rainier').toJSON() });
     socket.emit('load-all-chat', { chat: serverGames.getChat('rainier') });
+    socket.emit('load-all-history', { history: serverGames.getHistory('rainier') });
 
     socket.on('chat', this.handleChat);
     socket.on('action', this.handleAction);

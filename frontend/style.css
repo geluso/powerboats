@@ -118,9 +118,9 @@ body {
   color: red;
 }
 
-#chat {
+.message-log {
   width: 135px; 
-  height: 200px;
+  height: 180px;
 
   color: black;
   background-color: white;;
@@ -132,7 +132,7 @@ body {
   overflow-y: scroll;
 }
 
-#chat li {
+.message-log li {
   display: block;
   border-top: solid #ccc 1px;
   padding-top: 2px;

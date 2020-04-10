@@ -10,6 +10,7 @@ var CONFIG = {
   USE_START_CONFIG: true,
   START_POSITION: "32,-30,-2",
   START_DIRECTION: "south-east",
+  BOAT_START_DIRECTION: "south-west",
   USE_BUOY_ARRAY: true,
   BUOYS: [
     "39,-28,-11",

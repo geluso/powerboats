@@ -11,6 +11,7 @@ class ServerGames {
   constructor() {
     this.games = {};
     this.chats = {};
+    this.history = {};
   }
 
   getGame(name) {
@@ -35,7 +36,7 @@ class ServerGames {
     for (let i = 0; i < Config.PLAYER_TYPES.length; i++) {
       const color = Config.COLORS[i];
       const playerType = Config.PLAYER_TYPES[i];
-      const boat = new Boat(game, color, currentTile, playerType, Config.START_DIRECTION);
+      const boat = new Boat(game, color, currentTile, playerType, Config.BOAT_START_DIRECTION);
       game.boats.push(boat);
       boat.faceBuoy();
 
@@ -45,9 +46,14 @@ class ServerGames {
     this.games[name] = game;
     game.name = name;
 
+    // create a history for this game.
+    if (this.history[name] === undefined) {
+      this.history[name] = [{ color: 'black', message: 'game created' }];
+    }
+
     // create a chat for this game.
     if (this.chats[name] === undefined) {
-      this.chats[name] = [{ color: 'black', message: 'game created' }];
+      this.chats[name] = [];
     }
 
     return game;
@@ -84,6 +90,11 @@ class ServerGames {
   getChat(gameName) {
     const chat = this.chats[gameName];
     return chat;
+  }
+
+  getHistory(gameName) {
+    const history = this.history[gameName];
+    return history;
   }
 
   handleChat(command) {
