@@ -11,6 +11,18 @@ class PlayerSelection {
     });
   }
 
+  static getCurrentPlayer() {
+    const players = document.getElementById('players');
+    const playerSelects = [...players.getElementsByClassName('player')];
+    for (let i = 0; i < playerSelects.length; i++) {
+      const playerSelect = playerSelects[i];
+      const color = playerSelect.getAttribute('data-player');
+      if (playerSelect.classList.contains('controlling')) {
+        return color;
+      }
+    }
+  }
+
   static setPlayer(currentGame, setColor) {
     const players = document.getElementById('players');
     const playerSelects = [...players.getElementsByClassName('player')];

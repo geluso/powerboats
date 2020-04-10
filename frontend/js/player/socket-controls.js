@@ -141,6 +141,14 @@ class SocketControls {
 
   goStraight() {
     this.doAction('goStraight');
+    const currentColor = PlayerSelection.getCurrentPlayer();
+    console.log('current color', currentColor);
+    setTimeout(() => {
+      this.aiOrange();
+      setTimeout(() => {
+        PlayerSelection.setPlayer(this.currentGame, currentColor);
+      }, 500);
+    }, 500);
   }
 
   rollDice(index) {
