@@ -15,7 +15,7 @@ class SocketControls {
     this.socket.on('update-player', json => currentGame.updatePlayer(json));
 
     this.socket.on('load-all-history', json => currentGame.logHistory.loadAll(json));
-    this.socket.on('receive-history', json => currentGame.logHisotry.receive(json));
+    this.socket.on('receive-history', json => currentGame.logHistory.receive(json));
 
     this.socket.on('load-all-chat', json => currentGame.logChat.loadAll(json));
     this.socket.on('receive-chat', json => currentGame.logChat.receive(json));

@@ -35,6 +35,21 @@ class Boat {
     // this.trackers.push(finishTracker);
   }
 
+  stats() {
+    return {
+      color: this.color,
+      damage: this.damage,
+      direction: this.direction,
+      speed: this.speed(),
+      dice: this.diceStats(),
+    }
+  }
+
+  diceStats() {
+    const stats = this.dice.map(dice => dice.value);
+    return stats;
+  }
+
   static fromJSON(game, json) {
     let { color, tile, type } = json;
     tile = game.tilespace.getByKeyRowCol(tile.row, tile.col);

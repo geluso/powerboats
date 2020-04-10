@@ -19,16 +19,16 @@ class MessageLog {
     }
   }
 
-  receive(chat) {
+  receive(json) {
     const chatList = document.getElementById(this.name);
     const li = document.createElement('li');
 
     const color = document.createElement('span');
     color.classList.add('chat-color');
-    color.classList.add(chat.color);
+    color.classList.add(json.color);
 
     const message = document.createElement('span');
-    message.textContent = chat.message;
+    message.textContent = json.message;
 
     li.appendChild(color);
     li.appendChild(message);

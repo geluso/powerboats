@@ -14,10 +14,6 @@ class ServerGames {
     this.history = {};
   }
 
-  getGame(name) {
-    return this.games[name];
-  }
-
   createGame(name) {
     const randomTiles = new RandomTileCreator(1 / 10);
     const rows = 26;
@@ -56,6 +52,11 @@ class ServerGames {
       this.chats[name] = [];
     }
 
+    return game;
+  }
+
+  getGame(name) {
+    const game = this.games[name];
     return game;
   }
 
