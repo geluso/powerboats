@@ -22,6 +22,25 @@ class SocketControls {
 
     this.attach();
     this.attachChat();
+
+    this.playerJoin = this.playerJoin.bind(this);
+    this.playerLeave = this.playerLeave.bind(this);
+
+    this.socket.on('player-join', this.playerJoin);
+    this.socket.on('player-leave', this.playerLeave);
+  }
+
+  // socketId, color
+  playerJoin(json) {
+    if (json.socketId === this.socket.id) {
+      console.log('i joined!');
+    } else {
+      console.log('someone else joined')
+    }
+  }
+
+  playerLeave(json) {
+
   }
 
   attachChat() {

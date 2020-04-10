@@ -41,6 +41,21 @@ class GameSocket {
     socket.on('chat', this.handleChat);
     socket.on('action', this.handleAction);
     socket.on('disconnect', this.handleDisconnect);
+
+    this.handleConnect();
+  }
+
+  handleConnect = () => {
+    const color = this.serverGames.join('rainier', this.socket);
+    this.io.emit('player-join', { color, socketId: this.socket.id });
+    this.io.emit('receive-history', { color, message: 'joined' });
+  }
+
+  handleDisconnect = () => {
+    console.log('user disconnection')
+    const color = this.serverGames.leave('rainier', this.socket);
+    this.io.emit('player-leave', { color, socketId: this.socket.id });
+    this.io.emit('receive-history', { color, messge: 'left' });
   }
 
   handleChat = message => {
@@ -68,10 +83,6 @@ class GameSocket {
       this.io.emit('update-player', { player: updatedPlayer });
       this.io.emit('receive-history', historyMessage);
     }
-  }
-
-  handleDisconnect = () => {
-    console.log('user disconnection')
   }
 }
 

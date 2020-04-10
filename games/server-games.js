@@ -12,6 +12,8 @@ class ServerGames {
     this.games = {};
     this.chats = {};
     this.history = {};
+    this.socketsToColors = {};
+    this.colorsToSockets = {};
   }
 
   createGame(name) {
@@ -58,6 +60,29 @@ class ServerGames {
   getGame(name) {
     const game = this.games[name];
     return game;
+  }
+
+  // this.socketsToColors = {};
+  // this.colorsToSockets = {};
+  join(gameName, socket) {
+    console.log('new player joining')
+    const game = this.getGame(gameName);
+    for (let i = 0; i < game.boats.length; i++) {
+      const color = game.boats[i].color;
+      if (this.colorsToSockets[color] === undefined) {
+        this.colorsToSockets[color] = socket.id;
+        this.socketsToColors[socket.id] = color;
+        console.log('new player joining', color)
+        return color;
+      }
+    }
+  }
+
+  leave(gameName, socket) {
+    const game = this.getGame(gameName);
+    const color = this.socketsToColors[socket.id];
+    this.colorsToSockets[color] = null;
+    return color;
   }
 
   handleAction(command) {

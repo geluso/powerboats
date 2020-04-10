@@ -47,6 +47,16 @@ class CurrentGame {
     this.draw();
   }
 
+  // {soketId, color}
+  playerJoin(json) {
+    console.log('player join', json);
+  }
+
+  // {soketId, color}
+  playerLeave(json) {
+    console.log('player leave', json);
+  }
+
   draw() {
     if (this.game === null) return;
     const player = this.game.getCurrentPlayer();

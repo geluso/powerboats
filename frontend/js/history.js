@@ -1,3 +1,5 @@
+const Config = require('./config');
+
 class History {
   static createMessage(action, playerOld, playerNew) {
     let oldDice = '' + playerOld.dice;
@@ -23,7 +25,7 @@ class History {
     } else if (action === 'goStraight') {
       let damage = playerNew.damage - playerOld.damage;
       if (damage > 0) {
-        text = `moved ${playerNew.speed} w/ ${damage} damage`;
+        text = `moved ${playerNew.speed} w/ ${playerNew.damage}/${Config.BOAT_MAX_DAMAGE} damage`;
       } else {
         text = `moved ${playerNew.speed}`;
       }
