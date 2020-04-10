@@ -142,7 +142,6 @@ class SocketControls {
   goStraight() {
     this.doAction('goStraight');
     const currentColor = PlayerSelection.getCurrentPlayer();
-    console.log('current color', currentColor);
     setTimeout(() => {
       this.aiOrange();
       setTimeout(() => {
@@ -164,7 +163,6 @@ class SocketControls {
   }
 
   aiOrange() {
-    console.log('ai');
     PlayerSelection.setPlayer(this.currentGame, 'orange');
     this.socket.emit('action', { action: 'ai-turn', color: 'orange' });
   }

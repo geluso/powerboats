@@ -8,8 +8,6 @@ class RoutePlanner {
 
   execute() {
     const bestActions = this.explore();
-    console.log();
-    console.log('best', bestActions);
     this.performActions(this.boat, bestActions);
 
     return bestActions;
@@ -18,7 +16,6 @@ class RoutePlanner {
   explore() {
     if (this.boat.trackerIndex >= this.boat.trackers.length) {
       // once done spin in circles in place.
-      console.log('ai thinks it is winning')
       const courseCompleteActions = ['slower', 'left', 'go'];
       return courseCompleteActions;
     }
@@ -101,7 +98,6 @@ class RoutePlanner {
       }
 
       var score = this.scoreTurn(boat);
-      console.log(bestScore, score, options[i].actions);
       if (score > bestScore) {
         bestScore = score;
         bestBoat = boat;
