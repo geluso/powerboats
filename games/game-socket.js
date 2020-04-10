@@ -52,10 +52,9 @@ class GameSocket {
   }
 
   handleDisconnect = () => {
-    console.log('user disconnection')
     const color = this.serverGames.leave('rainier', this.socket);
     this.io.emit('player-leave', { color, socketId: this.socket.id });
-    this.io.emit('receive-history', { color, messge: 'left' });
+    this.io.emit('receive-history', { color, message: 'left' });
   }
 
   handleChat = message => {
@@ -64,8 +63,6 @@ class GameSocket {
   }
 
   handleAction = message => {
-    console.log('handle action', message);
-
     if (message.action === 'newMap') {
       const game = this.serverGames.newMap(message.gameName);
       this.io.emit('new-map', { game: game });
@@ -78,7 +75,6 @@ class GameSocket {
       const playerNew = updatedPlayer.stats();
 
       const historyMessage = History.createMessage(message.action, playerOld, playerNew);
-      console.log(historyMessage);
 
       this.io.emit('update-player', { player: updatedPlayer });
       this.io.emit('receive-history', historyMessage);

@@ -1,5 +1,6 @@
 const io = require('socket.io-client');
 const Config = require('../config');
+const PlayerSelection = require('./player-selection');
 
 // socket.emit('chat', { chat: 'hello' });
 // socket.on('', () => {})
@@ -33,7 +34,8 @@ class SocketControls {
   // socketId, color
   playerJoin(json) {
     if (json.socketId === this.socket.id) {
-      console.log('i joined!');
+      console.log('i joined!', json.color);
+      PlayerSelection.setPlayer(this.currentGame, json.color);
     } else {
       console.log('someone else joined')
     }

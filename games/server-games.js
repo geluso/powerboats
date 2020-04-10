@@ -65,14 +65,13 @@ class ServerGames {
   // this.socketsToColors = {};
   // this.colorsToSockets = {};
   join(gameName, socket) {
-    console.log('new player joining')
     const game = this.getGame(gameName);
     for (let i = 0; i < game.boats.length; i++) {
       const color = game.boats[i].color;
-      if (this.colorsToSockets[color] === undefined) {
+      const currentSocketId = this.colorsToSockets[color];
+      if (currentSocketId === undefined || currentSocketId === null) {
         this.colorsToSockets[color] = socket.id;
         this.socketsToColors[socket.id] = color;
-        console.log('new player joining', color)
         return color;
       }
     }
