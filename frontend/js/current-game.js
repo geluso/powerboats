@@ -8,13 +8,9 @@ const MessageLog = require('./message-log');
 
 class CurrentGame {
   constructor() {
-    // set up the screen
-    const width = window.innerWidth - $("#actions").width() - $("#boats").width() - 10;
-    const height = window.innerHeight - $("#nav").height();
-
     this.boatSpeedIndicators = new DiceAllPlayers();
 
-    this.screen = new Screen(width, height);
+    this.screen = new Screen();
     this.game = null;
 
     this.logChat = new MessageLog('chat');

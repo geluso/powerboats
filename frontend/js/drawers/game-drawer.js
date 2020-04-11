@@ -34,6 +34,7 @@ class GameDrawer {
 
         const tile = tilespace.getByKeyRowCol(row, col)
         if (tile) {
+          tile.isDirty = true;
           tile.x = x;
           tile.y = y;
 

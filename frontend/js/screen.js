@@ -6,22 +6,27 @@ var MOUSE_Y = 0;
 var LAST_THING;
 
 class Screen {
-  constructor(width, height) {
+  constructor() {
     this.isDirty = true;
 
-    var canvas = document.getElementById("canvas");
-    canvas.width = width;
-    canvas.height = height;
+    this.canvas = document.getElementById("canvas");
+    this.ctx = canvas.getContext("2d");
+    this.setWidthHeight();
 
-    var ctx = canvas.getContext("2d");
-    this.ctx = ctx;
-
-    ctx.width = width;
-    ctx.height = height;
-
-    this.gameDrawer = new GameDrawer(ctx);
+    this.gameDrawer = new GameDrawer(this.ctx);
 
     this.handleMousemove = this.handleMousemove.bind(this);
+  }
+
+  setWidthHeight() {
+    // set up the screen
+    const width = window.innerWidth - $("#actions").width() - $("#boats").width() - 10;
+    const height = window.innerHeight - $("#nav").height();
+
+    this.canvas.width = width;
+    this.canvas.height = height;
+    this.ctx.width = width;
+    this.ctx.height = height;
   }
 
   handleMousemove(e, game) {

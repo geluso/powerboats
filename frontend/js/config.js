@@ -1,6 +1,7 @@
 const AIStrategies = require('./ai/ai-strategies')
 
 var CONFIG = {
+  REDRAW_DELAY: 300,
   DRAW_COORDS: false,
   DRAW_HOVER_COORDS: true,
   COORD_TEXT_SIZE: "8px",
