@@ -76,12 +76,12 @@ class CurrentGame {
   receiveMouseMove(data) {
     const { color, tileRow, tileCol } = data;
     const tile = this.game.tilespace.getByKeyRowCol(tileRow, tileCol);
-    console.log('got tile', tile);
 
     // make sure to redraw the tile as its original color
     if (this.playerMouses[color]) {
       const staleTile = this.playerMouses[color];
       staleTile.isDirty = true;
+      staleTile.hovering = false;
     }
 
     this.playerMouses[color] = tile;

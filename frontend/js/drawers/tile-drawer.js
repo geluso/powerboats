@@ -46,14 +46,14 @@ class TileDrawer {
     ctx.textAlign = "center";
     ctx.textBaseLine = "hanging";
 
-    var drawCoords = CONFIG.DRAW_COORDS || (tile.hovering && CONFIG.DRAW_HOVER_COORDS);
-    if (drawCoords) {
-      var indexLabel = [tile.row, tile.col, tile.zIndex].join(",");
-      var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
-      if (sum < 30 || true) {
-        ctx.strokeText(indexLabel, tile.x, tile.y + 2);
-      }
-    }
+    //var drawCoords = CONFIG.DRAW_COORDS || (tile.hovering && CONFIG.DRAW_HOVER_COORDS);
+    //if (drawCoords) {
+    //  var indexLabel = [tile.row, tile.col, tile.zIndex].join(",");
+    //  var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
+    //  if (sum < 30 || true) {
+    //    ctx.strokeText(indexLabel, tile.x, tile.y + 2);
+    //  }
+    //}
 
     ctx.restore();
   }

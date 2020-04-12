@@ -49,7 +49,6 @@ class GameSocket {
 
   handleMouseMove = (data) => {
     const { color, tileRow, tileCol } = data;
-    console.log(color, tileRow, tileCol);
     this.socket.broadcast.emit('mouse-move', data);
   }
 

@@ -58,17 +58,20 @@ class GameDrawer {
     // draw tiles
     for (var i = 0; i < game.tilespace.tiles.length; i++) {
       if (game.tilespace.tiles[i].hover) {
-        var tile = game.tilespace.tiles[i];
-        var highlightColor = game.getCurrentPlayer().color;
+        const tile = game.tilespace.tiles[i];
+        const highlightColor = game.getCurrentPlayer().color;
         Point.draw(this.ctx, tile, highlightColor);
       }
     }
 
     // color tiles according to where players have their cursors
     for (const color in playerMouses) {
-      const tile = playerMouses[color];
-      console.log('draw mouse', color, tile);
-      TileDrawer.draw(this.ctx, tile, color);
+      // using "tt" instead of "tile" because chrome debugger
+      // gets confused and says second tile is undefined here in debugger console
+      const tt = playerMouses[color];
+      tt.isDirty = true;
+      tt.hovering = true;
+      TileDrawer.draw(this.ctx, tt, color);
     }
 
     // draw boats
