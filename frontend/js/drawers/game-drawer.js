@@ -1,6 +1,7 @@
 const Tile = require('../tile');
 const TileDrawer = require('./tile-drawer');
 const BoatDrawer = require('./boat-drawer');
+const RouteDrawer = require('./route-drawer');
 
 const Point = require('../geo/point');
 const Hexagon = require('../geo/hexagon');
@@ -73,6 +74,11 @@ class GameDrawer {
       tt.hovering = true;
       TileDrawer.draw(this.ctx, tt, color);
     }
+
+    // draw boat routes 
+    game.boats.forEach(boat => {
+      RouteDrawer.draw(this.ctx, boat);
+    });
 
     // draw boats
     for (let i = 0; i < game.boats.length; i++) {
