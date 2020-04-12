@@ -1,7 +1,12 @@
 const Config = require('./config');
+const PlayerSelection = require('./player/player-selection');
 
 class DiceLocalPlayer {
-  static display(player) {
+  static display(game) {
+    console.log('update dice');
+    const color = PlayerSelection.getCurrentPlayerColor();
+    const player = game.getPlayer(color);
+
     const diceBank = document.getElementById('dice-bank');
     const diceSpots = diceBank.getElementsByClassName('dice-spot');
     for (let i = 0; i < Config.BOAT_MAX_DAMAGE; i++) {

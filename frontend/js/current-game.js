@@ -63,7 +63,7 @@ class CurrentGame {
 
     this.screen.draw(this.game, this.playerMouses);
     DiceAllPlayers.display(this.game);
-    DiceLocalPlayer.display(this.game.getCurrentPlayer());
+    DiceLocalPlayer.display(this.game);
 
     const color = this.game.getCurrentPlayer().color;
     TurnIndicator.setTurnColor(color);
