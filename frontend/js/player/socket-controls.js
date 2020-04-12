@@ -1,6 +1,8 @@
 const io = require('socket.io-client');
 const Config = require('../config');
+
 const PlayerSelection = require('./player-selection');
+const TurnIndicator = require('./turn-indicator');
 
 // socket.emit('chat', { chat: 'hello' });
 // socket.on('', () => {})
@@ -11,9 +13,13 @@ class SocketControls {
 
     this.socket = io();
 
+    this.handleUpdateTurn = this.handleUpdateTurn.bind(this);
+
     this.socket.on('new-map', json => currentGame.newMap(json));
     this.socket.on('update-game', json => currentGame.updateGame(json));
     this.socket.on('update-player', json => currentGame.updatePlayer(json));
+
+    this.socket.on('update-turn', json => this.handleUpdateTurn(json));
 
     this.socket.on('load-all-history', json => currentGame.logHistory.loadAll(json));
     this.socket.on('receive-history', json => currentGame.logHistory.receive(json));
@@ -82,6 +88,7 @@ class SocketControls {
 
     var newMapButton = document.getElementById("new-map");
     var aiOrangeButton = document.getElementById("ai-orange");
+    var skipTurnButton = document.getElementById("skip-turn");
 
     var actions = {
       turnLeft: this.turnLeft.bind(this),
@@ -91,6 +98,7 @@ class SocketControls {
       goStraight: this.goStraight.bind(this),
       newMap: this.newMap.bind(this),
       aiOrange: this.aiOrange.bind(this),
+      sendSkipTurn: this.sendSkipTurn.bind(this),
     };
 
     for (var action in actions) {
@@ -125,6 +133,7 @@ class SocketControls {
 
     this.attachButton(newMapButton, actions.newMap);
     this.attachButton(aiOrangeButton, actions.aiOrange);
+    this.attachButton(skipTurnButton, actions.sendSkipTurn);
   }
 
   attachButton(btn, func) {
@@ -214,6 +223,14 @@ class SocketControls {
     };
 
     return actionParams;
+  }
+
+  sendSkipTurn() {
+    this.socket.emit('skip-turn');
+  }
+
+  handleUpdateTurn(json) {
+    TurnIndicator.setTurnColor(json.color);
   }
 }
 

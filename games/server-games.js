@@ -95,6 +95,7 @@ class ServerGames {
 
     if (action === 'goStraight') {
       player.goStraight();
+      game.nextTurn();
     } else if (action === 'rollDice') {
       player.rollDice(params.index);
     } else if (action === 'dropDice') {

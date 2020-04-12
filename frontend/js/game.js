@@ -106,6 +106,11 @@ class Game {
     }
   }
 
+  nextTurn() {
+    this.currentPlayerIndex++;
+    this.currentPlayerIndex %= this.boats.length;
+  }
+
   endTurn() {
     if (this.getCurrentPlayer()) {
       this.getCurrentPlayer().unhighlightRoute();

@@ -38,11 +38,13 @@ class GameSocket {
     this.handleAction = this.handleAction.bind(this);
     this.handleDisconnect = this.handleDisconnect.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleSkipTurn = this.handleSkipTurn.bind(this);
 
     socket.on('chat', this.handleChat);
     socket.on('action', this.handleAction);
     socket.on('disconnect', this.handleDisconnect);
     socket.on('mouse-move', this.handleMouseMove);
+    socket.on('skip-turn', this.handleSkipTurn);
 
     this.handleConnect();
   }
@@ -77,7 +79,8 @@ class GameSocket {
       this.handleAITurn(message.color);
     } else {
       // make sure to generate stats before the player is modified
-      const player = this.serverGames.getGame('rainier').getPlayer(message.color);
+      const game = this.serverGames.getGame('rainier')
+      const player = game.getPlayer(message.color);
       const playerOld = player.stats();
 
       const updatedPlayer = this.serverGames.handleAction(message);
@@ -86,12 +89,14 @@ class GameSocket {
       const historyMessage = History.createMessage(message.action, playerOld, playerNew);
 
       this.io.emit('update-player', { player: updatedPlayer });
+      this.sendUpdateTurn(game);
       this.io.emit('receive-history', historyMessage);
     }
   }
 
   handleAITurn(color) {
-    const player = this.serverGames.getGame('rainier').getPlayer(color);
+    const game = this.serverGames.getGame('rainier');
+    const player = game.getPlayer(color);
     const playerOld = player.stats();
 
     const actions = this.serverGames.aiTurn(color);
@@ -106,6 +111,21 @@ class GameSocket {
     };
 
     this.io.emit('update-player', { player });
+
+    game.nextTurn();
+    this.sendUpdateTurn(game);
+  }
+
+  handleSkipTurn() {
+    const game = this.serverGames.getGame('rainier');
+    game.nextTurn();
+    this.sendUpdateTurn(game);
+  }
+
+  sendUpdateTurn(game) {
+    const color = game.getCurrentPlayer().color;
+    this.io.emit('receive-history', { color, message: 'starts turn' });
+    this.io.emit('update-turn', { color });
   }
 }
 
