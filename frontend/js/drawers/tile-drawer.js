@@ -36,7 +36,7 @@ class TileDrawer {
     var stroke = "black";
 
     if (tile.hovering) {
-      tile.shape.fillStroke(ctx, accentColor, stroke);
+      tile.shape.fillStroke(ctx, tile.color, stroke);
     } else {
       tile.shape.fillStroke(ctx, tile.resource.color, stroke);
     }

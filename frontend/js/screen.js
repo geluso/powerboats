@@ -1,4 +1,5 @@
 const GameDrawer = require('./drawers/game-drawer')
+const PlayerSelection = require('./player/player-selection');
 
 var MOUSE_X = 0;
 var MOUSE_Y = 0;
@@ -44,6 +45,7 @@ class Screen {
       }
       this.isDirty = true;
 
+      thing.color = PlayerSelection.getCurrentPlayerColor();
       thing.hovering = true;
       thing.isDirty = true;
 
