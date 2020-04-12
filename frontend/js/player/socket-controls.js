@@ -43,7 +43,7 @@ class SocketControls {
   playerJoin(json) {
     if (json.socketId === this.socket.id) {
       console.log('i joined!', json.color);
-      PlayerSelection.setPlayer(this.currentGame, json.color);
+      PlayerSelection.setPlayer(json.color);
     } else {
       console.log('someone else joined')
     }
@@ -176,13 +176,6 @@ class SocketControls {
 
   goStraight() {
     this.doAction('goStraight');
-    const currentColor = PlayerSelection.getCurrentPlayerColor();
-    setTimeout(() => {
-      this.aiOrange();
-      setTimeout(() => {
-        PlayerSelection.setPlayer(this.currentGame, currentColor);
-      }, 500);
-    }, 500);
   }
 
   rollDice(index) {
@@ -198,8 +191,7 @@ class SocketControls {
   }
 
   aiOrange() {
-    PlayerSelection.setPlayer(this.currentGame, 'orange');
-    this.socket.emit('action', { action: 'ai-turn', color: 'orange' });
+    this.socket.emit('action', { action: 'ai-turn' });
   }
 
   broadcastMouseMove(tile) {

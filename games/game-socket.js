@@ -78,7 +78,7 @@ class GameSocket {
       const game = this.serverGames.newMap(message.gameName);
       this.io.emit('new-map', { game: game });
     } else if (message.action === 'ai-turn') {
-      this.handleAITurn(message.color);
+      this.handleAITurn();
     } else {
       // make sure to generate stats before the player is modified
       const game = this.serverGames.getGame('rainier')
@@ -96,9 +96,10 @@ class GameSocket {
     }
   }
 
-  handleAITurn(color) {
+  handleAITurn() {
     const game = this.serverGames.getGame('rainier');
-    const player = game.getPlayer(color);
+    const player = game.getCurrentPlayer();
+    const color = player.color;
     const playerOld = player.stats();
 
     const actions = this.serverGames.aiTurn(color);
