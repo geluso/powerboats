@@ -26,6 +26,7 @@ var CONFIG = {
   //COLORS: ["yellow"],
   //PLAYER_TYPES: ["local-human"],
   ALL_AI_STRATEGY: AIStrategies.RoutePlanningStrategy,
+  MOUSE_MOVE_HIGHLIGHT_TIMEOUT: 5000,
 };
 
 if (typeof module !== "undefined" && !!module) {

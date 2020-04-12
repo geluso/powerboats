@@ -1,3 +1,4 @@
+const Config = require('./config');
 const Game = require('./game');
 const Screen = require('./screen');
 
@@ -75,16 +76,32 @@ class CurrentGame {
 
   receiveMouseMove(data) {
     const { color, tileRow, tileCol } = data;
-    const tile = this.game.tilespace.getByKeyRowCol(tileRow, tileCol);
+    const freshTile = this.game.tilespace.getByKeyRowCol(tileRow, tileCol);
 
     // make sure to redraw the tile as its original color
     if (this.playerMouses[color]) {
       const staleTile = this.playerMouses[color];
       staleTile.isDirty = true;
       staleTile.hovering = false;
+
+      const timerKey = color + '-timerId'
+      let timerId = this.playerMouses[timerKey];
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+
+      // reset the tile if the mouse hasn't moved for a while.
+      timerId = setTimeout(() => {
+        delete this.playerMouses[color];
+        freshTile.isDirty = true;
+        freshTile.hovering = false;
+        this.draw()
+      }, Config.MOUSE_MOVE_HIGHLIGHT_TIMEOUT);
+
+      this.playerMouses[timerKey] = timerId;
     }
 
-    this.playerMouses[color] = tile;
+    this.playerMouses[color] = freshTile;
     this.draw()
   }
 }
