@@ -1,7 +1,7 @@
 class PlayerSelection {
   static init(currentGame) {
     const players = document.getElementById('players');
-    const playerSelects = [...players.getElementsByClassName('player')];
+    const playerSelects = [...players.getElementsByClassName('player-block')];
 
     playerSelects.forEach(playerSelect => {
       playerSelect.addEventListener('click', () => {
@@ -25,7 +25,7 @@ class PlayerSelection {
 
   static setPlayer(currentGame, setColor) {
     const players = document.getElementById('players');
-    const playerSelects = [...players.getElementsByClassName('player')];
+    const playerSelects = [...players.getElementsByClassName('player-block')];
     for (let i = 0; i < playerSelects.length; i++) {
       const playerSelect = playerSelects[i];
       const color = playerSelect.getAttribute('data-player');
