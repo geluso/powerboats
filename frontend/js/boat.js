@@ -196,7 +196,7 @@ class Boat {
 
     var tiles = this.getCurrentRouteTiles();
     for (var i = 0; i < tiles.length; i++) {
-      tiles[i].highlight();
+      tiles[i].highlight(this.color);
     }
 
     this.currentlyHighlightedRoute = tiles;

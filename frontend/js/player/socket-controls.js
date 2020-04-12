@@ -89,6 +89,7 @@ class SocketControls {
     var newMapButton = document.getElementById("new-map");
     var aiOrangeButton = document.getElementById("ai-orange");
     var skipTurnButton = document.getElementById("skip-turn");
+    var skipTurnButton2 = document.getElementById("skip-turn-2");
 
     var actions = {
       turnLeft: this.turnLeft.bind(this),
@@ -135,6 +136,7 @@ class SocketControls {
     this.attachButton(newMapButton, actions.newMap);
     this.attachButton(aiOrangeButton, actions.aiOrange);
     this.attachButton(skipTurnButton, actions.sendSkipTurn);
+    this.attachButton(skipTurnButton2, actions.sendSkipTurn);
   }
 
   attachButton(btn, func) {

@@ -56,7 +56,8 @@ class Tile {
     return tile;
   }
 
-  highlight() {
+  highlight(color) {
+    this.color = color;
     this.hover = true;
     this.isDirty = true;
   }

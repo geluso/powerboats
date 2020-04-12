@@ -58,12 +58,22 @@ class GameDrawer {
     const accentColor = game.getCurrentPlayer().color;
     this.tileDrawer.drawTiles(game.tilespace.tiles, accentColor);
 
+    // draw boat routes 
+    game.boats.forEach(boat => {
+      const isCurrentTurn = boat === game.getCurrentPlayer();
+      const isCurrentPlayer = boat.color === PlayerSelection.getCurrentPlayerColor();
+      if (isCurrentPlayer || isCurrentTurn) {
+        boat.highlightRoute();
+      } else {
+        boat.unhighlightRoute();
+      }
+    });
+
     // draw tiles
     for (let i = 0; i < game.tilespace.tiles.length; i++) {
       if (game.tilespace.tiles[i].hover) {
         const tile = game.tilespace.tiles[i];
-        const highlightColor = game.getCurrentPlayer().color;
-        Point.draw(this.ctx, tile, highlightColor);
+        Point.draw(this.ctx, tile, tile.color);
       }
     }
 
@@ -78,13 +88,13 @@ class GameDrawer {
     }
 
     // draw boat routes 
-    game.boats.forEach(boat => {
-      const isCurrentTurn = boat === game.getCurrentPlayer();
-      const isCurrentPlayer = boat.color === PlayerSelection.getCurrentPlayerColor();
-      if (isCurrentPlayer || isCurrentTurn) {
-        RouteDrawer.draw(this.ctx, boat, isCurrentPlayer);
-      }
-    });
+    // game.boats.forEach(boat => {
+    //   const isCurrentTurn = boat === game.getCurrentPlayer();
+    //   const isCurrentPlayer = boat.color === PlayerSelection.getCurrentPlayerColor();
+    //   if (isCurrentPlayer || isCurrentTurn) {
+    //     RouteDrawer.draw(this.ctx, boat, isCurrentPlayer);
+    //   }
+    // });
 
     // draw boats
     for (let i = 0; i < game.boats.length; i++) {
