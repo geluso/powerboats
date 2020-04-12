@@ -48,7 +48,7 @@ class GameDrawer {
   };
 
 
-  draw(game) {
+  draw(game, playerMouses) {
     this.ctx.save();
 
     // draw water tiles first, then land tiles.
@@ -62,6 +62,13 @@ class GameDrawer {
         var highlightColor = game.getCurrentPlayer().color;
         Point.draw(this.ctx, tile, highlightColor);
       }
+    }
+
+    // color tiles according to where players have their cursors
+    for (const color in playerMouses) {
+      const tile = playerMouses[color];
+      console.log('draw mouse', color, tile);
+      TileDrawer.draw(this.ctx, tile, color);
     }
 
     // draw boats

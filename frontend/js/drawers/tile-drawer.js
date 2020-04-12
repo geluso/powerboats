@@ -1,11 +1,13 @@
 const CONFIG = require('../config');
 const BuoyDrawer = require('./buoy-drawer');
 
-function TileDrawer(ctx) {
-  this.ctx = ctx;
-  this.buoyDrawer = new BuoyDrawer(ctx);
+class TileDrawer {
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.buoyDrawer = new BuoyDrawer(ctx);
+  }
 
-  this.drawTiles = function (tiles, accentColor) {
+  drawTiles(tiles, accentColor) {
     this.ctx.save();
 
     for (var i = 0; i < tiles.length; i++) {
@@ -19,9 +21,13 @@ function TileDrawer(ctx) {
 
     this.ctx.restore();
 
-  };
+  }
 
-  this.draw = function (tile, accentColor) {
+  draw(tile, accentColor) {
+    TileDrawer.draw(this.ctx, tile, accentColor);
+  }
+
+  static draw(ctx, tile, accentColor) {
     if (!tile.isDirty) {
       return;
     }
@@ -30,27 +36,27 @@ function TileDrawer(ctx) {
     var stroke = "black";
 
     if (tile.hovering) {
-      tile.shape.fillStroke(this.ctx, accentColor, stroke);
+      tile.shape.fillStroke(ctx, accentColor, stroke);
     } else {
-      tile.shape.fillStroke(this.ctx, tile.resource.color, stroke);
+      tile.shape.fillStroke(ctx, tile.resource.color, stroke);
     }
 
-    this.ctx.save();
-    this.ctx.font = CONFIG.COORD_TEXT_SIZE + " serif";
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseLine = "hanging";
+    ctx.save();
+    ctx.font = CONFIG.COORD_TEXT_SIZE + " serif";
+    ctx.textAlign = "center";
+    ctx.textBaseLine = "hanging";
 
     var drawCoords = CONFIG.DRAW_COORDS || (tile.hovering && CONFIG.DRAW_HOVER_COORDS);
     if (drawCoords) {
       var indexLabel = [tile.row, tile.col, tile.zIndex].join(",");
       var sum = Math.abs(tile.xIndex) + Math.abs(tile.yIndex) + Math.abs(tile.zIndex);
       if (sum < 30 || true) {
-        this.ctx.strokeText(indexLabel, tile.x, tile.y + 2);
+        ctx.strokeText(indexLabel, tile.x, tile.y + 2);
       }
     }
 
-    this.ctx.restore();
-  };
+    ctx.restore();
+  }
 }
 
 if (typeof module !== "undefined" && !!module) {

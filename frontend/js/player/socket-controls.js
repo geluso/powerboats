@@ -21,6 +21,8 @@ class SocketControls {
     this.socket.on('load-all-chat', json => currentGame.logChat.loadAll(json));
     this.socket.on('receive-chat', json => currentGame.logChat.receive(json));
 
+    this.socket.on('mouse-move', json => currentGame.receiveMouseMove(json));
+
     this.attach();
     this.attachChat();
 
@@ -160,7 +162,7 @@ class SocketControls {
 
   goStraight() {
     this.doAction('goStraight');
-    const currentColor = PlayerSelection.getCurrentPlayer();
+    const currentColor = PlayerSelection.getCurrentPlayerColor();
     setTimeout(() => {
       this.aiOrange();
       setTimeout(() => {
@@ -184,6 +186,13 @@ class SocketControls {
   aiOrange() {
     PlayerSelection.setPlayer(this.currentGame, 'orange');
     this.socket.emit('action', { action: 'ai-turn', color: 'orange' });
+  }
+
+  broadcastMouseMove(tile) {
+    const color = PlayerSelection.getCurrentPlayerColor();
+    const tileRow = tile.row;
+    const tileCol = tile.col;
+    this.socket.emit('mouse-move', { color, tileRow, tileCol });
   }
 
   doAction(action, params) {

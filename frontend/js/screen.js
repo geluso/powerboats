@@ -48,11 +48,12 @@ class Screen {
       thing.isDirty = true;
 
       LAST_THING = thing;
+      return thing;
     }
   }
 
-  draw(game) {
-    this.gameDrawer.draw(game);
+  draw(game, playerMouses) {
+    this.gameDrawer.draw(game, playerMouses);
   }
 
   destoryHandlers() {

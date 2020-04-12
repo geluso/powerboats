@@ -11,7 +11,7 @@ class PlayerSelection {
     });
   }
 
-  static getCurrentPlayer() {
+  static getCurrentPlayerColor() {
     const players = document.getElementById('players');
     const playerSelects = [...players.getElementsByClassName('player')];
     for (let i = 0; i < playerSelects.length; i++) {

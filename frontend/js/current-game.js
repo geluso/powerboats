@@ -15,6 +15,7 @@ class CurrentGame {
 
     this.logChat = new MessageLog('chat');
     this.logHistory = new MessageLog('history');
+    this.playerMouses = {};
   }
 
   reset() {
@@ -58,15 +59,33 @@ class CurrentGame {
     const player = this.game.getCurrentPlayer();
     player.highlightRoute();
 
-    this.screen.draw(this.game);
+    this.screen.draw(this.game, this.playerMouses);
     DiceAllPlayers.display(this.game);
     DiceLocalPlayer.display(this.game.getCurrentPlayer());
   }
 
   handleMouseMove(e) {
     if (this.game === null) return;
-    this.screen.handleMousemove(e, this.game);
+
+    const thing = this.screen.handleMousemove(e, this.game);
     this.draw();
+
+    return thing;
+  }
+
+  receiveMouseMove(data) {
+    const { color, tileRow, tileCol } = data;
+    const tile = this.game.tilespace.getByKeyRowCol(tileRow, tileCol);
+    console.log('got tile', tile);
+
+    // make sure to redraw the tile as its original color
+    if (this.playerMouses[color]) {
+      const staleTile = this.playerMouses[color];
+      staleTile.isDirty = true;
+    }
+
+    this.playerMouses[color] = tile;
+    this.draw()
   }
 }
 

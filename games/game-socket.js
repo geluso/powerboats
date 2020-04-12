@@ -37,12 +37,20 @@ class GameSocket {
     this.handleChat = this.handleChat.bind(this);
     this.handleAction = this.handleAction.bind(this);
     this.handleDisconnect = this.handleDisconnect.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
 
     socket.on('chat', this.handleChat);
     socket.on('action', this.handleAction);
     socket.on('disconnect', this.handleDisconnect);
+    socket.on('mouse-move', this.handleMouseMove);
 
     this.handleConnect();
+  }
+
+  handleMouseMove = (data) => {
+    const { color, tileRow, tileCol } = data;
+    console.log(color, tileRow, tileCol);
+    this.socket.broadcast.emit('mouse-move', data);
   }
 
   handleConnect = () => {

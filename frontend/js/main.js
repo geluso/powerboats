@@ -10,11 +10,14 @@ function main() {
 
   // set up the controls
   PlayerSelection.init(currentGame);
-  new SocketControls(currentGame);
+  const socket = new SocketControls(currentGame);
 
   const canvas = document.getElementById('canvas');
   $(canvas).mousemove(e => {
-    currentGame.handleMouseMove(e);
+    const thing = currentGame.handleMouseMove(e);
+    if (thing) {
+      socket.broadcastMouseMove(thing);
+    }
   });
 
   let lastTimer = 0;
