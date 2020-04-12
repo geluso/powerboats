@@ -77,7 +77,8 @@ class GameDrawer {
 
     // draw boat routes 
     game.boats.forEach(boat => {
-      RouteDrawer.draw(this.ctx, boat);
+      const isDrawingNumbers = game.getCurrentPlayer() === boat;
+      RouteDrawer.draw(this.ctx, boat, isDrawingNumbers);
     });
 
     // draw boats
