@@ -23,14 +23,20 @@ class MessageLog {
     const chatList = document.getElementById(this.name);
     const li = document.createElement('li');
 
-    const color = document.createElement('span');
-    color.classList.add('chat-color');
-    color.classList.add(json.color);
+    const colorBlock = document.createElement('span');
+    if (!json.username) {
+      colorBlock.classList.add('chat-color');
+      colorBlock.classList.add(json.color);
+    } else {
+      colorBlock.classList.add('chat-username');
+      colorBlock.classList.add(json.color);
+      colorBlock.textContent = json.username + ':';
+    }
 
     const message = document.createElement('span');
     message.textContent = json.message;
 
-    li.appendChild(color);
+    li.appendChild(colorBlock);
     li.appendChild(message);
     chatList.appendChild(li);
     chatList.scroll(0, 99999);

@@ -150,6 +150,10 @@ body {
   border: solid black 1px;
 }
 
+.chat-username {
+  font-weight: bold;
+}
+
 .black {
   background-color: black;
 }

@@ -53,14 +53,18 @@ class SocketControls {
     form.addEventListener('submit', ev => {
       ev.preventDefault();
 
-      const input = document.getElementById('chat-input');
-      const text = input.value;
-      input.value = '';
+      const usernameInput = document.getElementById('username-input');
+      const username = usernameInput.value || Config.DEFAULT_CHAT_USERNAME;
+
+      const messageInput = document.getElementById('chat-input');
+      const message = messageInput.value;
+      messageInput.value = '';
 
       const data = {
         color: that.currentGame.game.getCurrentPlayer().color,
         gameName: 'rainier',
-        message: text
+        username,
+        message,
       }
       that.socket.emit('chat', data);
     })

@@ -27,6 +27,7 @@ var CONFIG = {
   //PLAYER_TYPES: ["local-human"],
   ALL_AI_STRATEGY: AIStrategies.RoutePlanningStrategy,
   MOUSE_MOVE_HIGHLIGHT_TIMEOUT: 5000,
+  DEFAULT_CHAT_USERNAME: 'drongo',
 };
 
 if (typeof module !== "undefined" && !!module) {

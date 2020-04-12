@@ -135,10 +135,10 @@ class ServerGames {
   }
 
   handleChat(command) {
-    const { gameName, color, message } = command;
+    const { gameName, color, message, username } = command;
     const chat = this.chats[gameName];
 
-    const chatMessage = { color, message };
+    const chatMessage = { color, message, username };
     chat.push(chatMessage);
     return chatMessage;
   }
