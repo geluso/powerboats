@@ -7,6 +7,7 @@ class PlayerSelection {
       playerSelect.addEventListener('click', () => {
         const color = playerSelect.getAttribute('data-player');
         PlayerSelection.setPlayer(currentGame, color);
+        currentGame.draw();
       });
     });
   }
@@ -23,7 +24,7 @@ class PlayerSelection {
     }
   }
 
-  static setPlayer(currentGame, setColor) {
+  static setPlayer(setColor) {
     const players = document.getElementById('players');
     const playerSelects = [...players.getElementsByClassName('player-block')];
     for (let i = 0; i < playerSelects.length; i++) {
@@ -33,11 +34,8 @@ class PlayerSelection {
         playerSelect.classList.remove('controlling');
       } else {
         playerSelect.classList.add('controlling');
-        currentGame.setCurrentPlayer(color);
       }
     }
-
-    currentGame.draw();
   }
 }
 

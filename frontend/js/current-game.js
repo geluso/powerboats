@@ -6,6 +6,7 @@ const DiceAllPlayers = require('./dice-all-players');
 const DiceLocalPlayer = require('./dice-local-player');
 
 const MessageLog = require('./message-log');
+const TurnIndicator = require('./player/turn-indicator');
 
 class CurrentGame {
   constructor() {
@@ -63,6 +64,10 @@ class CurrentGame {
     this.screen.draw(this.game, this.playerMouses);
     DiceAllPlayers.display(this.game);
     DiceLocalPlayer.display(this.game.getCurrentPlayer());
+
+    const color = this.game.getCurrentPlayer().color;
+    console.log('current player:', color);
+    TurnIndicator.setTurnColor(color);
   }
 
   handleMouseMove(e) {

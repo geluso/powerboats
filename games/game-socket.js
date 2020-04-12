@@ -39,12 +39,14 @@ class GameSocket {
     this.handleDisconnect = this.handleDisconnect.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleSkipTurn = this.handleSkipTurn.bind(this);
+    this.handleSetTurn = this.handleSetTurn.bind(this);
 
     socket.on('chat', this.handleChat);
     socket.on('action', this.handleAction);
     socket.on('disconnect', this.handleDisconnect);
     socket.on('mouse-move', this.handleMouseMove);
     socket.on('skip-turn', this.handleSkipTurn);
+    socket.on('set-turn', this.handleSetTurn);
 
     this.handleConnect();
   }
@@ -119,6 +121,12 @@ class GameSocket {
   handleSkipTurn() {
     const game = this.serverGames.getGame('rainier');
     game.nextTurn();
+    this.sendUpdateTurn(game);
+  }
+
+  handleSetTurn(json) {
+    const game = this.serverGames.getGame('rainier');
+    game.setTurn(json.color);
     this.sendUpdateTurn(game);
   }
 

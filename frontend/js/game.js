@@ -106,6 +106,14 @@ class Game {
     }
   }
 
+  setTurn(color) {
+    for (let i = 0; i < this.boats.length; i++) {
+      if (this.boats[i].color === color) {
+        this.currentPlayerIndex = i;
+      }
+    }
+  }
+
   nextTurn() {
     this.currentPlayerIndex++;
     this.currentPlayerIndex %= this.boats.length;

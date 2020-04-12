@@ -1,6 +1,7 @@
 const Config = require('./config')
 const CurrentGame = require('./current-game');
 const PlayerSelection = require('./player/player-selection');
+const TurnIndicator = require('./player/turn-indicator');
 const SocketControls = require('./player/socket-controls');
 
 $(document).ready(main);
@@ -9,8 +10,9 @@ function main() {
   const currentGame = new CurrentGame();
 
   // set up the controls
-  PlayerSelection.init(currentGame);
   const socket = new SocketControls(currentGame);
+  PlayerSelection.init(currentGame);
+  TurnIndicator.init(socket);
 
   const canvas = document.getElementById('canvas');
   $(canvas).mousemove(e => {

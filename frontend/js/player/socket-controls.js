@@ -99,6 +99,7 @@ class SocketControls {
       newMap: this.newMap.bind(this),
       aiOrange: this.aiOrange.bind(this),
       sendSkipTurn: this.sendSkipTurn.bind(this),
+      sendSetTurn: this.sendSetTurn.bind(this),
     };
 
     for (var action in actions) {
@@ -227,6 +228,10 @@ class SocketControls {
 
   sendSkipTurn() {
     this.socket.emit('skip-turn');
+  }
+
+  sendSetTurn(color) {
+    this.socket.emit('set-turn', { color });
   }
 
   handleUpdateTurn(json) {
