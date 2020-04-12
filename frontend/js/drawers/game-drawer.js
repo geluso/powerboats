@@ -64,6 +64,9 @@ class GameDrawer {
       const isCurrentPlayer = boat.color === PlayerSelection.getCurrentPlayerColor();
       if (isCurrentPlayer || isCurrentTurn) {
         boat.highlightRoute();
+        if (isCurrentPlayer) {
+          RouteDrawer.draw(this.ctx, boat, isCurrentPlayer);
+        }
       } else {
         boat.unhighlightRoute();
       }
@@ -86,15 +89,6 @@ class GameDrawer {
       tt.hovering = true;
       TileDrawer.draw(this.ctx, tt, color);
     }
-
-    // draw boat routes 
-    // game.boats.forEach(boat => {
-    //   const isCurrentTurn = boat === game.getCurrentPlayer();
-    //   const isCurrentPlayer = boat.color === PlayerSelection.getCurrentPlayerColor();
-    //   if (isCurrentPlayer || isCurrentTurn) {
-    //     RouteDrawer.draw(this.ctx, boat, isCurrentPlayer);
-    //   }
-    // });
 
     // draw boats
     for (let i = 0; i < game.boats.length; i++) {
