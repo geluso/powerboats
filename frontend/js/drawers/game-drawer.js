@@ -20,8 +20,8 @@ class GameDrawer {
     const TILE_SIZE = EDGE_LENGTH;
     Tile.setTileSize(TILE_SIZE);
 
-    for (var row = 0; row <= tilespace.rows; row++) {
-      for (var col = 0; col < tilespace.cols; col++) {
+    for (let row = 0; row <= tilespace.rows; row++) {
+      for (let col = 0; col < tilespace.cols; col++) {
         let xOff = TILE_SIZE * 1.5;
         let yOff = TILE_SIZE * 1.72;
 
@@ -56,7 +56,7 @@ class GameDrawer {
     this.tileDrawer.drawTiles(game.tilespace.tiles, accentColor);
 
     // draw tiles
-    for (var i = 0; i < game.tilespace.tiles.length; i++) {
+    for (let i = 0; i < game.tilespace.tiles.length; i++) {
       if (game.tilespace.tiles[i].hover) {
         const tile = game.tilespace.tiles[i];
         const highlightColor = game.getCurrentPlayer().color;
@@ -75,8 +75,8 @@ class GameDrawer {
     }
 
     // draw boats
-    for (var i = 0; i < game.boats.length; i++) {
-      var boat = game.boats[i];
+    for (let i = 0; i < game.boats.length; i++) {
+      const boat = game.boats[i];
       boat.tile = game.tilespace.getByKeyRowCol(boat.tile.row, boat.tile.col);
 
       const isDrawingTrackers = game.getCurrentPlayer() === boat;
