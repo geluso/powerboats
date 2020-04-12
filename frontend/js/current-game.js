@@ -66,7 +66,6 @@ class CurrentGame {
     DiceLocalPlayer.display(this.game.getCurrentPlayer());
 
     const color = this.game.getCurrentPlayer().color;
-    console.log('current player:', color);
     TurnIndicator.setTurnColor(color);
   }
 

@@ -151,26 +151,32 @@ class SocketControls {
   turnLeft() {
     this.doAction('turnLeft');
 
-    this.currentGame.game.getCurrentPlayer().turnLeft();
-    this.currentGame.game.getCurrentPlayer().highlightRoute();
+    const color = PlayerSelection.getCurrentPlayerColor();
+    const player = this.currentGame.game.getPlayer(color);
+    player.turnLeft();
     this.currentGame.draw();
   };
 
   turnRight() {
     this.doAction('turnRight');
 
-    this.currentGame.game.getCurrentPlayer().turnRight();
-    this.currentGame.game.getCurrentPlayer().highlightRoute();
+    const color = PlayerSelection.getCurrentPlayerColor();
+    const player = this.currentGame.game.getPlayer(color);
+    player.turnRight();
     this.currentGame.draw();
   };
 
   slowDown() {
-    const index = this.currentGame.game.getCurrentPlayer().dice.length - 1;
+    const color = PlayerSelection.getCurrentPlayerColor();
+    const player = this.currentGame.game.getPlayer(color);
+    const index = player.dice.length - 1;
     this.dropDice(index);
   }
 
   speedUp() {
-    const index = this.currentGame.game.getCurrentPlayer().dice.length;
+    const color = PlayerSelection.getCurrentPlayerColor();
+    const player = this.currentGame.game.getPlayer(color);
+    const index = player.dice.length;
     this.rollDice(index);
   }
 
@@ -208,8 +214,10 @@ class SocketControls {
   }
 
   buildActionParams(action, params) {
-    const player = this.currentGame.game.getCurrentPlayer();
-    const { color, direction } = player;
+    const color = PlayerSelection.getCurrentPlayerColor();
+    const player = this.currentGame.game.getPlayer(color);
+    const { direction } = player;
+
     const actionParams = {
       color, action, direction,
       params,
@@ -227,7 +235,9 @@ class SocketControls {
   }
 
   handleUpdateTurn(json) {
+    this.currentGame.game.setTurn(json.color);
     TurnIndicator.setTurnColor(json.color);
+    this.currentGame.draw();
   }
 }
 

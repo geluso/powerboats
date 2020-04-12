@@ -6,6 +6,8 @@ const RouteDrawer = require('./route-drawer');
 const Point = require('../geo/point');
 const Hexagon = require('../geo/hexagon');
 
+const PlayerSelection = require('../player/player-selection');
+
 class GameDrawer {
   constructor(ctx) {
     this.ctx = ctx;
@@ -77,8 +79,11 @@ class GameDrawer {
 
     // draw boat routes 
     game.boats.forEach(boat => {
-      const isDrawingNumbers = game.getCurrentPlayer() === boat;
-      RouteDrawer.draw(this.ctx, boat, isDrawingNumbers);
+      const isCurrentTurn = boat === game.getCurrentPlayer();
+      const isCurrentPlayer = boat.color === PlayerSelection.getCurrentPlayerColor();
+      if (isCurrentPlayer || isCurrentTurn) {
+        RouteDrawer.draw(this.ctx, boat, isCurrentPlayer);
+      }
     });
 
     // draw boats
