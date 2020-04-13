@@ -3,8 +3,6 @@ var app = express();
 var http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const ServerSockets = require('./games/server-sockets');
-const ServerGames = require('./games/server-games');
 
 var cors = require('cors');
 app.use(cors());
@@ -16,12 +14,9 @@ const Bundler = require('parcel-bundler');
 const bundler = new Bundler('frontend/index.html');
 app.use(bundler.middleware());
 
-const serverGames = new ServerGames();
-serverGames.createGame('rainier');
-serverGames.createGame('pbr');
-serverGames.createGame('rolling-rock');
-serverGames.createGame('mannys');
-new ServerSockets(io, serverGames);
+const ServerGame = require('./games/server-game');
+new ServerGame(io, 'rainier');
+new ServerGame(io, 'pbr');
 
 const port = process.env.PORT || 3000;
 const server = http.listen(port);

@@ -12,7 +12,8 @@ class SocketControls {
   constructor(currentGame) {
     this.currentGame = currentGame;
 
-    this.socket = io({ gameName: window.location.search.split('?game=')[1] });
+    const gameName = URLUtils.getGameName();
+    this.socket = io('/' + gameName);
 
     this.handleUpdateTurn = this.handleUpdateTurn.bind(this);
 

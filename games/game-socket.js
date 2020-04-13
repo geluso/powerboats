@@ -25,15 +25,18 @@
 const History = require('../frontend/js/history');
 
 class GameSocket {
-  constructor(io, socket, serverGames, gameName) {
+  constructor(io, socket, serverGame) {
     this.io = io;
     this.socket = socket;
-    this.serverGames = serverGames;
-    this.gameName = gameName;
+    this.serverGame = serverGame;
 
-    socket.emit('new-map', { game: serverGames.getGame(gameName).toJSON() });
-    socket.emit('load-all-chat', { chat: serverGames.getChat(gameName) });
-    socket.emit('load-all-history', { history: serverGames.getHistory(gameName) });
+    this.game = serverGame.game;
+    this.chat = serverGame.chat;
+    this.history = serverGame.history;
+
+    socket.emit('new-map', { game: this.game.toJSON() });
+    socket.emit('load-all-chat', { chat: this.chat });
+    socket.emit('load-all-history', { history: this.history });
 
     this.handleChat = this.handleChat.bind(this);
     this.handleAction = this.handleAction.bind(this);
@@ -58,35 +61,35 @@ class GameSocket {
   }
 
   handleConnect = () => {
-    const color = this.serverGames.join(this.gameName, this.socket);
+    const color = this.serverGame.join(this.socket);
     this.io.emit('player-join', { color, socketId: this.socket.id });
     this.io.emit('receive-history', { color, message: 'joined' });
   }
 
   handleDisconnect = () => {
-    const color = this.serverGames.leave(this.gameName, this.socket);
+    const color = this.serverGame.leave(this.socket);
     this.io.emit('player-leave', { color, socketId: this.socket.id });
     this.io.emit('receive-history', { color, message: 'left' });
   }
 
   handleChat = message => {
-    const chat = this.serverGames.handleChat(message);
+    const chat = this.serverGame.handleChat(message);
     this.io.emit('receive-chat', chat);
   }
 
   handleAction = message => {
     if (message.action === 'newMap') {
-      const game = this.serverGames.newMap(message.gameName);
+      const game = this.serverGame.newMap();
       this.io.emit('new-map', { game: game });
     } else if (message.action === 'ai-turn') {
       this.handleAITurn();
     } else {
       // make sure to generate stats before the player is modified
-      const game = this.serverGames.getGame(this.gameName)
+      const game = this.game;
       const player = game.getPlayer(message.color);
       const playerOld = player.stats();
 
-      const updatedPlayer = this.serverGames.handleAction(message);
+      const updatedPlayer = this.serverGame.handleAction(message);
       const playerNew = updatedPlayer.stats();
 
       const historyMessage = History.createMessage(message.action, playerOld, playerNew);
@@ -98,12 +101,11 @@ class GameSocket {
   }
 
   handleAITurn() {
-    const game = this.serverGames.getGame(this.gameName);
     const player = game.getCurrentPlayer();
     const color = player.color;
     const playerOld = player.stats();
 
-    const actions = this.serverGames.aiTurn(game, color);
+    const actions = this.serverGame.aiTurn(this.game, color);
     const playerNew = player.stats();
 
     for (let i = 0; i < actions.length; i++) {
@@ -116,24 +118,22 @@ class GameSocket {
 
     this.io.emit('update-player', { player });
 
-    game.nextTurn();
-    this.sendUpdateTurn(game);
+    this.game.nextTurn();
+    this.sendUpdateTurn(this.game);
   }
 
   handleSkipTurn() {
-    const game = this.serverGames.getGame(this.gameName);
-    game.nextTurn();
-    this.sendUpdateTurn(game);
+    this.game.nextTurn();
+    this.sendUpdateTurn(this.game);
   }
 
   handleSetTurn(json) {
-    const game = this.serverGames.getGame(this.gameName);
-    game.setTurn(json.color);
-    this.sendUpdateTurn(game);
+    this.game.setTurn(json.color);
+    this.sendUpdateTurn(this.game);
   }
 
-  sendUpdateTurn(game) {
-    const color = game.getCurrentPlayer().color;
+  sendUpdateTurn() {
+    const color = this.game.getCurrentPlayer().color;
     this.io.emit('receive-history', { color, message: 'starts turn' });
     this.io.emit('update-turn', { color });
   }
