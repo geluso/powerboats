@@ -1,5 +1,6 @@
 class Mouse {
   constructor(canvas, currentGame) {
+    this.canvas = canvas;
     this.currentGame = currentGame;
 
     this.isDragging = false;
@@ -28,6 +29,39 @@ class Mouse {
     canvas.addEventListener('mousedown', this.handleMousedown.bind(this));
     canvas.addEventListener('mousemove', this.handleMousemove.bind(this));
     canvas.addEventListener('mouseup', this.handleMouseup.bind(this));
+
+    canvas.addEventListener('touchstart', this.handleTouchStart.bind(this));
+    canvas.addEventListener('touchmove', this.handleTouchMove.bind(this));
+    canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
+  }
+
+  handleTouchStart(ev) {
+    ev.preventDefault();
+
+    const xx = ev.targetTouches[0].screenX;
+    const yy = ev.targetTouches[0].screenY;
+
+    this.moveX = xx;
+    this.moveY = yy;
+
+    const mouseParams = { offsetX: xx, offsetY: yy };
+    this.handleMousedown(mouseParams);
+  }
+
+  handleTouchMove(ev) {
+    ev.preventDefault();
+
+    const xx = ev.targetTouches[0].screenX;
+    const yy = ev.targetTouches[0].screenY;
+
+    const mouseParams = { offsetX: xx, offsetY: yy };
+    this.handleMousemove(mouseParams);
+    this.currentGame.draw();
+  }
+
+  handleTouchEnd(ev) {
+    ev.preventDefault();
+    this.handleMouseup();
   }
 
   handleMousedown(ev) {
@@ -56,12 +90,8 @@ class Mouse {
     }
   }
 
-  handleMouseup(ev) {
+  handleMouseup() {
     this.isDragging = false;
-
-    const [xx, yy] = [ev.offsetX, ev.offsetY];
-    this.upX = xx;
-    this.upY = yy;
   }
 
   handleDrag() {
