@@ -29,6 +29,7 @@ var CONFIG = {
   ALL_AI_STRATEGY: AIStrategies.RoutePlanningStrategy,
   MOUSE_MOVE_HIGHLIGHT_TIMEOUT: 5000,
   DEFAULT_CHAT_USERNAME: 'drongo',
+  TOUCH_CLICK_MAX: 300,
 };
 
 if (typeof module !== "undefined" && !!module) {

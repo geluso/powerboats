@@ -25,8 +25,16 @@ class Screen {
 
   setWidthHeight() {
     // set up the screen
-    const width = window.innerWidth - $("#actions").width() - $("#boats").width() - 10;
-    const height = window.innerHeight - $("#nav").height();
+    let width, height;
+    const isDesktop = window.innerWidth > 800;
+    if (isDesktop) {
+      width = window.innerWidth - $("#actions").width() - $("#boats").width() - 10;
+      height = window.innerHeight - $("#nav").height();
+    } else {
+      width = window.innerWidth;
+      height = window.innerHeight - $("#nav").height() - $('#footer-controls').height() + 20;
+      console.log('height', window.innerHeight, $("#nav").height(), $('#footer-controls').height());
+    }
 
     this.canvas.width = width;
     this.canvas.height = height;

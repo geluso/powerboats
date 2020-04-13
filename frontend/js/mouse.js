@@ -35,6 +35,11 @@ class Mouse {
     canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
   }
 
+  epoch() {
+    const dd = new Date();
+    return dd.getTime();
+  }
+
   handleTouchStart(ev) {
     ev.preventDefault();
 
@@ -50,7 +55,6 @@ class Mouse {
 
   handleTouchMove(ev) {
     ev.preventDefault();
-
     const xx = ev.targetTouches[0].screenX;
     const yy = ev.targetTouches[0].screenY;
 

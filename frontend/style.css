@@ -6,6 +6,7 @@ body {
   color: white;
   font-family: sans-serif;
 
+  position: relative;
   background-color: CornflowerBlue;
 }
 
@@ -166,4 +167,35 @@ body {
 .damaged {
   text-decoration: line-through;
   color: red;
+}
+
+@media only screen and (min-width: 800px) {
+  #footer-controls {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .column1, .column3 {
+    display: none;
+  }
+
+  .board {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #footer-controls {
+    border-top: solid black 1px;
+    background-color: green;
+    padding: 5px;
+    margin-top: 0;
+
+    display: default;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+  }
 }
