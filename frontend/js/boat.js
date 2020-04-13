@@ -240,7 +240,6 @@ class Boat {
   }
 
   targetNextBuoy() {
-    console.log('targeting next buoy', this.trackerIndex);
     this.trackerIndex++;
     if (this.trackerIndex >= 3) {
       // to finish line!

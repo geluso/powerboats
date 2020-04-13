@@ -7,10 +7,20 @@ class RoutePlanner {
   }
 
   execute() {
+    // find the best actions to perform
     const bestActions = this.explore();
-    this.performActions(this.boat, bestActions);
 
-    return bestActions;
+    // filter out passive actions
+    const moves = bestActions.filter(action => {
+      if (action === 'straight') return false;
+      if (action === 'same') return false;
+      if (action === 'stay') return false;
+      return true;
+    })
+
+    // get a list of the boat states as it performs each action
+    const states = this.performActions(this.boat, moves);
+    return states;
   }
 
   explore() {
@@ -51,6 +61,12 @@ class RoutePlanner {
 
           options.push(newBoat);
 
+          // AI is allowed to "stay" on the first turn to allow
+          // them to make power turns, but they must got at the end of their second turn
+          if (depth > 1 && actions[actions.length - 1] !== "go") {
+            actions.push("go");
+          }
+
           // manipulate those actions
           this.performActions(newBoat, actions);
           newBoat.actions = newBoat.actions.concat(actions);
@@ -66,26 +82,41 @@ class RoutePlanner {
   // isOneTurn set to false allows a boat to explore many actions
   // set to true it stops performing actions as soon as one go is complete
   performActions(boat, actions, isOneTurn = false) {
+    const states = [];
     for (var i = 0; i < actions.length; i++) {
-      if (actions[i] === "left") {
-        boat.turnLeft();
-      } else if (actions[i] === "right") {
-        boat.turnRight();
-      }
+      const action = actions[i];
+      const isMoved = this.performAction(boat, action);
 
-      if (actions[i] === "slower") {
-        boat.dropDice(boat.dice.length - 1);
-      } else if (actions[i] === "faster") {
-        boat.rollDice(boat.dice.length);
-      }
+      const state = boat.toJSON();
+      states.push({ action, state });
 
-      if (actions[i] === "go") {
-        boat.goStraight();
-        if (isOneTurn) {
-          return;
-        }
+      if (isMoved && isOneTurn) {
+        return;
       }
     }
+    return states;
+  }
+
+  performAction(boat, action) {
+    let isMoved = false;
+    if (action === "left") {
+      boat.turnLeft();
+    } else if (action === "right") {
+      boat.turnRight();
+    }
+
+    if (action === "slower") {
+      boat.dropDice(boat.dice.length - 1);
+    } else if (action === "faster") {
+      boat.rollDice(boat.dice.length);
+    }
+
+    if (action === "go") {
+      boat.goStraight();
+      isMoved = true;
+    }
+
+    return isMoved;
   }
 
   findBestScore(options) {

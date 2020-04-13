@@ -23,6 +23,7 @@
 //   });
 
 const History = require('../frontend/js/history');
+const Config = require('../frontend/js/config')
 
 class GameSocket {
   constructor(io, socket, serverGame) {
@@ -80,13 +81,12 @@ class GameSocket {
   handleAction = message => {
     if (message.action === 'newMap') {
       const game = this.serverGame.newMap();
-      this.io.emit('new-map', { game: game });
+      this.io.emit('new-map', { game });
     } else if (message.action === 'ai-turn') {
       this.handleAITurn();
     } else {
       // make sure to generate stats before the player is modified
-      const game = this.game;
-      const player = game.getPlayer(message.color);
+      const player = this.game.getPlayer(message.color);
       const playerOld = player.stats();
 
       const updatedPlayer = this.serverGame.handleAction(message);
@@ -95,31 +95,41 @@ class GameSocket {
       const historyMessage = History.createMessage(message.action, playerOld, playerNew);
 
       this.io.emit('update-player', { player: updatedPlayer });
-      this.sendUpdateTurn(game);
+      this.sendUpdateTurn(this.game);
       this.io.emit('receive-history', historyMessage);
     }
   }
 
   handleAITurn() {
-    const player = game.getCurrentPlayer();
+    const player = this.game.getCurrentPlayer();
     const color = player.color;
-    const playerOld = player.stats();
 
-    const actions = this.serverGame.aiTurn(this.game, color);
-    const playerNew = player.stats();
+    // get a copy of the initial player to be used in generating history
+    // message, like "player moved and took N damage"
+    let playerOld = player.stats();
 
-    for (let i = 0; i < actions.length; i++) {
-      const action = actions[i];
+    const actionStates = this.serverGame.aiTurn(color);
+
+    for (let i = 0; i < actionStates.length; i++) {
+      const { action, state } = actionStates[i];
+      const playerNew = state;
       const msg = History.createAIMessage(action, playerOld, playerNew);
+
+      playerOld = playerNew;
+
       if (msg.message !== undefined) {
-        this.io.emit('receive-history', msg);
+        setTimeout(() => {
+          this.io.emit('receive-history', msg);
+          this.io.emit('update-player', { player: state });
+        }, i * Config.AI_BROADCAST_MOVE_DELAY);
       }
     };
 
-    this.io.emit('update-player', { player });
-
-    this.game.nextTurn();
-    this.sendUpdateTurn(this.game);
+    const totalDelay = actionStates.length * Config.AI_BROADCAST_MOVE_DELAY;
+    setTimeout(() => {
+      this.game.nextTurn();
+      this.sendUpdateTurn(this.game);
+    }, totalDelay);
   }
 
   handleSkipTurn() {

@@ -19,6 +19,7 @@ var CONFIG = {
     "16,-20,4",
   ],
   AI_TURN_DELAY: 1000,
+  AI_BROADCAST_MOVE_DELAY: 300,
   PLAYER_TYPES: ["local-human", "ai", "ai", "ai", "ai"],
   COLORS: ["yellow", "purple", "white", "blue", "orange"],
   //COLORS: ["yellow", "purple"],

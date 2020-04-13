@@ -94,9 +94,8 @@ class ServerGame {
   aiTurn(color) {
     const boat = this.game.getPlayer(color);
     const planner = new RoutePlanner(boat);
-    const actions = planner.execute();
-
-    return actions;
+    const states = planner.execute();
+    return states;
   }
 
   newMap() {
