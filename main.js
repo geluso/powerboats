@@ -17,6 +17,8 @@ app.use(bundler.middleware());
 const ServerGame = require('./games/server-game');
 new ServerGame(io, 'rainier');
 new ServerGame(io, 'pbr');
+new ServerGame(io, 'rolling-rock');
+new ServerGame(io, 'mannys');
 
 const port = process.env.PORT || 3000;
 const server = http.listen(port);
