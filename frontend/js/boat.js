@@ -124,25 +124,51 @@ class Boat {
   }
 
   followRoute(isMovingBoatAlongRoute) {
-    var route = this.getCurrentRouteTiles();
-    var isTakingDamage = false;
+    let route = this.getCurrentRouteTiles();
+    let isTakingDamage = false;
 
-    var damage = 0;
-    for (var i = 0; i < route.length; i++) {
-      var nextTile = route[i];
+    // go forward until hitting land
+    let damage = 0;
+    const path = [this.tile];
+    for (let i = 0; i < route.length; i++) {
+      let nextTile = route[i];
       if (isTakingDamage || !nextTile.isNavigable(this.game.course)) {
         isTakingDamage = true;
         damage++;
       } else {
-        if (isMovingBoatAlongRoute) {
-          // weird unhighlighting to get rid of all route
-          // dots, and mark where the boat started as dirty.
-          this.tile.unhighlight();
-          this.tile = nextTile;
-          this.tile.unhighlight();
-          this.trackProgress();
-        }
+        path.push(nextTile);
       }
+    }
+
+    // figure out where all other boats are
+    const otherBoatLocations = new Set();
+    this.game.boats.forEach(boat => {
+      if (boat !== this) {
+        const key = boat.tile.row + ',' + boat.tile.col;
+        otherBoatLocations.add(key);
+      }
+    });
+
+    // pop off end positions that are already taken by other boats
+    let index = path.length - 1;
+    let isFree = false;
+    while (!isFree && index >= 0) {
+      const tile = path[index];
+      const key = tile.row + ',' + tile.col;
+      if (!otherBoatLocations.has(key)) {
+        isFree = true;
+      } else {
+        path.pop();
+        index--;
+      }
+    }
+
+    // now actually move the boat and track it's buoy progress across each tile.
+    if (isMovingBoatAlongRoute) {
+      path.forEach(tile => {
+        this.tile = tile;
+        this.trackProgress();
+      });
     }
 
     return damage;

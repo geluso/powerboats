@@ -36,6 +36,15 @@ Directions.counterClockwiseNext = {
   "north-east": "north"
 };
 
+Directions.opposite = {
+  "north": "south",
+  "south": "north",
+  "north-east": "south-west",
+  "north-west": "south-east",
+  "south-east": "north-west",
+  "south-west": "north-east",
+}
+
 if (typeof module !== "undefined" && !!module) {
   module.exports = Directions;
 }

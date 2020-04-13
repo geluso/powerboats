@@ -142,6 +142,12 @@ class TileSpace {
     return this.keyedTilesRowCol[key];
   }
 
+  nextTileInOppositeDirection(tile, direction) {
+    const oppositeDirection = Directions.opposite[direction];
+    const nextTile = this.nextTileInDirection(tile, oppositeDirection);
+    return nextTile;
+  }
+
   nextTileInDirection(tile, direction) {
     if (!tile) {
       return;
