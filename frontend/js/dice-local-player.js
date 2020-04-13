@@ -3,7 +3,6 @@ const PlayerSelection = require('./player/player-selection');
 
 class DiceLocalPlayer {
   static display(game) {
-    console.log('update dice');
     const color = PlayerSelection.getCurrentPlayerColor();
     const player = game.getPlayer(color);
 

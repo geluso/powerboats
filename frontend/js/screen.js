@@ -14,6 +14,10 @@ class Screen {
     this.ctx = canvas.getContext("2d");
     this.setWidthHeight();
 
+    // initialize dx and dy so undefined values don't cause NaN errors later.
+    this.ctx.dx = 0;
+    this.ctx.dy = 0;
+
     this.gameDrawer = new GameDrawer(this.ctx);
 
     this.handleMousemove = this.handleMousemove.bind(this);
@@ -31,8 +35,8 @@ class Screen {
   }
 
   handleMousemove(e, game) {
-    MOUSE_X = e.offsetX;
-    MOUSE_Y = e.offsetY;
+    MOUSE_X = e.offsetX - this.ctx.dx;
+    MOUSE_Y = e.offsetY - this.ctx.dy;
 
     var thing = game.tilespace.getTile(MOUSE_X, MOUSE_Y);
     if (!thing) return;

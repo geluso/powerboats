@@ -4,6 +4,8 @@ const PlayerSelection = require('./player/player-selection');
 const TurnIndicator = require('./player/turn-indicator');
 const SocketControls = require('./player/socket-controls');
 
+const Mouse = require('./mouse');
+
 $(document).ready(main);
 
 function main() {
@@ -15,12 +17,14 @@ function main() {
   TurnIndicator.init(socket);
 
   const canvas = document.getElementById('canvas');
+  const mouse = new Mouse(canvas, currentGame);
   $(canvas).mousemove(e => {
     const thing = currentGame.handleMouseMove(e);
     if (thing) {
       socket.broadcastMouseMove(thing);
     }
   });
+
 
   let lastTimer = 0;
   let isFired = false;

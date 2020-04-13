@@ -10,6 +10,11 @@ class TileDrawer {
   drawTiles(tiles, accentColor) {
     this.ctx.save();
 
+    if (this.ctx.drawAll) {
+      this.ctx.fillStyle = 'black';
+      this.ctx.fillRect(-this.ctx.width, -this.ctx.height, 10 * this.ctx.width, 3 * this.ctx.height);
+    }
+
     for (var i = 0; i < tiles.length; i++) {
       var tile = tiles[i];
       this.draw(tile, accentColor);
@@ -20,15 +25,15 @@ class TileDrawer {
     }
 
     this.ctx.restore();
-
+    this.ctx.drawAll = false;
   }
 
   draw(tile, accentColor) {
     TileDrawer.draw(this.ctx, tile, accentColor);
   }
 
-  static draw(ctx, tile, accentColor) {
-    if (!tile.isDirty) {
+  static draw(ctx, tile) {
+    if (!ctx.drawAll && !tile.isDirty) {
       return;
     }
     tile.isDirty = false;
