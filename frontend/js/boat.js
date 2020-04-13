@@ -79,6 +79,7 @@ class Boat {
     return {
       damage: this.damage,
       dice: this.dice.map(dice => dice.toJSON()),
+      speed: this.speed(),
       color: this.color,
       tile: this.tile,
       type: this.type,
