@@ -12,12 +12,15 @@ app.use(cors());
 app.use(express.json());
 
 // Let Parcel handle requests
-const Bundler = require('parcel-bundler')
-const bundler = new Bundler('frontend/index.html')
-app.use(bundler.middleware())
+const Bundler = require('parcel-bundler');
+const bundler = new Bundler('frontend/index.html');
+app.use(bundler.middleware());
 
 const serverGames = new ServerGames();
 serverGames.createGame('rainier');
+serverGames.createGame('pbr');
+serverGames.createGame('rolling-rock');
+serverGames.createGame('mannys');
 new ServerSockets(io, serverGames);
 
 const port = process.env.PORT || 3000;

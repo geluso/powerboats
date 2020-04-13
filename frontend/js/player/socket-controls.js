@@ -1,5 +1,6 @@
 const io = require('socket.io-client');
 const Config = require('../config');
+const URLUtils = require('../url-utils');
 
 const PlayerSelection = require('./player-selection');
 const TurnIndicator = require('./turn-indicator');
@@ -11,7 +12,7 @@ class SocketControls {
   constructor(currentGame) {
     this.currentGame = currentGame;
 
-    this.socket = io();
+    this.socket = io({ gameName: window.location.search.split('?game=')[1] });
 
     this.handleUpdateTurn = this.handleUpdateTurn.bind(this);
 
@@ -68,7 +69,7 @@ class SocketControls {
 
       const data = {
         color: that.currentGame.game.getCurrentPlayer().color,
-        gameName: 'rainier',
+        gameName: URLUtils.getGameName(),
         username,
         message,
       }
@@ -199,7 +200,8 @@ class SocketControls {
   }
 
   aiOrange() {
-    this.socket.emit('action', { action: 'ai-turn' });
+    const gameName = URLUtils.getGameName();
+    this.socket.emit('action', { action: 'ai-turn', gameName });
   }
 
   broadcastMouseMove(tile) {
@@ -211,7 +213,7 @@ class SocketControls {
 
   doAction(action, params) {
     const actionParams = this.buildActionParams(action, params);
-    actionParams.gameName = 'rainier';
+    actionParams.gameName = URLUtils.getGameName();
     this.socket.emit('action', actionParams);
   }
 

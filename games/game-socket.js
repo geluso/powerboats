@@ -25,14 +25,15 @@
 const History = require('../frontend/js/history');
 
 class GameSocket {
-  constructor(io, socket, serverGames) {
+  constructor(io, socket, serverGames, gameName) {
     this.io = io;
     this.socket = socket;
     this.serverGames = serverGames;
+    this.gameName = gameName;
 
-    socket.emit('new-map', { game: serverGames.getGame('rainier').toJSON() });
-    socket.emit('load-all-chat', { chat: serverGames.getChat('rainier') });
-    socket.emit('load-all-history', { history: serverGames.getHistory('rainier') });
+    socket.emit('new-map', { game: serverGames.getGame(gameName).toJSON() });
+    socket.emit('load-all-chat', { chat: serverGames.getChat(gameName) });
+    socket.emit('load-all-history', { history: serverGames.getHistory(gameName) });
 
     this.handleChat = this.handleChat.bind(this);
     this.handleAction = this.handleAction.bind(this);
@@ -57,13 +58,13 @@ class GameSocket {
   }
 
   handleConnect = () => {
-    const color = this.serverGames.join('rainier', this.socket);
+    const color = this.serverGames.join(this.gameName, this.socket);
     this.io.emit('player-join', { color, socketId: this.socket.id });
     this.io.emit('receive-history', { color, message: 'joined' });
   }
 
   handleDisconnect = () => {
-    const color = this.serverGames.leave('rainier', this.socket);
+    const color = this.serverGames.leave(this.gameName, this.socket);
     this.io.emit('player-leave', { color, socketId: this.socket.id });
     this.io.emit('receive-history', { color, message: 'left' });
   }
@@ -81,7 +82,7 @@ class GameSocket {
       this.handleAITurn();
     } else {
       // make sure to generate stats before the player is modified
-      const game = this.serverGames.getGame('rainier')
+      const game = this.serverGames.getGame(this.gameName)
       const player = game.getPlayer(message.color);
       const playerOld = player.stats();
 
@@ -97,12 +98,12 @@ class GameSocket {
   }
 
   handleAITurn() {
-    const game = this.serverGames.getGame('rainier');
+    const game = this.serverGames.getGame(this.gameName);
     const player = game.getCurrentPlayer();
     const color = player.color;
     const playerOld = player.stats();
 
-    const actions = this.serverGames.aiTurn(color);
+    const actions = this.serverGames.aiTurn(game, color);
     const playerNew = player.stats();
 
     for (let i = 0; i < actions.length; i++) {
@@ -120,13 +121,13 @@ class GameSocket {
   }
 
   handleSkipTurn() {
-    const game = this.serverGames.getGame('rainier');
+    const game = this.serverGames.getGame(this.gameName);
     game.nextTurn();
     this.sendUpdateTurn(game);
   }
 
   handleSetTurn(json) {
-    const game = this.serverGames.getGame('rainier');
+    const game = this.serverGames.getGame(this.gameName);
     game.setTurn(json.color);
     this.sendUpdateTurn(game);
   }

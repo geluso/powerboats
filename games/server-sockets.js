@@ -6,8 +6,10 @@ class ServerSockets {
     this.serverGames = serverGames;
 
     io.on('connection', socket => {
-      console.log('new connection');
-      new GameSocket(io, socket, serverGames);
+      const url = socket.handshake.headers.referer;
+      const gameName = url.split('game=')[1];
+      console.log('new connection', gameName);
+      new GameSocket(io, socket, serverGames, gameName);
     });
   }
 }
