@@ -37,8 +37,6 @@ class ServerGame {
 
     // create game and place boats
     const game = new Game(course);
-    console.log(game.tilespace.toString());
-
     let currentTile = course.start;
     for (let i = 0; i < Config.PLAYER_TYPES.length; i++) {
       const color = Config.COLORS[i];
