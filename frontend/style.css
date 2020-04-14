@@ -90,11 +90,11 @@ body {
 }
 
 .ghost {
-  opacity: 33%;  
+  opacity: .33;  
 }
 
 .ghost.controlling {
-  opacity: 100%;
+  opacity: 1;
   width: 20px;
   height: 20px;
 }
