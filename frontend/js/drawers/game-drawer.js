@@ -95,8 +95,8 @@ class GameDrawer {
       const boat = game.boats[i];
       boat.tile = game.tilespace.getByKeyRowCol(boat.tile.row, boat.tile.col);
 
-      const isDrawingTrackers = game.getCurrentPlayer() === boat;
-      this.boatDrawer.draw(boat, isDrawingTrackers);
+      const isCurrentPlayer = boat.color === PlayerSelection.getCurrentPlayerColor();
+      this.boatDrawer.draw(boat, isCurrentPlayer);
     }
   }
 }
