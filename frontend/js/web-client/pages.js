@@ -1,7 +1,7 @@
 class Pages {
   static init() {
     console.log('pages');
-    $(".close-welcome-bottom").click(() => {
+    $(".close-welcome").click(() => {
       $("#welcome").toggle();
     });
   }

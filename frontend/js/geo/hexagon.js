@@ -51,8 +51,8 @@ function Hexagon(x, y, size) {
     this.strokeShape(ctx);
     ctx.fillStyle = fillColor;
     ctx.fill();
-    ctx.strokeStyle = strokeColor;
-    ctx.stroke();
+    // ctx.strokeStyle = strokeColor;
+    // ctx.stroke();
 
     ctx.restore();
   };
