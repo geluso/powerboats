@@ -4,6 +4,13 @@ class Pages {
     $(".close-welcome").click(() => {
       $("#welcome").toggle();
     });
+
+    $(document).keyup(ev => {
+      console.log('esc')
+      if (ev.which === 27) { // ESC
+        $("#welcome").toggle();
+      }
+    });
   }
 }
 
