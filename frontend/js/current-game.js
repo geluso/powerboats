@@ -6,7 +6,7 @@ const DiceAllPlayers = require('./dice-all-players');
 const DiceLocalPlayer = require('./dice-local-player');
 
 const MessageLog = require('./message-log');
-const TurnIndicator = require('./player/turn-indicator');
+const TurnIndicator = require('./web-client/turn-indicator');
 
 class CurrentGame {
   constructor() {

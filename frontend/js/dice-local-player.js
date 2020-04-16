@@ -1,5 +1,5 @@
 const Config = require('./config');
-const PlayerSelection = require('./player/player-selection');
+const PlayerSelection = require('./web-client/player-selection');
 
 class DiceLocalPlayer {
   static display(game) {

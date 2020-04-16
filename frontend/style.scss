@@ -210,3 +210,21 @@ body {
     width: 18%;
   }
 }
+
+#welcome {
+  position: absolute;
+  border: solid black 1px;
+  background-color: goldenrod;
+
+  z-index: 10;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 100px;
+  padding: 10px;
+}
+
+.page {
+  padding: 1em;
+}

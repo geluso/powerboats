@@ -6,7 +6,7 @@ const RouteDrawer = require('./route-drawer');
 const Point = require('../geo/point');
 const Hexagon = require('../geo/hexagon');
 
-const PlayerSelection = require('../player/player-selection');
+const PlayerSelection = require('../web-client/player-selection');
 
 class GameDrawer {
   constructor(ctx) {

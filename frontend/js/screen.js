@@ -1,5 +1,5 @@
 const GameDrawer = require('./drawers/game-drawer')
-const PlayerSelection = require('./player/player-selection');
+const PlayerSelection = require('./web-client/player-selection');
 
 var MOUSE_X = 0;
 var MOUSE_Y = 0;

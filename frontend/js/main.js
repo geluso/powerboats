@@ -1,8 +1,9 @@
 const Config = require('./config')
 const CurrentGame = require('./current-game');
-const PlayerSelection = require('./player/player-selection');
-const TurnIndicator = require('./player/turn-indicator');
-const SocketControls = require('./player/socket-controls');
+const PlayerSelection = require('./web-client/player-selection');
+const TurnIndicator = require('./web-client/turn-indicator');
+const SocketControls = require('./web-client/socket-controls');
+const Pages = require('./web-client/pages');
 
 const Mouse = require('./mouse');
 
@@ -15,6 +16,7 @@ function main() {
   const socket = new SocketControls(currentGame);
   PlayerSelection.init(currentGame);
   TurnIndicator.init(socket);
+  Pages.init();
 
   const canvas = document.getElementById('canvas');
   const mouse = new Mouse(canvas, currentGame);

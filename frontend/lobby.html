@@ -10,26 +10,46 @@
   <div id="nav">
     Powerboats
 
-    <a href="/">lobby</a>
-    <a href="/">learn</a>
+    <a href="/index.html">home</a>
+    <a href="/lobby.html">lobby</a>
+    <a href="/learn.html">learn</a>
+    <a href="/map-editor.html">map editor</a>
+    <a href="https://github.com/geluso/powerboats">src</a>
   </div>
 
-  <div id="container">
+  <div id="container" class="page">
     <h1>Join a Game</h1>
 
-    <p>under construction</p>
+    <p>
+      This server supports multiple simultaneous game rooms. Join one of
+      these suggested public rooms, or create a custom-named room and share
+      its URL with friends.
+    </p>
 
     <div>
-      <a href="/?game=rainier">rainier</a>
+      <a href="/?game=rainier">The Rainier Cup</a>
     </div>
+
     <div>
-      <a href="/?game=pbr">pbr</a>
+      <a href="/?game=pbr">The PBR Classic</a>
     </div>
+
     <div>
-      <a href="/?game=rolling-rock">rolling rock</a>
+      <a href="/?game=rolling-rock">The Rolling Rock Rumble</a>
     </div>
+
     <div>
-      <a href="/?game=mannys">manny's</a>
+      <a href="/?game=mannys">Manny's Madness</a>
+    </div>
+
+    <hr />
+
+    <div>
+      <form target="/" action="GET">
+        custom game name:
+        <input type="text" name="game" />
+        <button type="submit">create room</button>
+      </form>
     </div>
   </div>
 </body>
