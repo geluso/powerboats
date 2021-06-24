@@ -58,9 +58,6 @@ class CurrentGame {
 
   draw() {
     if (this.game === null) return;
-    const player = this.game.getCurrentPlayer();
-    player.highlightRoute();
-
     this.screen.draw(this.game, this.playerMouses);
     DiceAllPlayers.display(this.game);
     DiceLocalPlayer.display(this.game);

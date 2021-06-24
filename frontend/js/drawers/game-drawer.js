@@ -62,14 +62,7 @@ class GameDrawer {
     game.boats.forEach(boat => {
       const isCurrentTurn = boat === game.getCurrentPlayer();
       const isCurrentPlayer = boat.color === PlayerSelection.getCurrentPlayerColor();
-      if (isCurrentPlayer || isCurrentTurn) {
-        boat.highlightRoute();
-        if (isCurrentPlayer) {
-          RouteDrawer.draw(this.ctx, boat, isCurrentPlayer);
-        }
-      } else {
-        boat.unhighlightRoute();
-      }
+      RouteDrawer.draw(this.ctx, boat, isCurrentPlayer);
     });
 
     // draw tiles

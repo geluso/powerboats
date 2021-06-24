@@ -40,9 +40,6 @@ Point.draw = function (ctx, tile, fillOverride) {
   ctx.fillStyle = fill;
   ctx.fill(path);
 
-  ctx.strokeStyle = "black";
-  ctx.stroke(path);
-
   ctx.restore();
 };
 

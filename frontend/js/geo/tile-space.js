@@ -129,10 +129,10 @@ class TileSpace {
     });
   };
 
-  getByKey(key) {
+  getByKey(key, defaultTile) {
     var tile = this.keyedTiles[key];
     if (!tile) {
-      return this.keyedTiles["1,0,-1"];
+      return defaultTile
     }
     return tile;
   };
@@ -168,7 +168,7 @@ class TileSpace {
       nextKey = tile.southWest();
     }
 
-    var nextTile = this.getByKey(nextKey);
+    var nextTile = this.getByKey(nextKey, tile);
     return nextTile;
   }
 
